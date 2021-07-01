@@ -1,4 +1,8 @@
+from src.bookmarks import loadpath, loadfile
 
 
-def anchor():
+def anchor(user_agent):
+    print("Uploading %", end="\r")
     pass
+
+

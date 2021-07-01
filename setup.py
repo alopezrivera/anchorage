@@ -16,6 +16,7 @@ setuptools.setup(
     install_requires=[
         "numpy",
         "orjson",
+        "toml"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
