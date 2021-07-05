@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="anchorage",
-    version="0.0.0",
+    version="0.0.1",
     author="Antonio Lopez Rivera",
     author_email="antonlopezr99@gmail.com",
     description="Library to anchor your little piece of internet",
@@ -19,8 +19,8 @@ setuptools.setup(
         "numpy",
         "rapidjson",
         "toml",
-        "archivebox==0.5.4",
-        "Python-Alexandria"
+        "Python-Alexandria",
+        "archivenow"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
