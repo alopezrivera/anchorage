@@ -2,7 +2,8 @@ import os
 import shutil
 import unittest
 
-from anchorage import setup, init, add_local as add, server
+from anchorage import add_local as add, server
+from anchor_tools.local import setup, init
 
 
 test_archive = r"C:\Users\xXY4n\Projects\Anchorage\tests\archive"
