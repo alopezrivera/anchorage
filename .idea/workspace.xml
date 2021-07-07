@@ -54,29 +54,7 @@
       <recent name="C:\Users\xXY4n\Projects\Anchorage\src\data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.bookmarks">
-    <configuration name="anchorage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Anchorage" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/anchorage.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python tests.pytest for test_bookmarks.BookmarkTests.test_bookmark_processing">
     <configuration name="bookmarks" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Anchorage" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -99,6 +77,40 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="pytest for test_bookmarks.BookmarkTests.test_bookmark_processing" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="Anchorage" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_bookmarks.BookmarkTests.test_bookmark_processing&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest for test_bookmarks.BookmarkTests.test_export" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="Anchorage" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_bookmarks.BookmarkTests.test_export&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="pytest for test_bookmarks.BookmarkTests.test_filters" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Anchorage" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -116,7 +128,7 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_bookmarks.BookmarkTests.test_load_from_browser" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest for test_bookmarks.BookmarkTests.test_load_from_file" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Anchorage" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -129,41 +141,7 @@
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_bookmarks.BookmarkTests.test_load_from_browser&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for test_bookmarks.BookmarkTests.test_tags" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="Anchorage" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_bookmarks.BookmarkTests.test_tags&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for tests.est_archive" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="Anchorage" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.est_archive&quot;" />
+      <option name="_new_target" value="&quot;test_bookmarks.BookmarkTests.test_load_from_file&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -186,11 +164,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_bookmark_processing" />
+        <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_load_from_file" />
+        <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_export" />
         <item itemvalue="Python.bookmarks" />
         <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_filters" />
-        <item itemvalue="Python.anchorage" />
-        <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_tags" />
-        <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_load_from_browser" />
       </list>
     </recent_temporary>
   </component>
@@ -212,7 +190,8 @@
       <workItem from="1625495092710" duration="440000" />
       <workItem from="1625496024243" duration="1364000" />
       <workItem from="1625497710651" duration="9961000" />
-      <workItem from="1625565828135" duration="18783000" />
+      <workItem from="1625565828135" duration="18947000" />
+      <workItem from="1625611773818" duration="4906000" />
     </task>
     <servers />
   </component>
@@ -233,25 +212,25 @@
       <screen x="1920" y="-145" width="2242" height="1304" />
     </state>
     <state x="2822" y="263" key="FileChooserDialogImpl/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1625156505053" />
-    <state width="2214" height="524" key="GridCell.Tab.0.bottom" timestamp="1625597143642">
+    <state width="2214" height="672" key="GridCell.Tab.0.bottom" timestamp="1625616708996">
       <screen x="1920" y="-145" width="2256" height="1304" />
     </state>
-    <state width="2214" height="524" key="GridCell.Tab.0.bottom/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625597143642" />
+    <state width="2214" height="672" key="GridCell.Tab.0.bottom/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625616708996" />
     <state width="2200" height="522" key="GridCell.Tab.0.bottom/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1625507764270" />
-    <state width="2214" height="524" key="GridCell.Tab.0.center" timestamp="1625597143642">
+    <state width="2214" height="672" key="GridCell.Tab.0.center" timestamp="1625616708996">
       <screen x="1920" y="-145" width="2256" height="1304" />
     </state>
-    <state width="2214" height="524" key="GridCell.Tab.0.center/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625597143642" />
+    <state width="2214" height="672" key="GridCell.Tab.0.center/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625616708996" />
     <state width="2200" height="522" key="GridCell.Tab.0.center/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1625507764270" />
-    <state width="2214" height="524" key="GridCell.Tab.0.left" timestamp="1625597143642">
+    <state width="2214" height="672" key="GridCell.Tab.0.left" timestamp="1625616708996">
       <screen x="1920" y="-145" width="2256" height="1304" />
     </state>
-    <state width="2214" height="524" key="GridCell.Tab.0.left/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625597143642" />
+    <state width="2214" height="672" key="GridCell.Tab.0.left/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625616708996" />
     <state width="2200" height="522" key="GridCell.Tab.0.left/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1625507764270" />
-    <state width="2214" height="524" key="GridCell.Tab.0.right" timestamp="1625597143642">
+    <state width="2214" height="672" key="GridCell.Tab.0.right" timestamp="1625616708996">
       <screen x="1920" y="-145" width="2256" height="1304" />
     </state>
-    <state width="2214" height="524" key="GridCell.Tab.0.right/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625597143642" />
+    <state width="2214" height="672" key="GridCell.Tab.0.right/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625616708996" />
     <state width="2200" height="522" key="GridCell.Tab.0.right/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1625507764270" />
     <state x="2558" y="153" key="SettingsEditor" timestamp="1625426181400">
       <screen x="1920" y="-145" width="2256" height="1304" />
@@ -275,17 +254,20 @@
     <SUITE FILE_PATH="coverage/Anchorage$est_archive.coverage" NAME="test_archive Coverage Results" MODIFIED="1625498499285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_archive_ArchiveBoxTests_test_setup.coverage" NAME="pytest for test_archive.ArchiveBoxTests.test_setup Coverage Results" MODIFIED="1625494104951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_archive_ArchiveBoxTests_test_init.coverage" NAME="pytest for test_archive.ArchiveBoxTests.test_init Coverage Results" MODIFIED="1625494602937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_bookmark_processing.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_bookmark_processing Coverage Results" MODIFIED="1625616689209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_export.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_export Coverage Results" MODIFIED="1625611864158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$archive.coverage" NAME="archive Coverage Results" MODIFIED="1625171535709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_load_Tests_test_loadpath.coverage" NAME="pytest for test_load.Tests.test_loadpath Coverage Results" MODIFIED="1625160811441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_in_test_load_py.coverage" NAME="pytest in test_load.py Coverage Results" MODIFIED="1625173091025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_filters.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_filters Coverage Results" MODIFIED="1625579681179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$shell.coverage" NAME="shell Coverage Results" MODIFIED="1625493281514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_load_Tests_test_loadfile.coverage" NAME="pytest for test_load.Tests.test_loadfile Coverage Results" MODIFIED="1625160734573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Anchorage$bookmarks.coverage" NAME="bookmarks Coverage Results" MODIFIED="1625597143627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/anchor_tools" />
+    <SUITE FILE_PATH="coverage/Anchorage$bookmarks.coverage" NAME="bookmarks Coverage Results" MODIFIED="1625597232999" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/anchor_tools" />
     <SUITE FILE_PATH="coverage/Anchorage$archive_archivenow.coverage" NAME="archive_archivenow Coverage Results" MODIFIED="1625425864317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dev" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_tags.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_tags Coverage Results" MODIFIED="1625577476522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_loadfile.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_loadfile Coverage Results" MODIFIED="1625504893530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_load_from_browser.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_load_from_browser Coverage Results" MODIFIED="1625504961028" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_load_from_file.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_load_from_file Coverage Results" MODIFIED="1625611926247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_archive_ArchiveBoxTests_test.coverage" NAME="pytest for test_archive.ArchiveBoxTests.test Coverage Results" MODIFIED="1625496197200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$archive_online.coverage" NAME="archive_online Coverage Results" MODIFIED="1625503862036" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_archive_ShellTests_test_shell.coverage" NAME="pytest for test_archive.ShellTests.test_shell Coverage Results" MODIFIED="1625493214253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />

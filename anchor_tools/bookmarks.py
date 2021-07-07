@@ -33,8 +33,7 @@ def export(path, dest=root()):
     """
     date = datetime.datetime.today().strftime('%Y_%m_%d')
     filename = f"/bookmarks_{date}.json"
-    print(filename)
-    shutil.copyfile(path, dest)
+    shutil.copyfile(path, dest + filename)
     return dest
 
 
@@ -65,14 +64,17 @@ class bookmarks:
         self.tags = []
         self.n_dirs = 0
 
+        self.test = 0
+        self.diff = 0
+
         # Conduct iteration
         for directory in content:
             self.search_dict(content[directory])        # Iteration
             self.tags = []                              # "Navigate" back to root
             self.n_dirs += 1                            # Keep track of the number of directories
 
-        # Drop duplicate links
-        self.drop_duplicates()
+        # # Drop duplicate links
+        # self.drop_duplicates()
 
         # Remove local files from dictionary
         if drop_local_files:
@@ -94,13 +96,33 @@ class bookmarks:
         :return: Depth-1 dictionary of - Name: [link, tags] - pairs.
         """
         if list(dictionary.keys())[0] == "children":
+            print("\n", dictionary['name'])
             self.tags.append(dictionary['name'])            # Append directory name to tag list
             self.n_dirs += 1                                # Keep track of the number of directories
             self.search_children(dictionary['children'])    # Search through children
             self.tag_backtrack(dictionary['name'])          # After search is over, "navigate" back to parent directory
         else:
-            self.bookmarks[dictionary['name']] = {"url": dictionary['url'],
-                                                  "tags": self.tags.copy()}
+            print(dictionary['name'], self.tags)
+            # if dictionary['name'] in list(self.bookmarks.keys()):
+            #     key = self.tags[-1] + dictionary['name']
+            # else:
+            #     key = dictionary['name']
+
+            key = dictionary['name']
+
+            self.bookmarks[key] = {"url": dictionary['url'],
+                                   "tags": self.tags.copy()}
+
+            self.test += 1
+
+            print(self.test)
+
+            if abs(len(self.bookmarks) - self.test) > abs(self.diff):
+                from Alexandria.general.console import print_color
+                print_color("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "red")
+                print_color(self.bookmarks[list(self.bookmarks.keys())[-1]], "red")
+                print_color("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "red")
+                self.diff = len(self.bookmarks) - self.test
 
     def search_children(self, children):
         """
@@ -169,8 +191,7 @@ class bookmarks:
             links.append([key, value["url"]])
 
         lstr = "\n".join(" ".join(name_link) for name_link in links)
-        info = f'\n\nFound: {len(links)} links and {self.n_dirs} directories, ' \
-               f'for a total of {len(links) + self.n_dirs} "bookmarked pages".'
+        info = f'\n\nFound: {len(links)} links and {self.n_dirs} directories.'
 
         return lstr + info
 
