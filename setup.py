@@ -20,7 +20,8 @@ setuptools.setup(
         "rapidjson",
         "toml",
         "Python-Alexandria",
-        "archivenow"
+        "archivenow",
+        "internetarchive"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

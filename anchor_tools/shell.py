@@ -5,16 +5,16 @@ import subprocess
 
 def shell(command):
     """
-    Executes command in shell
+    Executes command in shell.
 
     :param command: command string
     """
-    return subprocess.run(command, shell=True)
+    return subprocess.run(command, shell=True, capture_output=True)
 
 
 def raise_error(command):
     """
-    Executes command in shell and raises an error if the command outputs non-zero exit code
+    Executes command in shell and raises an error if the command outputs non-zero exit code.
 
     :param command: command string
     """
@@ -23,7 +23,7 @@ def raise_error(command):
 
 def bckgr(command):
     """
-    Run shell command as background process
+    Run shell command as background process.
 
     :param command: command string
     """

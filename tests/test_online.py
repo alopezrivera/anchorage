@@ -1,9 +1,12 @@
 import unittest
 
-from anchorage import add_online as add
+from anchorage import anchor_online, add_online as add, load, path
 
 
 class OnlineArchiveTests(unittest.TestCase):
 
-    def test(self):
-        add("https://superuser.com/questions/1291425/windows-subsystem-linux-make-vim-use-the-clipboard", "--ia")
+    def test_add(self):
+        print(add("http://paulgraham.com/think.html", "--ia", overwrite=True)[0])
+
+    def test_existing(self):
+        assert add("http://paulgraham.com/think.html", "--ia") == "Bookmark already present in the Internet Archive"

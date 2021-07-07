@@ -17,7 +17,7 @@ def anchor_locally(bookmark_file,
 
     create_archive(archive)
 
-    bookmarks(bookmark_file).loop(lambda k, v: add_local(url=v["url"], archive=archive))
+    bookmarks(bookmark_file).loop(lambda k, v: add_local(url=v["url"]))
 
 
 def anchor_online(bookmark_file):
@@ -28,6 +28,3 @@ def anchor_online(bookmark_file):
     """
 
     bookmarks(bookmark_file).loop(lambda k, v: add_online(url=v["url"]))
-
-
-anchor_online(load(path("windows", "edge beta")))

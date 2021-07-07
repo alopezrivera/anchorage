@@ -68,9 +68,6 @@ class bookmarks:
         self.tags = []
         self.n_dirs = 0
 
-        self.test = 0
-        self.diff = 0
-
         # Conduct iteration
         for directory in content:
             self.search_dict(content[directory])        # Iteration
@@ -100,54 +97,33 @@ class bookmarks:
         :return: Depth-1 dictionary of - Name: [link, tags] - pairs.
         """
         if list(dictionary.keys())[0] == "children":
-            print("\n", dictionary['name'])
             self.tags.append(dictionary['name'])            # Append directory name to tag list
             self.n_dirs += 1                                # Keep track of the number of directories
             self.search_children(dictionary['children'])    # Search through children
             self.tag_backtrack(dictionary['name'])          # After search is over, "navigate" back to parent directory
-        else:
 
-            # Conduct a regex search for the name of the bookmark:
-            #       1. Escape back
+        else:
+            # Conduct a regex search for the name of the bookmark among all those previously found.
+            #
+            # Avoids a name conflict caused by the nth duplicate with n>1 due to the first
+            # duplicate having already a different name to the first one, as
+            #
+            #       name of first duplicate = <name> ::anchorage name duplicate:: 2
+            #
             n_rep = len(list(filter(re.compile(f"{re.escape(dictionary['name'])}").match,
                                     list(self.bookmarks.keys()))))
-            # n_rep = len(list(filter(lambda x: x.find(dictionary['name']),
-            #                         list(self.bookmarks.keys()))))
+            #   1. re.escape
+            #          Avoid issues with bookmarks with special regex sequences in their name
+            #   2. re.compile(<bookmark name>
+            #          Match any string with the entire bookmark name in it
 
             if n_rep > 0:
                 key = dictionary['name'] + f" ::anchorage name duplicate:: {n_rep+1}"
-            # elif dictionary['url'] in list([bookmark['url'] for bookmark in self.bookmarks.values()]):
-            #     n_rep = list([bookmark['url'] for bookmark in self.bookmarks.values()]).count(dictionary['url'])
-            #     key = dictionary['name'] + f" ::anchorage url duplicate:: {n_rep + 1}"
             else:
                 key = dictionary['name']
 
-            self.test += 1
-
             self.bookmarks[key] = {"url": dictionary['url'],
                                    "tags": self.tags.copy()}
-
-            if n_rep > 0:
-                print_color("??????????????????????????????????????????????", "green")
-                print_color(list(self.bookmarks.keys())[-1], "green")
-                print_color(self.bookmarks[list(self.bookmarks.keys())[-1]], "green")
-                print_color("??????????????????????????????????????????????", "green")
-
-            print(self.test, abs(len(self.bookmarks) - self.test))
-
-            if abs(len(self.bookmarks) - self.test) > abs(self.diff):
-                print_color("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "red")
-                print_color(dictionary['name'], "red")
-                print_color(list(filter(re.compile(f".*{dictionary['name']}").match,
-                                        list(self.bookmarks.keys()))), 'red')
-                print(len(self.bookmarks), self.test)
-                print_color(key, "red")
-                print_color(self.bookmarks[key], "red")
-                print(key in list(self.bookmarks.keys()))
-                print(dictionary['url'] in list([bookmark['url'] for bookmark in self.bookmarks.values()]))
-                print_color(self.bookmarks[list(self.bookmarks.keys())[-1]], "red")
-                print_color("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "red")
-                self.diff = len(self.bookmarks) - self.test
 
     def search_children(self, children):
         """
@@ -219,3 +195,4 @@ class bookmarks:
         info = f'\n\nFound: {len(self.bookmarks)} links and {self.n_dirs} directories.'
 
         return lstr + info
+

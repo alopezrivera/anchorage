@@ -21,6 +21,8 @@ def setup(archive):
     if not os.path.isdir(archive):
         os.mkdir(archive)
         os.chdir(archive)
+    else:
+        os.chdir(archive)
 
     docker_compose_yaml = "https://raw.githubusercontent.com/ArchiveBox/ArchiveBox/master/docker-compose.yml"
     if not os.path.isfile(f"{archive}/docker-compose.yml"):
