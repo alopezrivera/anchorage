@@ -21,7 +21,11 @@ setuptools.setup(
         "toml",
         "Python-Alexandria",
         "archivenow",
-        "internetarchive"
+        "internetarchive",
+        "tqdm",
+        "pyfiglet",
+        "PyInquirer",
+        "prompt_toolkit==1.0.14"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

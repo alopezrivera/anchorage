@@ -1,30 +1,54 @@
 import os
 import re
+import toml
 import shutil
 import datetime
 import rapidjson
+from tqdm import tqdm
 
 from Alexandria.general.project import root
 from Alexandria.general.console import print_color
 
-from anchor_tools.data.locs import locs
+from anchor_infrs.ansi import colors
+from anchor_infrs.system import operating_system
+from anchor_infrs.shell import suppress_stdout
+from anchor_infrs.infrastructure import init
+from anchor_infrs.file_conversion import JSONLZ4_parser
 
 
-def path(sys, browser):
+def loc():
+    return toml.load(init(True))
+
+
+def path(browser):
     """
-    :param sys: Operating system
     :return: Path of browser of choice Bookmarks file
     """
-    preamble = str(os.getenv("LOCALAPPDATA")) if sys == "windows" else ""
-    return preamble + locs[browser][sys].replace("/", "\\")
+    o_sys = operating_system()
+    preamble = ("\\".join(str(os.getenv("APPDATA")).split("\\")[:-1])+"\\") if o_sys == "windows" else ""
+    return preamble + loc()[browser][o_sys].replace("/", "\\")
+
+
+print(loc())
 
 
 def load(path):
     """
-    :param path: Path to Bookmark JSON
+    :param path: Path to Bookmark JSON or JSONLZ4 file
     :return: Parsed JSON file
     """
-    return rapidjson.load(open(path, encoding="utf8"))
+    if path.split('\\')[-1].find('json') != -1:                    # Check if the JSON extension is present in path
+        ext = path[len(path)-path[::-1].find('.'):].lower()        # If so obtain full extension
+        if ext == "json":                                          # If full extension = JSON load normally
+            return rapidjson.load(open(path, encoding="utf8"))
+        elif ext == "jsonlz4":                                     # IF full extension = JSONLZ4 create bookmark
+            d = rapidjson.loads(JSONLZ4_parser(path))              # dictionary appropriately
+            bm_list = d['children'][0]['children']
+            bm_dirs = [d['name'] for d in bm_list]
+            bm_dics = [d for d in bm_list]
+            return {'roots': dict(zip(bm_dirs, bm_dics))}
+    else:                                                          # If no extension is present, the file is assumed
+        return rapidjson.load(open(path, encoding="utf8"))         # to be a JSON file (the case for Chromium browsers)
 
 
 def export(path, dest=root()):
@@ -63,7 +87,9 @@ class bookmarks:
         :param drop_duplicate_urls: Remove duplicated URLs.
         :param drop_directories: Directories from which no bookmarks are to be archived.
         """
-        content = bookmark_dict["roots"]
+
+        content = bookmark_dict['roots']
+
         self.bookmarks = {}
         self.tags = []
         self.n_dirs = 0
@@ -96,13 +122,13 @@ class bookmarks:
         :param dictionary: Bookmark dictionary from which - Name: [link, tags] - pairs are to be extracted.
         :return: Depth-1 dictionary of - Name: [link, tags] - pairs.
         """
-        if list(dictionary.keys())[0] == "children":
+        if "children" in dictionary.keys():
             self.tags.append(dictionary['name'])            # Append directory name to tag list
             self.n_dirs += 1                                # Keep track of the number of directories
             self.search_children(dictionary['children'])    # Search through children
             self.tag_backtrack(dictionary['name'])          # After search is over, "navigate" back to parent directory
 
-        else:
+        elif 'url' in dictionary.keys():
             # Conduct a regex search for the name of the bookmark among all those previously found.
             #
             # Avoids a name conflict caused by the nth duplicate with n>1 due to the first
@@ -111,7 +137,8 @@ class bookmarks:
             #       name of first duplicate = <name> ::anchorage name duplicate:: 2
             #
             n_rep = len(list(filter(re.compile(f"{re.escape(dictionary['name'])}").match,
-                                    list(self.bookmarks.keys()))))
+                                    list(self.bookmarks.keys()))
+                             ))
             #   1. re.escape
             #          Avoid issues with bookmarks with special regex sequences in their name
             #   2. re.compile(<bookmark name>
@@ -124,6 +151,8 @@ class bookmarks:
 
             self.bookmarks[key] = {"url": dictionary['url'],
                                    "tags": self.tags.copy()}
+        else:
+            pass        # Account for possibly empty bookmark folders
 
     def search_children(self, children):
         """
@@ -182,9 +211,56 @@ class bookmarks:
             if list(set(unwanted_directories) & set(list(value["tags"]))):
                 del self.bookmarks[key]
 
-    def loop(self, f):
+    def loop(self, f,
+             pb=True,
+             pb_label=None,
+             pb_leave=True,
+             pb_width=110,
+             suppress_output=False
+             ):
+        """
+        :param f: Function - To be run on each entry of the bookmark dictionary.
+        :param pb: Boolean - True to visualize progress with tqdm progress bar.
+        :param pb_label: Str - Progress bar label.
+        :param pb_leave: Boolean - False to remove progress bar from screen after completion.
+        :param pb_width: N - Width in char of the progress bar.
+        :param suppress_output: Suppress output of the provided function.
+        :return:
+        """
+
+        e = []
+
+        if pb:                                          # Create tqdm progress bar if specified
+            pgr = tqdm(self.bookmarks.items(),
+                       ncols=pb_width,
+                       position=0,
+                       leave=pb_leave,
+                       desc=pb_label,
+                       bar_format="{l_bar}"
+                                  "%s{bar}"
+                                  "%s| {n_fmt}/{total_fmt} "
+                                  "[{elapsed}<%s{remaining}%s,"
+                                  " {rate_fmt}{postfix}]" % (colors.fgYellow, colors.reset,
+                                                             colors.fgRed, colors.reset)
+                       )
+
         for key, value in self.bookmarks.items():
-            f(key, value)
+
+            try:                                        # Attempt to run provided function on dictionary
+                if suppress_output:
+                    with suppress_stdout():             # Suppress function output if so specified
+                        f(key, value)
+                else:
+                    f(key, value)
+            except:                                     # Error: add entry to error list
+                e.append([key, value])
+
+            if pb:                                      # Update progress bar if in use
+                pgr.update()
+
+        print("\r" + " "*pb_width, end="\r")            # Clean console from debris left by tqdm
+
+        return e
 
     def __repr__(self):
         links = []
@@ -195,4 +271,3 @@ class bookmarks:
         info = f'\n\nFound: {len(self.bookmarks)} links and {self.n_dirs} directories.'
 
         return lstr + info
-

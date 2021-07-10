@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+from contextlib import contextmanager
 
 
 def shell(command):
@@ -35,3 +36,14 @@ def error():
     :return: subprocess.CalledProcessError
     """
     return subprocess.CalledProcessError
+
+
+@contextmanager
+def suppress_stdout():
+    with open(os.devnull, "w") as devnull:
+        old_stdout = sys.stdout
+        sys.stdout = devnull
+        try:
+            yield
+        finally:
+            sys.stdout = old_stdout

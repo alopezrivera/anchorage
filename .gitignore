@@ -1,4 +1,5 @@
-
-archive_test/*
-test_env/*
+.pytest_cache/*
+.idea/*
+__pychache__/*
+anchor_infrs/__pycache__/*
 
