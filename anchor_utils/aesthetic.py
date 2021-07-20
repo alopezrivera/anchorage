@@ -1,3 +1,19 @@
+from Alexandria.general.console import print_color
+
+from anchor_utils.system import operating_system
+
+
+def smart_print_color(text, color, **kwargs):
+    if operating_system() in ["linux", "macos"]:
+        print_color(text, color, **kwargs)
+    else:
+        print(text, **kwargs)
+
+
+def newline():
+    print("")
+
+
 class colors:
     reset = "\033[0m"
 

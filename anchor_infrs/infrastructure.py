@@ -2,8 +2,8 @@ import os
 import toml
 import shutil
 
-from anchor_infrs.system import home
 from anchor_infrs.config import config
+from anchor_utils.system import home
 
 
 def init(overwrite=False):
@@ -51,3 +51,8 @@ def check_install():
             return 1
     else:
         return 2
+
+
+def read_config():
+    anchorage_cfg = home() + '/.anchorage/config.toml'
+    return toml.load(anchorage_cfg)

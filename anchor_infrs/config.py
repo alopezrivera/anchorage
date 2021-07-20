@@ -24,8 +24,6 @@ config = '# Welcome to the\n' \
          '# and proceed.\n' \
          '#                                           Antonio Lopez Rivera, 2021\n' \
          '\n' \
-         'default = "edge beta"\n' \
-         '\n' \
          '[chrome]\n' \
          'linux = "~/.config/google-chrome/Default/Bookmarks"\n' \
          'macos = "~/Library/Application Support/Google/Chrome/Default/Bookmarks"\n' \
@@ -39,9 +37,12 @@ config = '# Welcome to the\n' \
          '[firefox]\n' \
          'linux = "?"\n' \
          'macos = "?"\n' \
-         'windows = "Roaming/Mozilla/Firefox/Profiles/mfeew61f.default-release/bookmarkbackups/bookmarks-2021-07-08_3004_QxMdZ4LDnLDAyJwxQvrelA==.jsonlz4" \n' \
+         'windows = "Roaming/Mozilla/Firefox/Profiles/mfeew61f.default-release/bookmarkbackups/" \n' \
          '\n' \
          '["edge beta"]\n' \
          'linux = "?"\n' \
          'macos = "?"\n' \
-         'windows = "Local/Microsoft/Edge Beta/User Data/Default/Bookmarks"'
+         'windows = "Local/Microsoft/Edge Beta/User Data/Default/Bookmarks"\n' \
+         '\n' \
+         '[defaults]\n' \
+         'default = "edge beta"\n' \

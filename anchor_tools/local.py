@@ -5,7 +5,7 @@ import webbrowser
 
 from Alexandria.general.console import print_color
 
-from anchor_infrs.shell import shell, bckgr, error
+from anchor_utils.shell import shell, bckgr, error
 
 
 def archivebox(command_str):

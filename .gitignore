@@ -2,4 +2,9 @@
 .idea/*
 __pychache__/*
 anchor_infrs/__pycache__/*
+anchor_tools/__pycache__/*
 
+dist/*
+build/*
+.idea/*
+.idea/workspace.xml

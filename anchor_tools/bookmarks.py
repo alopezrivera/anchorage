@@ -7,29 +7,39 @@ import rapidjson
 from tqdm import tqdm
 
 from Alexandria.general.project import root
-from Alexandria.general.console import print_color
 
-from anchor_infrs.ansi import colors
-from anchor_infrs.system import operating_system
-from anchor_infrs.shell import suppress_stdout
-from anchor_infrs.infrastructure import init
-from anchor_infrs.file_conversion import JSONLZ4_parser
-
-
-def loc():
-    return toml.load(init(True))
+from anchor_infrs.infrastructure import init, read_config
+from anchor_utils.aesthetic import colors
+from anchor_utils.system import operating_system
+from anchor_utils.shell import suppress_stdout
+from anchor_utils.file_conversion import JSONLZ4_parser
 
 
-def path(browser):
+def loc(overwrite=False):
+    if overwrite:
+        init(True)
+    return read_config()
+
+
+def path(browser, overwrite=False):
     """
     :return: Path of browser of choice Bookmarks file
     """
-    o_sys = operating_system()
-    preamble = ("\\".join(str(os.getenv("APPDATA")).split("\\")[:-1])+"\\") if o_sys == "windows" else ""
-    return preamble + loc()[browser][o_sys].replace("/", "\\")
-
-
-print(loc())
+    if browser == "firefox":
+        o_sys = operating_system()
+        preamble = ("\\".join(str(os.getenv("APPDATA")).split("\\")[:-1]) + "\\") if o_sys == "windows" else ""
+        dir_path = preamble + loc(overwrite)[browser][o_sys].replace("/", "\\")
+        most_recent = datetime.datetime(1970, 1, 1)
+        for filename in os.listdir(dir_path):
+            file_date = datetime.datetime.strptime(filename[10:20], "%Y-%m-%d")
+            if file_date > most_recent:
+                most_recent = file_date
+                bk_path = dir_path + "\\" + filename
+    else:
+        o_sys = operating_system()
+        preamble = ("\\".join(str(os.getenv("APPDATA")).split("\\")[:-1])+"\\") if o_sys == "windows" else ""
+        bk_path = preamble + loc(overwrite)[browser][o_sys].replace("/", "\\")
+    return bk_path
 
 
 def load(path):
@@ -69,6 +79,12 @@ class bookmarks:
                  drop_local_files=True,
                  drop_duplicate_urls=True,
                  drop_directories=None,
+                 drop_dir_if_contains=None,
+                 drop_url_if_contains=None,
+                 drop_name_if_contains=None,
+                 drop_dir_regex=None,
+                 drop_url_regex=None,
+                 drop_name_regex=None,
                  ):
         """
         Prepare bookmarks for archiving.

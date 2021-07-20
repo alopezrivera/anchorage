@@ -2,7 +2,7 @@ from internetarchive import get_item
 
 from Alexandria.general.console import print_color
 
-from anchor_infrs.shell import shell
+from anchor_utils.shell import shell
 
 
 def add(url, archives=None, overwrite=False):
@@ -19,8 +19,6 @@ def add(url, archives=None, overwrite=False):
                         ["--ia", "--is"]
     :param overwrite: Archive URL even if it's already present in the Internet Archive.
     """
-
-    print("AAAAAAAAAAAAAAAA")
 
     def upload(url):
         flags = ' '.join(archives) if archives is list else archives if not isinstance(archives, type(None)) else ""
