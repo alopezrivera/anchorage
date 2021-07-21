@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="anchorage",
-    version="0.0.3.2",
+    version="1.0.0.0",
     author="Antonio Lopez Rivera",
     author_email="antonlopezr99@gmail.com",
-    description="Library to anchor your little piece of internet",
+    description="Anchor your little piece of internet.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/antonlopezr/anchorage",

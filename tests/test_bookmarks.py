@@ -1,9 +1,7 @@
-import os
 import unittest
 
-from anchorage.anchor_tools.bookmarks import bookmarks, load, export, path
+from anchorage.bookmarks import bookmarks, load, export, path
 
-from Alexandria.general.project import root
 from Alexandria.general.console import print_color
 
 

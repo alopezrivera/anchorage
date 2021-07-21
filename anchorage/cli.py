@@ -3,9 +3,10 @@ from __future__ import print_function, unicode_literals
 import sys
 from pyfiglet import Figlet
 
-from anchorage import anchor_online, anchor_locally, bookmarks, path, load
+from anchorage.bookmarks import bookmarks, path, load
+from anchorage.anchor import anchor_online, anchor_locally
 from anchorage.anchor_infrs.infrastructure import init, read_config
-from anchorage.anchor_utils.shell import shell, raise_error, error, suppress_stdout
+from anchorage.anchor_utils.shell import shell
 from anchorage.anchor_utils.regex import expr_check
 from anchorage.anchor_utils.aesthetic import smart_print_color, newline
 
@@ -215,6 +216,8 @@ def interface():
             newline()
             expr_check(drop_url_regex)
 
+    smart_print_color("     ~Applying filters to bookmark collection", "yellow")
+
     bmk = bookmarks(bmk_dict,
                     drop_local_files='local files' in drop_list,
                     drop_dirs=drop_dirs,
@@ -228,13 +231,14 @@ def interface():
                     drop_urls_regex=drop_url_regex,
                     )
 
+    smart_print_color(f"     ~Done! Found {len(bmk.bookmarks)} bookmarks in {bmk.n_dirs} directories.\n", "green")
+
     # 6. Local or online archive
     #     6.1 Local
     #         6.1.1 Docker install check
     #             - Provide link to user if Docker is not installed
     #         6.1.2 Local archive directory input
     #             - Check full path of local archive path with user
-
     archive_choice = [{
                     'type': 'list',
                     'name': 'archive',
@@ -242,6 +246,7 @@ def interface():
                     'choices': ['Local (ArchiveBox)', 'Online'],
                     'filter': lambda n: n.split(' ')[0].lower()
                      }]
+
     archive = prompt(archive_choice, style=style)['archive']
 
     if archive == 'online':         # Anchor online
@@ -258,5 +263,3 @@ def interface():
         archive_dir = prompt(dir_prompt, style=style)['dir']
 
         anchor_locally(bmk, archive_dir)
-
-interface()

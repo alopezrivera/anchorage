@@ -1,12 +1,11 @@
 import os
 import toml
-import shutil
 
 from anchorage.anchor_infrs.config import config
 from anchorage.anchor_utils.system import home
 
 
-def init(overwrite=False):
+def init(overwrite=True):
     """
     Initialize the Anchorage library
 

@@ -369,3 +369,5 @@ class bookmarks:
         info = f'\n\nFound: {len(self.bookmarks)} links and {self.n_dirs} directories.'
 
         return lstr + info
+
+

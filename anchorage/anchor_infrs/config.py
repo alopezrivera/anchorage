@@ -45,4 +45,4 @@ config = '# Welcome to the\n' \
          'windows = "Local/Microsoft/Edge Beta/User Data/Default/Bookmarks"\n' \
          '\n' \
          '[defaults]\n' \
-         'default = "edge beta"\n' \
+         'browser = "edge beta"\n' \

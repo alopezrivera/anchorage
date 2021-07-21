@@ -1,6 +1,6 @@
 import unittest
 
-from anchorage import anchor_online, add_online as add, load, path
+from anchorage import add_online as add
 
 
 class OnlineArchiveTests(unittest.TestCase):

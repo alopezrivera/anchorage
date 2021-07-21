@@ -55,14 +55,14 @@
       <recent name="C:\Users\xXY4n\Projects\Anchorage\tests" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\xXY4n\Projects\Anchorage\tests\bookmarks\exports" />
       <recent name="C:\Users\xXY4n\Projects\Anchorage\anchorage" />
+      <recent name="C:\Users\xXY4n\Projects\Anchorage\anchorage\anchor_tools" />
+      <recent name="C:\Users\xXY4n\Projects\Anchorage" />
+      <recent name="C:\Users\xXY4n\Projects\Anchorage\tests\bookmarks\exports" />
       <recent name="C:\Users\xXY4n\Projects\Anchorage\anchor_utils" />
-      <recent name="C:\Users\xXY4n\Projects\Anchorage\cli" />
-      <recent name="C:\Users\xXY4n\Projects\Anchorage\anchor_infrs" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_bookmarks.BookmarkTests.test_loop">
+  <component name="RunManager" selected="Python tests.pytest for test_bookmarks.BookmarkTests.test_path">
     <configuration name="pytest for test_bookmarks.BookmarkTests.test_filter_regex" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Anchorage" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -131,7 +131,7 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_bookmarks.BookmarkTests.test_tags" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest for test_bookmarks.BookmarkTests.test_path" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="Anchorage" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -144,24 +144,24 @@
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_bookmarks.BookmarkTests.test_tags&quot;" />
+      <option name="_new_target" value="&quot;test_bookmarks.BookmarkTests.test_path&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_tags" />
       <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_filter_string" />
       <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_filter_substring" />
       <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_filter_regex" />
       <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_loop" />
+      <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_path" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_path" />
         <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_loop" />
         <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_filter_regex" />
         <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_filter_substring" />
         <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_filter_string" />
-        <item itemvalue="Python tests.pytest for test_bookmarks.BookmarkTests.test_tags" />
       </list>
     </recent_temporary>
   </component>
@@ -195,7 +195,7 @@
       <workItem from="1626190924031" duration="912000" />
       <workItem from="1626370269561" duration="781000" />
       <workItem from="1626771855900" duration="11422000" />
-      <workItem from="1626856525580" duration="12318000" />
+      <workItem from="1626856525580" duration="18365000" />
     </task>
     <servers />
   </component>
@@ -225,40 +225,40 @@
       <screen x="1920" y="-145" width="2242" height="1304" />
     </state>
     <state x="2822" y="263" key="FileChooserDialogImpl/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1625156505053" />
-    <state width="1625" height="447" key="GridCell.Tab.0.bottom" timestamp="1626881971804">
+    <state width="1625" height="287" key="GridCell.Tab.0.bottom" timestamp="1626900757587">
       <screen x="0" y="0" width="1667" height="978" />
     </state>
     <state width="1620" height="443" key="GridCell.Tab.0.bottom/0.0.1663.978/1920.-145.2256.1304@0.0.1663.978" timestamp="1625702234206" />
     <state width="2214" height="507" key="GridCell.Tab.0.bottom/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625901580514" />
     <state width="1620" height="433" key="GridCell.Tab.0.bottom/0.0.1663.978@0.0.1663.978" timestamp="1625695143468" />
-    <state width="1625" height="447" key="GridCell.Tab.0.bottom/0.0.1667.978@0.0.1667.978" timestamp="1626881971804" />
+    <state width="1625" height="287" key="GridCell.Tab.0.bottom/0.0.1667.978@0.0.1667.978" timestamp="1626900757587" />
     <state width="1635" height="169" key="GridCell.Tab.0.bottom/0.0.1677.978/1920.-145.2242.1304@0.0.1677.978" timestamp="1625739446467" />
     <state width="2200" height="232" key="GridCell.Tab.0.bottom/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1626167705575" />
-    <state width="1625" height="447" key="GridCell.Tab.0.center" timestamp="1626881971804">
+    <state width="1625" height="287" key="GridCell.Tab.0.center" timestamp="1626900757587">
       <screen x="0" y="0" width="1667" height="978" />
     </state>
     <state width="1620" height="443" key="GridCell.Tab.0.center/0.0.1663.978/1920.-145.2256.1304@0.0.1663.978" timestamp="1625702234206" />
     <state width="2214" height="507" key="GridCell.Tab.0.center/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625901580510" />
     <state width="1620" height="433" key="GridCell.Tab.0.center/0.0.1663.978@0.0.1663.978" timestamp="1625695143468" />
-    <state width="1625" height="447" key="GridCell.Tab.0.center/0.0.1667.978@0.0.1667.978" timestamp="1626881971804" />
+    <state width="1625" height="287" key="GridCell.Tab.0.center/0.0.1667.978@0.0.1667.978" timestamp="1626900757587" />
     <state width="1635" height="169" key="GridCell.Tab.0.center/0.0.1677.978/1920.-145.2242.1304@0.0.1677.978" timestamp="1625739446467" />
     <state width="2200" height="232" key="GridCell.Tab.0.center/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1626167705575" />
-    <state width="1625" height="447" key="GridCell.Tab.0.left" timestamp="1626881971804">
+    <state width="1625" height="287" key="GridCell.Tab.0.left" timestamp="1626900757587">
       <screen x="0" y="0" width="1667" height="978" />
     </state>
     <state width="1620" height="443" key="GridCell.Tab.0.left/0.0.1663.978/1920.-145.2256.1304@0.0.1663.978" timestamp="1625702234206" />
     <state width="2214" height="507" key="GridCell.Tab.0.left/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625901580510" />
     <state width="1620" height="433" key="GridCell.Tab.0.left/0.0.1663.978@0.0.1663.978" timestamp="1625695143468" />
-    <state width="1625" height="447" key="GridCell.Tab.0.left/0.0.1667.978@0.0.1667.978" timestamp="1626881971804" />
+    <state width="1625" height="287" key="GridCell.Tab.0.left/0.0.1667.978@0.0.1667.978" timestamp="1626900757587" />
     <state width="1635" height="169" key="GridCell.Tab.0.left/0.0.1677.978/1920.-145.2242.1304@0.0.1677.978" timestamp="1625739446467" />
     <state width="2200" height="232" key="GridCell.Tab.0.left/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1626167705575" />
-    <state width="1625" height="447" key="GridCell.Tab.0.right" timestamp="1626881971804">
+    <state width="1625" height="287" key="GridCell.Tab.0.right" timestamp="1626900757587">
       <screen x="0" y="0" width="1667" height="978" />
     </state>
     <state width="1620" height="443" key="GridCell.Tab.0.right/0.0.1663.978/1920.-145.2256.1304@0.0.1663.978" timestamp="1625702234206" />
     <state width="2214" height="507" key="GridCell.Tab.0.right/0.0.1663.978/1920.-145.2256.1304@1920.-145.2256.1304" timestamp="1625901580510" />
     <state width="1620" height="433" key="GridCell.Tab.0.right/0.0.1663.978@0.0.1663.978" timestamp="1625695143468" />
-    <state width="1625" height="447" key="GridCell.Tab.0.right/0.0.1667.978@0.0.1667.978" timestamp="1626881971804" />
+    <state width="1625" height="287" key="GridCell.Tab.0.right/0.0.1667.978@0.0.1667.978" timestamp="1626900757587" />
     <state width="1635" height="169" key="GridCell.Tab.0.right/0.0.1677.978/1920.-145.2242.1304@0.0.1677.978" timestamp="1625739446467" />
     <state width="2200" height="232" key="GridCell.Tab.0.right/0.0.1677.978/1920.-145.2242.1304@1920.-145.2242.1304" timestamp="1626167705575" />
     <state width="1625" height="323" key="GridCell.Tab.1.bottom" timestamp="1626876121183">
@@ -326,7 +326,7 @@
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_online_OnlineArchiveTests_test.coverage" NAME="pytest for test_online.OnlineArchiveTests.test Coverage Results" MODIFIED="1625693367053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_load_from_jsonlz4.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_load_from_jsonlz4 Coverage Results" MODIFIED="1626881913133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_load_from_file.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_load_from_file Coverage Results" MODIFIED="1625611926247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_path.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_path Coverage Results" MODIFIED="1626881750247" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_path.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_path Coverage Results" MODIFIED="1626897910055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_archive_ArchiveBoxTests_test_add.coverage" NAME="pytest for test_archive.ArchiveBoxTests.test_add Coverage Results" MODIFIED="1625494767011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_firefox.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_firefox Coverage Results" MODIFIED="1625868152477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/Anchorage$pytest_for_test_bookmarks_BookmarkTests_test_filter_regex.coverage" NAME="pytest for test_bookmarks.BookmarkTests.test_filter_regex Coverage Results" MODIFIED="1626881937991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
