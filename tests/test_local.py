@@ -3,7 +3,7 @@ import shutil
 import unittest
 
 from anchorage import anchor_locally, load, path, add_local as add, server
-from anchor_tools.local import setup, init
+from anchorage.anchor_tools.local import setup, init
 
 
 class Tests(unittest.TestCase):
