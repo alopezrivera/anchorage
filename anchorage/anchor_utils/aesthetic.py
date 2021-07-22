@@ -1,9 +1,19 @@
+from pyfiglet import Figlet
+
 from Alexandria.general.console import print_color
 
 from anchorage.anchor_utils.system import operating_system
 
 
 def smart_print_color(text, color, **kwargs):
+    """
+    Print in color in UNIX terminals, and use the regular `print` function
+    elsewhere.
+
+    :param text: Text to be printed to screen
+    :param color: Text color
+    :param kwargs: Any further keyword arguments for the `print` function
+    """
     if operating_system() in ["linux", "macos"]:
         print_color(text, color, **kwargs)
     else:
@@ -11,7 +21,22 @@ def smart_print_color(text, color, **kwargs):
 
 
 def newline():
+    """
+    Print an empty line. Purely for aesthetic reasons.
+    """
     print("")
+
+
+def title(text="Anchorage", font="big", color="yellow"):
+    """
+    Generates the Anchorage CLI title.
+
+    :param text: Text to be rendered
+    :param font: Figlet font to render the title
+    :param color: Title color
+    """
+    f = Figlet(font=font)
+    smart_print_color(f.renderText(text), color)
 
 
 class colors:

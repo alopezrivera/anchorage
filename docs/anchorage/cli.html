@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>anchorage.cli API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>anchorage.cli</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from __future__ import print_function, unicode_literals
+
+import sys
+
+from anchorage.bookmarks import bookmarks, path, load
+from anchorage.anchor import anchor_online, anchor_locally
+from anchorage.anchor_infrs.infrastructure import init, read_config
+from anchorage.anchor_utils.shell import shell
+from anchorage.anchor_utils.regex import expr_check
+from anchorage.anchor_utils.aesthetic import smart_print_color, newline, title
+
+
+try:
+    from PyInquirer import style_from_dict, Token, prompt
+except ImportError:
+    print(&#34;PyInquirer import error: prompt-toolkits version != 1.0.14&#34;)
+    print(&#34;Installing prompt-toolkit==1.0.14&#34;)
+    shell(&#34;pip install prompt-toolkit==1.0.14&#34;)
+    sys.exit(&#34;Success! Please run again&#34;)
+
+
+def interface():
+    &#34;&#34;&#34;
+    # CLI interface for the Anchorage library.
+
+    Dialogue:
+        1. Dependency check
+            - pip install --upgrade anchorage
+            - check_install
+        2. Browser choice
+        3. Bookmark filter
+            - Local files
+            - String match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - Substring match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - Regex match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - *Duplicate URLs are excluded by default*
+        4. Local or online archive choice
+            - Online
+            - Local
+                - Local archive directory input
+
+    &#34;&#34;&#34;
+
+    # Title
+    print(&#39;\nWelcome to the&#39;)
+    title(&#34;Anchorage  cli&#34;)
+    print(&#34;                                        Antonio Lopez Rivera, 2021\n&#34;)
+
+    # CLI interface look
+    style = style_from_dict({
+        Token.QuestionMark:     &#39;#E91E63 bold&#39;,
+        Token.Selected:         &#39;#673AB7 bold&#39;,
+        Token.Instruction:      &#39;&#39;,                # default
+        Token.Answer:           &#39;#2196f3 bold&#39;,
+        Token.Question:         &#39;&#39;,
+    })
+
+    &#34;&#34;&#34;
+    Dialogue
+    &#34;&#34;&#34;
+    # 1. Dependency check
+    dp_check = [{
+                    &#39;type&#39;: &#39;confirm&#39;,
+                    &#39;name&#39;: &#39;ready&#39;,
+                    &#39;message&#39;: &#39;Are you ready to proceed?&#39;,
+                    &#39;default&#39;: True
+                }]
+
+    if not prompt(dp_check, style=style)[&#39;ready&#39;]:
+        smart_print_color(&#34;\n     Operation cancelled\n&#34;, &#34;red&#34;)
+        sys.exit()
+
+    smart_print_color(&#34;\n     ~Running dependency checks&#34;, &#34;yellow&#34;)
+    shell(&#34;pip3 install --upgrade anchorage&#34;)
+    init()
+    smart_print_color(&#34;     ~Everything in order!&#34;, &#34;green&#34;)
+    smart_print_color(&#34;     ~Edit configurations in ~/.anchorage/config.toml\n&#34;, &#34;green&#34;)
+
+    # 2. Browser choice
+    cfg = read_config()
+
+    brow_choice = [{
+                    &#39;type&#39;: &#39;list&#39;,
+                    &#39;name&#39;: &#39;browser&#39;,
+                    &#39;message&#39;: f&#39;Please choose the browser from which to archive all bookmarks.&#39;,
+                    &#39;default&#39;: True,
+                    &#39;choices&#39;: list(cfg.keys())[:-1],
+                    &#39;filter&#39;: lambda n: n.lower()
+                   }]
+
+    bmk_dict = load(path(prompt(brow_choice, style=style)[&#39;browser&#39;]))
+    newline()
+
+    # 3. Bookmark filter
+    #     - Local files
+    #     - By string match
+    #     - By substring match
+    #     - By regex match
+    bk_filt = [{
+                    &#39;type&#39;: &#39;checkbox&#39;,
+                    &#39;name&#39;: &#39;drop&#39;,
+                    &#39;message&#39;: f&#39;If desired, specify which elements to exclude from the archiving process.&#39;,
+                    &#39;choices&#39;: [
+                        {
+                            &#39;name&#39;: &#39;Local files&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;Match string&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;Match substring&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;Regex&#39;
+                        },
+                    ],
+                    &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
+                  }]
+
+    filter_kind = [{
+                    &#39;type&#39;: &#39;checkbox&#39;,
+                    &#39;name&#39;: &#39;kind&#39;,
+                    &#39;message&#39;: f&#39;Specify filter targets.&#39;,
+                    &#39;choices&#39;: [
+                        {
+                            &#39;name&#39;: &#39;Directories&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;Names&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;URLs&#39;
+                        },
+                    ],
+                    &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
+                  }]
+
+    filter_input = lambda terms: prompt([{
+                                            &#39;type&#39;: &#39;input&#39;,
+                                            &#39;name&#39;: &#39;input&#39;,
+                                            &#39;message&#39;: f&#39;Enter a comma-separated list of the {terms} to filter.&#39;,
+                                            &#39;default&#39;: &#39;&#39;,
+                                            &#39;filter&#39;: lambda string: string.split(&#34;,&#34;)
+                                        }], style=style)[&#39;input&#39;]
+
+    filter_regex = lambda terms: prompt([{
+                                            &#39;type&#39;: &#39;input&#39;,
+                                            &#39;name&#39;: &#39;input&#39;,
+                                            &#39;message&#39;: f&#39;Enter regex formula to filter OUT {terms}.&#39;,
+                                            &#39;default&#39;: &#39;&#39;
+                                         }], style=style)[&#39;input&#39;]
+
+    drop_list = prompt(bk_filt, style=style)[&#39;drop&#39;]
+    newline()
+
+    drop_dirs       = None
+    drop_names      = None
+    drop_urls       = None
+    drop_dir_subs   = None
+    drop_name_subs  = None
+    drop_url_subs   = None
+    drop_dir_regex  = None
+    drop_name_regex = None
+    drop_url_regex  = None
+
+    if &#39;match string&#39; in drop_list:
+        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        newline()
+        if &#39;directories&#39; in kind:
+            drop_dirs = filter_input(&#39;directories&#39;)
+            newline()
+        if &#39;names&#39; in kind:
+            drop_names = filter_input(&#39;names&#39;)
+            newline()
+        if &#39;urls&#39; in kind:
+            drop_urls = filter_input(&#39;URLs&#39;)
+            newline()
+    if &#39;match substring&#39; in drop_list:
+        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        newline()
+        if &#39;directories&#39; in kind:
+            drop_dir_subs = filter_input(&#39;directory substrings&#39;)
+            newline()
+        if &#39;names&#39; in kind:
+            drop_name_subs = filter_input(&#39;name substrings&#39;)
+            newline()
+        if &#39;urls&#39; in kind:
+            drop_url_subs = filter_input(&#39;URL substrings&#39;)
+            newline()
+    if &#39;regex&#39; in drop_list:
+        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        newline()
+        if &#39;directories&#39; in kind:
+            drop_dir_regex = filter_regex(&#39;bookmark directories&#39;)
+            newline()
+            expr_check(drop_dir_regex)
+        if &#39;names&#39; in kind:
+            drop_name_regex = filter_regex(&#39;bookmark names&#39;)
+            newline()
+            expr_check(drop_name_regex)
+        if &#39;urls&#39; in kind:
+            drop_url_regex = filter_regex(&#39;bookmark URLs&#39;)
+            newline()
+            expr_check(drop_url_regex)
+
+    smart_print_color(&#34;     ~Applying filters to bookmark collection&#34;, &#34;yellow&#34;)
+
+    bmk = bookmarks(bmk_dict,
+                    drop_local_files=&#39;local files&#39; in drop_list,
+                    drop_dirs=drop_dirs,
+                    drop_names=drop_names,
+                    drop_urls=drop_urls,
+                    drop_dirs_subs=drop_dir_subs,
+                    drop_names_subs=drop_name_subs,
+                    drop_urls_subs=drop_url_subs,
+                    drop_dirs_regex=drop_dir_regex,
+                    drop_names_regex=drop_name_regex,
+                    drop_urls_regex=drop_url_regex,
+                    )
+
+    smart_print_color(f&#34;     ~Done! Found {len(bmk.bookmarks)} bookmarks in {bmk.n_dirs} directories.\n&#34;, &#34;green&#34;)
+
+    # 4. Local or online archive
+    archive_choice = [{
+                    &#39;type&#39;: &#39;list&#39;,
+                    &#39;name&#39;: &#39;archive&#39;,
+                    &#39;message&#39;: f&#39;Choose an archiving method.&#39;,
+                    &#39;choices&#39;: [&#39;Local (ArchiveBox)&#39;, &#39;Online&#39;],
+                    &#39;filter&#39;: lambda n: n.split(&#39; &#39;)[0].lower()
+                     }]
+
+    archive = prompt(archive_choice, style=style)[&#39;archive&#39;]
+
+    if archive == &#39;online&#39;:         # Anchor online
+        anchor_online(bmk)
+
+    if archive == &#39;local&#39;:          # Anchor locally
+
+        dir_prompt = [{             # Archive directory input
+                          &#39;type&#39;: &#39;input&#39;,
+                          &#39;name&#39;: &#39;dir&#39;,
+                          &#39;message&#39;: &#39;Enter the full path of the archive directory (default: ./anchor).&#39;,
+                          &#39;default&#39;: &#39;./anchor&#39;
+                     }]
+        archive_dir = prompt(dir_prompt, style=style)[&#39;dir&#39;]
+
+        anchor_locally(bmk, archive_dir)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="anchorage.cli.interface"><code class="name flex">
+<span>def <span class="ident">interface</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="cli-interface-for-the-anchorage-library">CLI interface for the Anchorage library.</h1>
+<h2 id="dialogue">Dialogue</h2>
+<ol>
+<li>Dependency check<ul>
+<li>pip install &ndash;upgrade anchorage</li>
+<li>check_install</li>
+</ul>
+</li>
+<li>Browser choice</li>
+<li>Bookmark filter<ul>
+<li>Local files</li>
+<li>String match<ul>
+<li>Directories</li>
+<li>Bookmark name</li>
+<li>Bookmark URL</li>
+</ul>
+</li>
+<li>Substring match<ul>
+<li>Directories</li>
+<li>Bookmark name</li>
+<li>Bookmark URL</li>
+</ul>
+</li>
+<li>Regex match<ul>
+<li>Directories</li>
+<li>Bookmark name</li>
+<li>Bookmark URL</li>
+</ul>
+</li>
+<li><em>Duplicate URLs are excluded by default</em></li>
+</ul>
+</li>
+<li>Local or online archive choice<ul>
+<li>Online</li>
+<li>Local<ul>
+<li>Local archive directory input</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interface():
+    &#34;&#34;&#34;
+    # CLI interface for the Anchorage library.
+
+    Dialogue:
+        1. Dependency check
+            - pip install --upgrade anchorage
+            - check_install
+        2. Browser choice
+        3. Bookmark filter
+            - Local files
+            - String match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - Substring match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - Regex match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - *Duplicate URLs are excluded by default*
+        4. Local or online archive choice
+            - Online
+            - Local
+                - Local archive directory input
+
+    &#34;&#34;&#34;
+
+    # Title
+    print(&#39;\nWelcome to the&#39;)
+    title(&#34;Anchorage  cli&#34;)
+    print(&#34;                                        Antonio Lopez Rivera, 2021\n&#34;)
+
+    # CLI interface look
+    style = style_from_dict({
+        Token.QuestionMark:     &#39;#E91E63 bold&#39;,
+        Token.Selected:         &#39;#673AB7 bold&#39;,
+        Token.Instruction:      &#39;&#39;,                # default
+        Token.Answer:           &#39;#2196f3 bold&#39;,
+        Token.Question:         &#39;&#39;,
+    })
+
+    &#34;&#34;&#34;
+    Dialogue
+    &#34;&#34;&#34;
+    # 1. Dependency check
+    dp_check = [{
+                    &#39;type&#39;: &#39;confirm&#39;,
+                    &#39;name&#39;: &#39;ready&#39;,
+                    &#39;message&#39;: &#39;Are you ready to proceed?&#39;,
+                    &#39;default&#39;: True
+                }]
+
+    if not prompt(dp_check, style=style)[&#39;ready&#39;]:
+        smart_print_color(&#34;\n     Operation cancelled\n&#34;, &#34;red&#34;)
+        sys.exit()
+
+    smart_print_color(&#34;\n     ~Running dependency checks&#34;, &#34;yellow&#34;)
+    shell(&#34;pip3 install --upgrade anchorage&#34;)
+    init()
+    smart_print_color(&#34;     ~Everything in order!&#34;, &#34;green&#34;)
+    smart_print_color(&#34;     ~Edit configurations in ~/.anchorage/config.toml\n&#34;, &#34;green&#34;)
+
+    # 2. Browser choice
+    cfg = read_config()
+
+    brow_choice = [{
+                    &#39;type&#39;: &#39;list&#39;,
+                    &#39;name&#39;: &#39;browser&#39;,
+                    &#39;message&#39;: f&#39;Please choose the browser from which to archive all bookmarks.&#39;,
+                    &#39;default&#39;: True,
+                    &#39;choices&#39;: list(cfg.keys())[:-1],
+                    &#39;filter&#39;: lambda n: n.lower()
+                   }]
+
+    bmk_dict = load(path(prompt(brow_choice, style=style)[&#39;browser&#39;]))
+    newline()
+
+    # 3. Bookmark filter
+    #     - Local files
+    #     - By string match
+    #     - By substring match
+    #     - By regex match
+    bk_filt = [{
+                    &#39;type&#39;: &#39;checkbox&#39;,
+                    &#39;name&#39;: &#39;drop&#39;,
+                    &#39;message&#39;: f&#39;If desired, specify which elements to exclude from the archiving process.&#39;,
+                    &#39;choices&#39;: [
+                        {
+                            &#39;name&#39;: &#39;Local files&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;Match string&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;Match substring&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;Regex&#39;
+                        },
+                    ],
+                    &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
+                  }]
+
+    filter_kind = [{
+                    &#39;type&#39;: &#39;checkbox&#39;,
+                    &#39;name&#39;: &#39;kind&#39;,
+                    &#39;message&#39;: f&#39;Specify filter targets.&#39;,
+                    &#39;choices&#39;: [
+                        {
+                            &#39;name&#39;: &#39;Directories&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;Names&#39;
+                        },
+                        {
+                            &#39;name&#39;: &#39;URLs&#39;
+                        },
+                    ],
+                    &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
+                  }]
+
+    filter_input = lambda terms: prompt([{
+                                            &#39;type&#39;: &#39;input&#39;,
+                                            &#39;name&#39;: &#39;input&#39;,
+                                            &#39;message&#39;: f&#39;Enter a comma-separated list of the {terms} to filter.&#39;,
+                                            &#39;default&#39;: &#39;&#39;,
+                                            &#39;filter&#39;: lambda string: string.split(&#34;,&#34;)
+                                        }], style=style)[&#39;input&#39;]
+
+    filter_regex = lambda terms: prompt([{
+                                            &#39;type&#39;: &#39;input&#39;,
+                                            &#39;name&#39;: &#39;input&#39;,
+                                            &#39;message&#39;: f&#39;Enter regex formula to filter OUT {terms}.&#39;,
+                                            &#39;default&#39;: &#39;&#39;
+                                         }], style=style)[&#39;input&#39;]
+
+    drop_list = prompt(bk_filt, style=style)[&#39;drop&#39;]
+    newline()
+
+    drop_dirs       = None
+    drop_names      = None
+    drop_urls       = None
+    drop_dir_subs   = None
+    drop_name_subs  = None
+    drop_url_subs   = None
+    drop_dir_regex  = None
+    drop_name_regex = None
+    drop_url_regex  = None
+
+    if &#39;match string&#39; in drop_list:
+        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        newline()
+        if &#39;directories&#39; in kind:
+            drop_dirs = filter_input(&#39;directories&#39;)
+            newline()
+        if &#39;names&#39; in kind:
+            drop_names = filter_input(&#39;names&#39;)
+            newline()
+        if &#39;urls&#39; in kind:
+            drop_urls = filter_input(&#39;URLs&#39;)
+            newline()
+    if &#39;match substring&#39; in drop_list:
+        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        newline()
+        if &#39;directories&#39; in kind:
+            drop_dir_subs = filter_input(&#39;directory substrings&#39;)
+            newline()
+        if &#39;names&#39; in kind:
+            drop_name_subs = filter_input(&#39;name substrings&#39;)
+            newline()
+        if &#39;urls&#39; in kind:
+            drop_url_subs = filter_input(&#39;URL substrings&#39;)
+            newline()
+    if &#39;regex&#39; in drop_list:
+        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        newline()
+        if &#39;directories&#39; in kind:
+            drop_dir_regex = filter_regex(&#39;bookmark directories&#39;)
+            newline()
+            expr_check(drop_dir_regex)
+        if &#39;names&#39; in kind:
+            drop_name_regex = filter_regex(&#39;bookmark names&#39;)
+            newline()
+            expr_check(drop_name_regex)
+        if &#39;urls&#39; in kind:
+            drop_url_regex = filter_regex(&#39;bookmark URLs&#39;)
+            newline()
+            expr_check(drop_url_regex)
+
+    smart_print_color(&#34;     ~Applying filters to bookmark collection&#34;, &#34;yellow&#34;)
+
+    bmk = bookmarks(bmk_dict,
+                    drop_local_files=&#39;local files&#39; in drop_list,
+                    drop_dirs=drop_dirs,
+                    drop_names=drop_names,
+                    drop_urls=drop_urls,
+                    drop_dirs_subs=drop_dir_subs,
+                    drop_names_subs=drop_name_subs,
+                    drop_urls_subs=drop_url_subs,
+                    drop_dirs_regex=drop_dir_regex,
+                    drop_names_regex=drop_name_regex,
+                    drop_urls_regex=drop_url_regex,
+                    )
+
+    smart_print_color(f&#34;     ~Done! Found {len(bmk.bookmarks)} bookmarks in {bmk.n_dirs} directories.\n&#34;, &#34;green&#34;)
+
+    # 4. Local or online archive
+    archive_choice = [{
+                    &#39;type&#39;: &#39;list&#39;,
+                    &#39;name&#39;: &#39;archive&#39;,
+                    &#39;message&#39;: f&#39;Choose an archiving method.&#39;,
+                    &#39;choices&#39;: [&#39;Local (ArchiveBox)&#39;, &#39;Online&#39;],
+                    &#39;filter&#39;: lambda n: n.split(&#39; &#39;)[0].lower()
+                     }]
+
+    archive = prompt(archive_choice, style=style)[&#39;archive&#39;]
+
+    if archive == &#39;online&#39;:         # Anchor online
+        anchor_online(bmk)
+
+    if archive == &#39;local&#39;:          # Anchor locally
+
+        dir_prompt = [{             # Archive directory input
+                          &#39;type&#39;: &#39;input&#39;,
+                          &#39;name&#39;: &#39;dir&#39;,
+                          &#39;message&#39;: &#39;Enter the full path of the archive directory (default: ./anchor).&#39;,
+                          &#39;default&#39;: &#39;./anchor&#39;
+                     }]
+        archive_dir = prompt(dir_prompt, style=style)[&#39;dir&#39;]
+
+        anchor_locally(bmk, archive_dir)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="anchorage" href="index.html">anchorage</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="anchorage.cli.interface" href="#anchorage.cli.interface">interface</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

@@ -9,10 +9,8 @@ def init(overwrite=True):
     """
     Initialize the Anchorage library
 
-        1. Create ~/anchorage
-        2. Save config files in /anchorage
-            - config.toml
-                Browser bookmark file locations
+    1. Create ~/anchorage
+    2. Save config.toml in /anchorage
 
     :param overwrite: Overwrite current config.toml if found
     """
@@ -37,8 +35,9 @@ def init(overwrite=True):
 def check_install():
     """
     Check if
-        1. ~/anchorage exists
-        2. config.toml exists
+
+    1. ~/anchorage/ exists
+    2. config.toml exists
     """
     anchorage_dir = home() + '/.anchorage'
     anchorage_cfg = home() + '/.anchorage/config.toml'

@@ -4,8 +4,8 @@ config = '# Welcome to the\n' \
          '#   / /\ \ |  _ \ / __|  _ \ / _ \|  __/ _  |/ _  |/ _ \   / __| | |\n' \
          '#  / ____ \| | | | (__| | | | (_) | | | (_| | (_| |  __/  | (__| | |\n' \
          '# /_/    \_\_| |_|\___|_| |_|\___/|_|  \__,_|\__, |\___|   \___|_|_|\n' \
-         '#                                            __/ |\n' \
-         '#                                           |___/\n' \
+         '#                                            __/ |                  \n' \
+         '#                                           |___/                   \n' \
          '#                                                 Configuration file\n' \
          '#\n' \
          '# Below you can see the path to the Bookmarks JSON/JSONLZ4 file for a\n' \

@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>anchorage.bookmarks API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>anchorage.bookmarks</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import re
+import sys
+import shutil
+import datetime
+import rapidjson
+from tqdm import tqdm
+
+from Alexandria.general.project import root
+
+from anchorage.anchor_infrs.infrastructure import init, read_config
+from anchorage.anchor_utils.aesthetic import colors
+from anchorage.anchor_utils.system import operating_system
+from anchorage.anchor_utils.shell import suppress_stdout
+from anchorage.anchor_utils.file_conversion import JSONLZ4_to_JSON
+from anchorage.anchor_utils.aesthetic import smart_print_color
+
+
+def loc(overwrite=False):
+    if overwrite:
+        init(True)
+    return read_config()
+
+
+def path(browser, overwrite=False):
+    &#34;&#34;&#34;
+    :return: Path of browser of choice Bookmarks file
+    &#34;&#34;&#34;
+    if browser == &#34;firefox&#34;:
+        o_sys = operating_system()
+        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1]) + &#34;\\&#34;) if o_sys == &#34;windows&#34; else &#34;&#34;
+        dir_path = preamble + loc(overwrite)[browser][o_sys].replace(&#34;/&#34;, &#34;\\&#34;)
+        most_recent = datetime.datetime(1970, 1, 1)
+        for filename in os.listdir(dir_path):
+            file_date = datetime.datetime.strptime(filename[10:20], &#34;%Y-%m-%d&#34;)
+            if file_date &gt; most_recent:
+                most_recent = file_date
+                bk_path = dir_path + &#34;\\&#34; + filename
+    else:
+        o_sys = operating_system()
+        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1])+&#34;\\&#34;) if o_sys == &#34;windows&#34; else &#34;&#34;
+        bk_path = preamble + loc(overwrite)[browser][o_sys].replace(&#34;/&#34;, &#34;\\&#34;)
+    return bk_path
+
+
+def load(path):
+    &#34;&#34;&#34;
+    :param path: Path to Bookmark JSON or JSONLZ4 file
+    :return: Parsed JSON file
+    &#34;&#34;&#34;
+    if path.split(&#39;\\&#39;)[-1].find(&#39;json&#39;) != -1:                    # Check if the JSON extension is present in path
+        ext = path[len(path)-path[::-1].find(&#39;.&#39;):].lower()        # If so obtain full extension
+        if ext == &#34;json&#34;:                                          # If full extension = JSON load normally
+            return rapidjson.load(open(path, encoding=&#34;utf8&#34;))
+        elif ext == &#34;jsonlz4&#34;:                                     # IF full extension = JSONLZ4 create bookmark
+            d = rapidjson.loads(JSONLZ4_to_JSON(path))              # dictionary appropriately
+            bm_list = d[&#39;children&#39;][0][&#39;children&#39;]
+            bm_dirs = [d[&#39;name&#39;] for d in bm_list]
+            bm_dics = [d for d in bm_list]
+            return {&#39;roots&#39;: dict(zip(bm_dirs, bm_dics))}
+    else:                                                          # If no extension is present, the file is assumed
+        return rapidjson.load(open(path, encoding=&#34;utf8&#34;))         # to be a JSON file (the case for Chromium browsers)
+
+
+def export(path, dest=root()):
+    &#34;&#34;&#34;
+    :param path: Bookmark JSON path
+    :param dest: Destination directory INCLUDING THE FILENAME
+    :return: Export bookmark JSON file to the project&#39;s root directory
+    &#34;&#34;&#34;
+    date = datetime.datetime.today().strftime(&#39;%Y_%m_%d&#39;)
+    filename = f&#34;bookmarks_{date}&#34; + (&#34;.jsonzl4&#34; if &#34;.jsonlz4&#34; in path else &#34;.json&#34;)
+    shutil.copyfile(path, os.path.join(dest, filename))
+    return dest
+
+
+class bookmarks:
+
+    def __init__(self, bookmark_dict,
+                 drop_duplicate_urls=True,
+                 drop_local_files=True,
+                 drop_dirs=None,
+                 drop_names=None,
+                 drop_urls=None,
+                 drop_dirs_subs=None,
+                 drop_urls_subs=None,
+                 drop_names_subs=None,
+                 drop_dirs_regex=None,
+                 drop_urls_regex=None,
+                 drop_names_regex=None,
+                 ):
+        &#34;&#34;&#34;
+        Prepare bookmarks for archiving.
+
+        Instance attributes:
+
+            self.links: dictionary of - Name: Dict - pairs, where
+
+                Dict: {&#34;url&#34;: url,
+                       &#34;tags&#34;: [tag_1, tag_2, ..., tag_n]}
+
+            self.tags: list containing the ordered names of the parent folders of each link.
+
+        :param bookmark_dict: Bookmark JSON file.
+        :param drop_local_files: Remove local file bookmarks from bookmark list.
+        :param drop_duplicate_urls: Remove duplicated URLs.
+        :param drop_dirs: Directories from which no bookmarks are to be archived.
+        &#34;&#34;&#34;
+
+        content = bookmark_dict[&#39;roots&#39;]
+
+        self.bookmarks = {}
+        self.tags = []
+        self.n_dirs = 0
+
+        # Conduct iteration
+        for directory in content:
+            self.search_dict(content[directory])        # Iteration
+            self.tags = []                              # &#34;Navigate&#34; back to root
+            self.n_dirs += 1                            # Keep track of the number of directories
+
+        # Drop duplicate URLs
+        if drop_duplicate_urls:
+            self.drop_duplicate_urls()
+
+        # Filters
+        if drop_local_files:                                                    # Local files
+            self.drop_local_files()
+        if drop_dirs:                                                           # String    - Directories
+            self.drop_string(target=drop_dirs, what=&#39;dir&#39;)
+        if drop_names:                                                          # String    - Names
+            self.drop_string(target=drop_names, what=&#39;name&#39;)
+        if drop_urls:                                                           # String    - URLs
+            self.drop_string(target=drop_dirs, what=&#39;url&#39;)
+        if drop_dirs_subs:                                                      # Substring - Directories
+            self.drop_substring(target=drop_dirs_subs, what=&#39;dir&#39;)
+        if drop_names_subs:                                                     # Substring - Names
+            self.drop_substring(target=drop_names_subs, what=&#39;name&#39;)
+        if drop_urls_subs:                                                      # Substring - URLs
+            self.drop_substring(target=drop_urls_subs, what=&#39;url&#39;)
+        if drop_dirs_regex:                                                     # Regex     - Directories
+            self.drop_regex(regex=drop_dirs_regex, what=&#39;dir&#39;)
+        if drop_names_regex:                                                    # Regex     - Names
+            self.drop_regex(regex=drop_names_regex, what=&#39;name&#39;)
+        if drop_urls_regex:                                                     # Regex     - URLs
+            self.drop_regex(regex=drop_urls_regex, what=&#39;url&#39;)
+
+    def search_dict(self, dictionary):
+        &#34;&#34;&#34;
+        Reduce depth-n bookmark dictionary to depth-1 dictionary of -Name: Dict - pairs, where
+
+            Dict: {&#34;url&#34;: url,
+                   &#34;tags&#34;: tag_list}
+
+        and tag_list is a list containing the ordered names of the parent folders of each link.
+
+        :param dictionary: Bookmark dictionary from which - Name: [link, tags] - pairs are to be extracted.
+        :return: Depth-1 dictionary of - Name: [link, tags] - pairs.
+        &#34;&#34;&#34;
+        if &#34;children&#34; in dictionary.keys():
+            self.tags.append(dictionary[&#39;name&#39;])            # Append directory name to tag list
+            self.n_dirs += 1                                # Keep track of the number of directories
+            self.search_children(dictionary[&#39;children&#39;])    # Search through children
+            self.tag_backtrack(dictionary[&#39;name&#39;])          # After search is over, &#34;navigate&#34; back to parent directory
+
+        elif &#39;url&#39; in dictionary.keys():
+            # Conduct a regex search for the name of the bookmark among all those previously found.
+            #
+            # Avoids a name conflict caused by the nth duplicate with n&gt;1 due to the first
+            # duplicate having already a different name to the first one, as
+            #
+            #       name of first duplicate = &lt;name&gt; ::anchorage name duplicate:: 2
+            #
+            n_rep = len(list(filter(re.compile(f&#39;{re.escape(dictionary[&#34;name&#34;])}&#39;).match,
+                                    list(self.bookmarks.keys()))
+                             ))
+            #   1. re.escape
+            #          Avoid issues with bookmarks with special regex sequences in their name
+            #   2. re.compile(&lt;bookmark name&gt;
+            #          Match any string with the entire bookmark name in it
+
+            if n_rep &gt; 0:
+                key = dictionary[&#39;name&#39;] + f&#34; ::anchorage name duplicate:: {n_rep+1}&#34;
+            else:
+                key = dictionary[&#39;name&#39;]
+
+            self.bookmarks[key] = {&#39;url&#39;: dictionary[&#39;url&#39;],
+                                   &#39;tags&#39;: self.tags.copy()}
+        else:
+            pass        # Account for possibly empty bookmark folders
+
+    def search_children(self, children):
+        &#34;&#34;&#34;
+        Iterate over children.
+
+        :param children: List entries in bookmark dictionary, which are by custom named &#34;children&#34; in
+                         bookmark dictionaries.
+        &#34;&#34;&#34;
+        for child in children:
+            self.search_dict(child)
+
+    def tag_backtrack(self, tag):
+        &#34;&#34;&#34;
+        Remove tracked tags deeper than input tag.
+            For a series of nested dictionaries (D) which may contain &#34;children&#34; lists (c)
+
+                D
+                |_ c[dir_name1]             tags = [dir_name1]
+                   |_ D
+                   |  |_ c[dirname_2]       tags = [dir_name1, dir_name2]
+                   |     |_ D
+                   |_ D                  !! tags = [dir_name1]
+
+            It is necessary to be able to &#34;navigate&#34; to the current parent directory after
+            iterating through any subdirectories.
+
+            The &#34;path&#34; to each link is kept in an ordered list. To &#34;navigate&#34; back after
+            iterating through any previously subdirectories, all elements in the tag list
+            after the specified (parent) tag are eliminated.
+        &#34;&#34;&#34;
+        try:
+            inv_index = self.tags[::-1].index(tag)
+            index = len(self.tags) - 1 - inv_index
+            self.tags = self.tags[:index]
+        except ValueError:
+            self.tags = [tag]
+
+    def drop_duplicate_urls(self):
+        links = []
+        for key, value in self.bookmarks.copy().items():
+            if value[&#39;url&#39;] in links:
+                del self.bookmarks[key]
+            else:
+                links.append(value[&#39;url&#39;])
+
+    def drop_local_files(self):
+        for key, value in self.bookmarks.copy().items():
+            if &#34;http&#34; not in value[&#34;url&#34;][:4]:
+                del self.bookmarks[key]
+
+    def drop_string(self, target, what):
+        if isinstance(target, str):
+            target = [target]
+
+        # What
+        if what == &#39;dir&#39;:
+            target_key = &#39;tags&#39;
+        elif what == &#39;name&#39;:
+            target_key = &#39;name&#39;
+        elif what == &#39;url&#39;:
+            target_key = &#39;url&#39;
+        else:
+            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            sys.exit()
+
+        for key, value in self.bookmarks.copy().items():
+            if list(set(target) &amp; set(list([key] if target_key == &#39;name&#39; else value[target_key]))):
+                del self.bookmarks[key]
+
+    def drop_substring(self, target, what):
+        if isinstance(target, str):
+            target = [target]
+
+        # What
+        if what == &#39;dir&#39;:
+            target_key = &#39;tags&#39;
+        elif what == &#39;name&#39;:
+            target_key = &#39;name&#39;
+        elif what == &#39;url&#39;:
+            target_key = &#39;url&#39;
+        else:
+            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            sys.exit()
+
+        i = 0
+        for key, value in self.bookmarks.copy().items():
+            rm = False
+            while not rm:
+                for string in key if target_key == &#39;name&#39; else value[target_key]:
+                    for substring in target:
+                        if substring in string:
+                            rm = True
+                break
+            if rm:
+                del self.bookmarks[key]
+
+    def drop_regex(self, regex, what):
+
+        r = re.compile(regex)
+
+        # What
+        if what == &#39;dir&#39;:
+            target_key = &#39;tags&#39;
+        elif what == &#39;name&#39;:
+            target_key = &#39;name&#39;
+        elif what == &#39;url&#39;:
+            target_key = &#39;url&#39;
+        else:
+            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            sys.exit()
+
+        for key, value in self.bookmarks.copy().items():
+            rm = False
+            while not rm:
+                for string in key if target_key == &#39;name&#39; else value[target_key]:
+                    if r.match(string):
+                        rm = True
+                break
+            if rm:
+                del self.bookmarks[key]
+
+    def loop(self, f,
+             pb=True,
+             pb_label=None,
+             pb_leave=True,
+             pb_width=110,
+             suppress_output=False
+             ):
+        &#34;&#34;&#34;
+        :param f: Function - To be run on each entry of the bookmark dictionary.
+        :param pb: Boolean - True to visualize progress with tqdm progress bar.
+        :param pb_label: Str - Progress bar label.
+        :param pb_leave: Boolean - False to remove progress bar from screen after completion.
+        :param pb_width: N - Width in char of the progress bar.
+        :param suppress_output: Suppress output of the provided function.
+        :return: List with all [key, value] pairs for which `f` execution resulted in an error.
+        &#34;&#34;&#34;
+
+        e = []
+
+        if pb:                                          # Create tqdm progress bar if specified
+            pgr = tqdm(self.bookmarks.items(),
+                       ncols=pb_width,
+                       position=0,
+                       leave=pb_leave,
+                       desc=pb_label,
+                       bar_format=&#34;{l_bar}&#34;
+                                  &#34;%s{bar}&#34;
+                                  &#34;%s| {n_fmt}/{total_fmt} &#34;
+                                  &#34;[{elapsed}&lt;%s{remaining}%s,&#34;
+                                  &#34; {rate_fmt}{postfix}]&#34; % (colors.fgYellow, colors.reset,
+                                                             colors.fgRed, colors.reset)
+                       )
+
+        for key, value in self.bookmarks.items():
+
+            try:                                        # Attempt to run provided function on dictionary
+                if suppress_output:
+                    with suppress_stdout():             # Suppress function output if so specified
+                        f(key, value)
+                else:
+                    f(key, value)
+            except:                                     # Error: add entry to error list
+                e.append([key, value])
+
+            if pb:                                      # Update progress bar if in use
+                pgr.update()
+
+        print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
+
+        return e
+
+    def __repr__(self):
+        &#34;&#34;&#34;
+        :return: Name and URL of all bookmarks, as well as the total number of bookmarks
+                 and directories in the collection.
+        &#34;&#34;&#34;
+        links = []
+        for key, value in self.bookmarks.items():
+            links.append([key, value[&#34;url&#34;]])
+
+        lstr = &#34;\n&#34;.join(&#34; &#34;.join(name_link) for name_link in links)
+        info = f&#39;\n\nFound: {len(self.bookmarks)} links and {self.n_dirs} directories.&#39;
+
+        return lstr + info</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="anchorage.bookmarks.export"><code class="name flex">
+<span>def <span class="ident">export</span></span>(<span>path, dest='')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param path: Bookmark JSON path
+:param dest: Destination directory INCLUDING THE FILENAME
+:return: Export bookmark JSON file to the project's root directory</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def export(path, dest=root()):
+    &#34;&#34;&#34;
+    :param path: Bookmark JSON path
+    :param dest: Destination directory INCLUDING THE FILENAME
+    :return: Export bookmark JSON file to the project&#39;s root directory
+    &#34;&#34;&#34;
+    date = datetime.datetime.today().strftime(&#39;%Y_%m_%d&#39;)
+    filename = f&#34;bookmarks_{date}&#34; + (&#34;.jsonzl4&#34; if &#34;.jsonlz4&#34; in path else &#34;.json&#34;)
+    shutil.copyfile(path, os.path.join(dest, filename))
+    return dest</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.load"><code class="name flex">
+<span>def <span class="ident">load</span></span>(<span>path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param path: Path to Bookmark JSON or JSONLZ4 file
+:return: Parsed JSON file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load(path):
+    &#34;&#34;&#34;
+    :param path: Path to Bookmark JSON or JSONLZ4 file
+    :return: Parsed JSON file
+    &#34;&#34;&#34;
+    if path.split(&#39;\\&#39;)[-1].find(&#39;json&#39;) != -1:                    # Check if the JSON extension is present in path
+        ext = path[len(path)-path[::-1].find(&#39;.&#39;):].lower()        # If so obtain full extension
+        if ext == &#34;json&#34;:                                          # If full extension = JSON load normally
+            return rapidjson.load(open(path, encoding=&#34;utf8&#34;))
+        elif ext == &#34;jsonlz4&#34;:                                     # IF full extension = JSONLZ4 create bookmark
+            d = rapidjson.loads(JSONLZ4_to_JSON(path))              # dictionary appropriately
+            bm_list = d[&#39;children&#39;][0][&#39;children&#39;]
+            bm_dirs = [d[&#39;name&#39;] for d in bm_list]
+            bm_dics = [d for d in bm_list]
+            return {&#39;roots&#39;: dict(zip(bm_dirs, bm_dics))}
+    else:                                                          # If no extension is present, the file is assumed
+        return rapidjson.load(open(path, encoding=&#34;utf8&#34;))         # to be a JSON file (the case for Chromium browsers)</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.loc"><code class="name flex">
+<span>def <span class="ident">loc</span></span>(<span>overwrite=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loc(overwrite=False):
+    if overwrite:
+        init(True)
+    return read_config()</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.path"><code class="name flex">
+<span>def <span class="ident">path</span></span>(<span>browser, overwrite=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return: Path of browser of choice Bookmarks file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def path(browser, overwrite=False):
+    &#34;&#34;&#34;
+    :return: Path of browser of choice Bookmarks file
+    &#34;&#34;&#34;
+    if browser == &#34;firefox&#34;:
+        o_sys = operating_system()
+        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1]) + &#34;\\&#34;) if o_sys == &#34;windows&#34; else &#34;&#34;
+        dir_path = preamble + loc(overwrite)[browser][o_sys].replace(&#34;/&#34;, &#34;\\&#34;)
+        most_recent = datetime.datetime(1970, 1, 1)
+        for filename in os.listdir(dir_path):
+            file_date = datetime.datetime.strptime(filename[10:20], &#34;%Y-%m-%d&#34;)
+            if file_date &gt; most_recent:
+                most_recent = file_date
+                bk_path = dir_path + &#34;\\&#34; + filename
+    else:
+        o_sys = operating_system()
+        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1])+&#34;\\&#34;) if o_sys == &#34;windows&#34; else &#34;&#34;
+        bk_path = preamble + loc(overwrite)[browser][o_sys].replace(&#34;/&#34;, &#34;\\&#34;)
+    return bk_path</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="anchorage.bookmarks.bookmarks"><code class="flex name class">
+<span>class <span class="ident">bookmarks</span></span>
+<span>(</span><span>bookmark_dict, drop_duplicate_urls=True, drop_local_files=True, drop_dirs=None, drop_names=None, drop_urls=None, drop_dirs_subs=None, drop_urls_subs=None, drop_names_subs=None, drop_dirs_regex=None, drop_urls_regex=None, drop_names_regex=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prepare bookmarks for archiving.</p>
+<p>Instance attributes:</p>
+<pre><code>self.links: dictionary of - Name: Dict - pairs, where
+
+    Dict: {"url": url,
+           "tags": [tag_1, tag_2, ..., tag_n]}
+
+self.tags: list containing the ordered names of the parent folders of each link.
+</code></pre>
+<p>:param bookmark_dict: Bookmark JSON file.
+:param drop_local_files: Remove local file bookmarks from bookmark list.
+:param drop_duplicate_urls: Remove duplicated URLs.
+:param drop_dirs: Directories from which no bookmarks are to be archived.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class bookmarks:
+
+    def __init__(self, bookmark_dict,
+                 drop_duplicate_urls=True,
+                 drop_local_files=True,
+                 drop_dirs=None,
+                 drop_names=None,
+                 drop_urls=None,
+                 drop_dirs_subs=None,
+                 drop_urls_subs=None,
+                 drop_names_subs=None,
+                 drop_dirs_regex=None,
+                 drop_urls_regex=None,
+                 drop_names_regex=None,
+                 ):
+        &#34;&#34;&#34;
+        Prepare bookmarks for archiving.
+
+        Instance attributes:
+
+            self.links: dictionary of - Name: Dict - pairs, where
+
+                Dict: {&#34;url&#34;: url,
+                       &#34;tags&#34;: [tag_1, tag_2, ..., tag_n]}
+
+            self.tags: list containing the ordered names of the parent folders of each link.
+
+        :param bookmark_dict: Bookmark JSON file.
+        :param drop_local_files: Remove local file bookmarks from bookmark list.
+        :param drop_duplicate_urls: Remove duplicated URLs.
+        :param drop_dirs: Directories from which no bookmarks are to be archived.
+        &#34;&#34;&#34;
+
+        content = bookmark_dict[&#39;roots&#39;]
+
+        self.bookmarks = {}
+        self.tags = []
+        self.n_dirs = 0
+
+        # Conduct iteration
+        for directory in content:
+            self.search_dict(content[directory])        # Iteration
+            self.tags = []                              # &#34;Navigate&#34; back to root
+            self.n_dirs += 1                            # Keep track of the number of directories
+
+        # Drop duplicate URLs
+        if drop_duplicate_urls:
+            self.drop_duplicate_urls()
+
+        # Filters
+        if drop_local_files:                                                    # Local files
+            self.drop_local_files()
+        if drop_dirs:                                                           # String    - Directories
+            self.drop_string(target=drop_dirs, what=&#39;dir&#39;)
+        if drop_names:                                                          # String    - Names
+            self.drop_string(target=drop_names, what=&#39;name&#39;)
+        if drop_urls:                                                           # String    - URLs
+            self.drop_string(target=drop_dirs, what=&#39;url&#39;)
+        if drop_dirs_subs:                                                      # Substring - Directories
+            self.drop_substring(target=drop_dirs_subs, what=&#39;dir&#39;)
+        if drop_names_subs:                                                     # Substring - Names
+            self.drop_substring(target=drop_names_subs, what=&#39;name&#39;)
+        if drop_urls_subs:                                                      # Substring - URLs
+            self.drop_substring(target=drop_urls_subs, what=&#39;url&#39;)
+        if drop_dirs_regex:                                                     # Regex     - Directories
+            self.drop_regex(regex=drop_dirs_regex, what=&#39;dir&#39;)
+        if drop_names_regex:                                                    # Regex     - Names
+            self.drop_regex(regex=drop_names_regex, what=&#39;name&#39;)
+        if drop_urls_regex:                                                     # Regex     - URLs
+            self.drop_regex(regex=drop_urls_regex, what=&#39;url&#39;)
+
+    def search_dict(self, dictionary):
+        &#34;&#34;&#34;
+        Reduce depth-n bookmark dictionary to depth-1 dictionary of -Name: Dict - pairs, where
+
+            Dict: {&#34;url&#34;: url,
+                   &#34;tags&#34;: tag_list}
+
+        and tag_list is a list containing the ordered names of the parent folders of each link.
+
+        :param dictionary: Bookmark dictionary from which - Name: [link, tags] - pairs are to be extracted.
+        :return: Depth-1 dictionary of - Name: [link, tags] - pairs.
+        &#34;&#34;&#34;
+        if &#34;children&#34; in dictionary.keys():
+            self.tags.append(dictionary[&#39;name&#39;])            # Append directory name to tag list
+            self.n_dirs += 1                                # Keep track of the number of directories
+            self.search_children(dictionary[&#39;children&#39;])    # Search through children
+            self.tag_backtrack(dictionary[&#39;name&#39;])          # After search is over, &#34;navigate&#34; back to parent directory
+
+        elif &#39;url&#39; in dictionary.keys():
+            # Conduct a regex search for the name of the bookmark among all those previously found.
+            #
+            # Avoids a name conflict caused by the nth duplicate with n&gt;1 due to the first
+            # duplicate having already a different name to the first one, as
+            #
+            #       name of first duplicate = &lt;name&gt; ::anchorage name duplicate:: 2
+            #
+            n_rep = len(list(filter(re.compile(f&#39;{re.escape(dictionary[&#34;name&#34;])}&#39;).match,
+                                    list(self.bookmarks.keys()))
+                             ))
+            #   1. re.escape
+            #          Avoid issues with bookmarks with special regex sequences in their name
+            #   2. re.compile(&lt;bookmark name&gt;
+            #          Match any string with the entire bookmark name in it
+
+            if n_rep &gt; 0:
+                key = dictionary[&#39;name&#39;] + f&#34; ::anchorage name duplicate:: {n_rep+1}&#34;
+            else:
+                key = dictionary[&#39;name&#39;]
+
+            self.bookmarks[key] = {&#39;url&#39;: dictionary[&#39;url&#39;],
+                                   &#39;tags&#39;: self.tags.copy()}
+        else:
+            pass        # Account for possibly empty bookmark folders
+
+    def search_children(self, children):
+        &#34;&#34;&#34;
+        Iterate over children.
+
+        :param children: List entries in bookmark dictionary, which are by custom named &#34;children&#34; in
+                         bookmark dictionaries.
+        &#34;&#34;&#34;
+        for child in children:
+            self.search_dict(child)
+
+    def tag_backtrack(self, tag):
+        &#34;&#34;&#34;
+        Remove tracked tags deeper than input tag.
+            For a series of nested dictionaries (D) which may contain &#34;children&#34; lists (c)
+
+                D
+                |_ c[dir_name1]             tags = [dir_name1]
+                   |_ D
+                   |  |_ c[dirname_2]       tags = [dir_name1, dir_name2]
+                   |     |_ D
+                   |_ D                  !! tags = [dir_name1]
+
+            It is necessary to be able to &#34;navigate&#34; to the current parent directory after
+            iterating through any subdirectories.
+
+            The &#34;path&#34; to each link is kept in an ordered list. To &#34;navigate&#34; back after
+            iterating through any previously subdirectories, all elements in the tag list
+            after the specified (parent) tag are eliminated.
+        &#34;&#34;&#34;
+        try:
+            inv_index = self.tags[::-1].index(tag)
+            index = len(self.tags) - 1 - inv_index
+            self.tags = self.tags[:index]
+        except ValueError:
+            self.tags = [tag]
+
+    def drop_duplicate_urls(self):
+        links = []
+        for key, value in self.bookmarks.copy().items():
+            if value[&#39;url&#39;] in links:
+                del self.bookmarks[key]
+            else:
+                links.append(value[&#39;url&#39;])
+
+    def drop_local_files(self):
+        for key, value in self.bookmarks.copy().items():
+            if &#34;http&#34; not in value[&#34;url&#34;][:4]:
+                del self.bookmarks[key]
+
+    def drop_string(self, target, what):
+        if isinstance(target, str):
+            target = [target]
+
+        # What
+        if what == &#39;dir&#39;:
+            target_key = &#39;tags&#39;
+        elif what == &#39;name&#39;:
+            target_key = &#39;name&#39;
+        elif what == &#39;url&#39;:
+            target_key = &#39;url&#39;
+        else:
+            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            sys.exit()
+
+        for key, value in self.bookmarks.copy().items():
+            if list(set(target) &amp; set(list([key] if target_key == &#39;name&#39; else value[target_key]))):
+                del self.bookmarks[key]
+
+    def drop_substring(self, target, what):
+        if isinstance(target, str):
+            target = [target]
+
+        # What
+        if what == &#39;dir&#39;:
+            target_key = &#39;tags&#39;
+        elif what == &#39;name&#39;:
+            target_key = &#39;name&#39;
+        elif what == &#39;url&#39;:
+            target_key = &#39;url&#39;
+        else:
+            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            sys.exit()
+
+        i = 0
+        for key, value in self.bookmarks.copy().items():
+            rm = False
+            while not rm:
+                for string in key if target_key == &#39;name&#39; else value[target_key]:
+                    for substring in target:
+                        if substring in string:
+                            rm = True
+                break
+            if rm:
+                del self.bookmarks[key]
+
+    def drop_regex(self, regex, what):
+
+        r = re.compile(regex)
+
+        # What
+        if what == &#39;dir&#39;:
+            target_key = &#39;tags&#39;
+        elif what == &#39;name&#39;:
+            target_key = &#39;name&#39;
+        elif what == &#39;url&#39;:
+            target_key = &#39;url&#39;
+        else:
+            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            sys.exit()
+
+        for key, value in self.bookmarks.copy().items():
+            rm = False
+            while not rm:
+                for string in key if target_key == &#39;name&#39; else value[target_key]:
+                    if r.match(string):
+                        rm = True
+                break
+            if rm:
+                del self.bookmarks[key]
+
+    def loop(self, f,
+             pb=True,
+             pb_label=None,
+             pb_leave=True,
+             pb_width=110,
+             suppress_output=False
+             ):
+        &#34;&#34;&#34;
+        :param f: Function - To be run on each entry of the bookmark dictionary.
+        :param pb: Boolean - True to visualize progress with tqdm progress bar.
+        :param pb_label: Str - Progress bar label.
+        :param pb_leave: Boolean - False to remove progress bar from screen after completion.
+        :param pb_width: N - Width in char of the progress bar.
+        :param suppress_output: Suppress output of the provided function.
+        :return: List with all [key, value] pairs for which `f` execution resulted in an error.
+        &#34;&#34;&#34;
+
+        e = []
+
+        if pb:                                          # Create tqdm progress bar if specified
+            pgr = tqdm(self.bookmarks.items(),
+                       ncols=pb_width,
+                       position=0,
+                       leave=pb_leave,
+                       desc=pb_label,
+                       bar_format=&#34;{l_bar}&#34;
+                                  &#34;%s{bar}&#34;
+                                  &#34;%s| {n_fmt}/{total_fmt} &#34;
+                                  &#34;[{elapsed}&lt;%s{remaining}%s,&#34;
+                                  &#34; {rate_fmt}{postfix}]&#34; % (colors.fgYellow, colors.reset,
+                                                             colors.fgRed, colors.reset)
+                       )
+
+        for key, value in self.bookmarks.items():
+
+            try:                                        # Attempt to run provided function on dictionary
+                if suppress_output:
+                    with suppress_stdout():             # Suppress function output if so specified
+                        f(key, value)
+                else:
+                    f(key, value)
+            except:                                     # Error: add entry to error list
+                e.append([key, value])
+
+            if pb:                                      # Update progress bar if in use
+                pgr.update()
+
+        print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
+
+        return e
+
+    def __repr__(self):
+        &#34;&#34;&#34;
+        :return: Name and URL of all bookmarks, as well as the total number of bookmarks
+                 and directories in the collection.
+        &#34;&#34;&#34;
+        links = []
+        for key, value in self.bookmarks.items():
+            links.append([key, value[&#34;url&#34;]])
+
+        lstr = &#34;\n&#34;.join(&#34; &#34;.join(name_link) for name_link in links)
+        info = f&#39;\n\nFound: {len(self.bookmarks)} links and {self.n_dirs} directories.&#39;
+
+        return lstr + info</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="anchorage.bookmarks.bookmarks.drop_duplicate_urls"><code class="name flex">
+<span>def <span class="ident">drop_duplicate_urls</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drop_duplicate_urls(self):
+    links = []
+    for key, value in self.bookmarks.copy().items():
+        if value[&#39;url&#39;] in links:
+            del self.bookmarks[key]
+        else:
+            links.append(value[&#39;url&#39;])</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.bookmarks.drop_local_files"><code class="name flex">
+<span>def <span class="ident">drop_local_files</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drop_local_files(self):
+    for key, value in self.bookmarks.copy().items():
+        if &#34;http&#34; not in value[&#34;url&#34;][:4]:
+            del self.bookmarks[key]</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.bookmarks.drop_regex"><code class="name flex">
+<span>def <span class="ident">drop_regex</span></span>(<span>self, regex, what)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drop_regex(self, regex, what):
+
+    r = re.compile(regex)
+
+    # What
+    if what == &#39;dir&#39;:
+        target_key = &#39;tags&#39;
+    elif what == &#39;name&#39;:
+        target_key = &#39;name&#39;
+    elif what == &#39;url&#39;:
+        target_key = &#39;url&#39;
+    else:
+        smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+        sys.exit()
+
+    for key, value in self.bookmarks.copy().items():
+        rm = False
+        while not rm:
+            for string in key if target_key == &#39;name&#39; else value[target_key]:
+                if r.match(string):
+                    rm = True
+            break
+        if rm:
+            del self.bookmarks[key]</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.bookmarks.drop_string"><code class="name flex">
+<span>def <span class="ident">drop_string</span></span>(<span>self, target, what)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drop_string(self, target, what):
+    if isinstance(target, str):
+        target = [target]
+
+    # What
+    if what == &#39;dir&#39;:
+        target_key = &#39;tags&#39;
+    elif what == &#39;name&#39;:
+        target_key = &#39;name&#39;
+    elif what == &#39;url&#39;:
+        target_key = &#39;url&#39;
+    else:
+        smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+        sys.exit()
+
+    for key, value in self.bookmarks.copy().items():
+        if list(set(target) &amp; set(list([key] if target_key == &#39;name&#39; else value[target_key]))):
+            del self.bookmarks[key]</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.bookmarks.drop_substring"><code class="name flex">
+<span>def <span class="ident">drop_substring</span></span>(<span>self, target, what)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drop_substring(self, target, what):
+    if isinstance(target, str):
+        target = [target]
+
+    # What
+    if what == &#39;dir&#39;:
+        target_key = &#39;tags&#39;
+    elif what == &#39;name&#39;:
+        target_key = &#39;name&#39;
+    elif what == &#39;url&#39;:
+        target_key = &#39;url&#39;
+    else:
+        smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+        sys.exit()
+
+    i = 0
+    for key, value in self.bookmarks.copy().items():
+        rm = False
+        while not rm:
+            for string in key if target_key == &#39;name&#39; else value[target_key]:
+                for substring in target:
+                    if substring in string:
+                        rm = True
+            break
+        if rm:
+            del self.bookmarks[key]</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.bookmarks.loop"><code class="name flex">
+<span>def <span class="ident">loop</span></span>(<span>self, f, pb=True, pb_label=None, pb_leave=True, pb_width=110, suppress_output=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param f: Function - To be run on each entry of the bookmark dictionary.
+:param pb: Boolean - True to visualize progress with tqdm progress bar.
+:param pb_label: Str - Progress bar label.
+:param pb_leave: Boolean - False to remove progress bar from screen after completion.
+:param pb_width: N - Width in char of the progress bar.
+:param suppress_output: Suppress output of the provided function.
+:return: List with all [key, value] pairs for which <code>f</code> execution resulted in an error.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loop(self, f,
+         pb=True,
+         pb_label=None,
+         pb_leave=True,
+         pb_width=110,
+         suppress_output=False
+         ):
+    &#34;&#34;&#34;
+    :param f: Function - To be run on each entry of the bookmark dictionary.
+    :param pb: Boolean - True to visualize progress with tqdm progress bar.
+    :param pb_label: Str - Progress bar label.
+    :param pb_leave: Boolean - False to remove progress bar from screen after completion.
+    :param pb_width: N - Width in char of the progress bar.
+    :param suppress_output: Suppress output of the provided function.
+    :return: List with all [key, value] pairs for which `f` execution resulted in an error.
+    &#34;&#34;&#34;
+
+    e = []
+
+    if pb:                                          # Create tqdm progress bar if specified
+        pgr = tqdm(self.bookmarks.items(),
+                   ncols=pb_width,
+                   position=0,
+                   leave=pb_leave,
+                   desc=pb_label,
+                   bar_format=&#34;{l_bar}&#34;
+                              &#34;%s{bar}&#34;
+                              &#34;%s| {n_fmt}/{total_fmt} &#34;
+                              &#34;[{elapsed}&lt;%s{remaining}%s,&#34;
+                              &#34; {rate_fmt}{postfix}]&#34; % (colors.fgYellow, colors.reset,
+                                                         colors.fgRed, colors.reset)
+                   )
+
+    for key, value in self.bookmarks.items():
+
+        try:                                        # Attempt to run provided function on dictionary
+            if suppress_output:
+                with suppress_stdout():             # Suppress function output if so specified
+                    f(key, value)
+            else:
+                f(key, value)
+        except:                                     # Error: add entry to error list
+            e.append([key, value])
+
+        if pb:                                      # Update progress bar if in use
+            pgr.update()
+
+    print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
+
+    return e</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.bookmarks.search_children"><code class="name flex">
+<span>def <span class="ident">search_children</span></span>(<span>self, children)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Iterate over children.</p>
+<p>:param children: List entries in bookmark dictionary, which are by custom named "children" in
+bookmark dictionaries.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search_children(self, children):
+    &#34;&#34;&#34;
+    Iterate over children.
+
+    :param children: List entries in bookmark dictionary, which are by custom named &#34;children&#34; in
+                     bookmark dictionaries.
+    &#34;&#34;&#34;
+    for child in children:
+        self.search_dict(child)</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.bookmarks.search_dict"><code class="name flex">
+<span>def <span class="ident">search_dict</span></span>(<span>self, dictionary)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Reduce depth-n bookmark dictionary to depth-1 dictionary of -Name: Dict - pairs, where</p>
+<pre><code>Dict: {"url": url,
+       "tags": tag_list}
+</code></pre>
+<p>and tag_list is a list containing the ordered names of the parent folders of each link.</p>
+<p>:param dictionary: Bookmark dictionary from which - Name: [link, tags] - pairs are to be extracted.
+:return: Depth-1 dictionary of - Name: [link, tags] - pairs.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search_dict(self, dictionary):
+    &#34;&#34;&#34;
+    Reduce depth-n bookmark dictionary to depth-1 dictionary of -Name: Dict - pairs, where
+
+        Dict: {&#34;url&#34;: url,
+               &#34;tags&#34;: tag_list}
+
+    and tag_list is a list containing the ordered names of the parent folders of each link.
+
+    :param dictionary: Bookmark dictionary from which - Name: [link, tags] - pairs are to be extracted.
+    :return: Depth-1 dictionary of - Name: [link, tags] - pairs.
+    &#34;&#34;&#34;
+    if &#34;children&#34; in dictionary.keys():
+        self.tags.append(dictionary[&#39;name&#39;])            # Append directory name to tag list
+        self.n_dirs += 1                                # Keep track of the number of directories
+        self.search_children(dictionary[&#39;children&#39;])    # Search through children
+        self.tag_backtrack(dictionary[&#39;name&#39;])          # After search is over, &#34;navigate&#34; back to parent directory
+
+    elif &#39;url&#39; in dictionary.keys():
+        # Conduct a regex search for the name of the bookmark among all those previously found.
+        #
+        # Avoids a name conflict caused by the nth duplicate with n&gt;1 due to the first
+        # duplicate having already a different name to the first one, as
+        #
+        #       name of first duplicate = &lt;name&gt; ::anchorage name duplicate:: 2
+        #
+        n_rep = len(list(filter(re.compile(f&#39;{re.escape(dictionary[&#34;name&#34;])}&#39;).match,
+                                list(self.bookmarks.keys()))
+                         ))
+        #   1. re.escape
+        #          Avoid issues with bookmarks with special regex sequences in their name
+        #   2. re.compile(&lt;bookmark name&gt;
+        #          Match any string with the entire bookmark name in it
+
+        if n_rep &gt; 0:
+            key = dictionary[&#39;name&#39;] + f&#34; ::anchorage name duplicate:: {n_rep+1}&#34;
+        else:
+            key = dictionary[&#39;name&#39;]
+
+        self.bookmarks[key] = {&#39;url&#39;: dictionary[&#39;url&#39;],
+                               &#39;tags&#39;: self.tags.copy()}
+    else:
+        pass        # Account for possibly empty bookmark folders</code></pre>
+</details>
+</dd>
+<dt id="anchorage.bookmarks.bookmarks.tag_backtrack"><code class="name flex">
+<span>def <span class="ident">tag_backtrack</span></span>(<span>self, tag)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove tracked tags deeper than input tag.
+For a series of nested dictionaries (D) which may contain "children" lists (c)</p>
+<pre><code>    D
+    |_ c[dir_name1]             tags = [dir_name1]
+       |_ D
+       |  |_ c[dirname_2]       tags = [dir_name1, dir_name2]
+       |     |_ D
+       |_ D                  !! tags = [dir_name1]
+
+It is necessary to be able to "navigate" to the current parent directory after
+iterating through any subdirectories.
+
+The "path" to each link is kept in an ordered list. To "navigate" back after
+iterating through any previously subdirectories, all elements in the tag list
+after the specified (parent) tag are eliminated.
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tag_backtrack(self, tag):
+    &#34;&#34;&#34;
+    Remove tracked tags deeper than input tag.
+        For a series of nested dictionaries (D) which may contain &#34;children&#34; lists (c)
+
+            D
+            |_ c[dir_name1]             tags = [dir_name1]
+               |_ D
+               |  |_ c[dirname_2]       tags = [dir_name1, dir_name2]
+               |     |_ D
+               |_ D                  !! tags = [dir_name1]
+
+        It is necessary to be able to &#34;navigate&#34; to the current parent directory after
+        iterating through any subdirectories.
+
+        The &#34;path&#34; to each link is kept in an ordered list. To &#34;navigate&#34; back after
+        iterating through any previously subdirectories, all elements in the tag list
+        after the specified (parent) tag are eliminated.
+    &#34;&#34;&#34;
+    try:
+        inv_index = self.tags[::-1].index(tag)
+        index = len(self.tags) - 1 - inv_index
+        self.tags = self.tags[:index]
+    except ValueError:
+        self.tags = [tag]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="anchorage" href="index.html">anchorage</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="anchorage.bookmarks.export" href="#anchorage.bookmarks.export">export</a></code></li>
+<li><code><a title="anchorage.bookmarks.load" href="#anchorage.bookmarks.load">load</a></code></li>
+<li><code><a title="anchorage.bookmarks.loc" href="#anchorage.bookmarks.loc">loc</a></code></li>
+<li><code><a title="anchorage.bookmarks.path" href="#anchorage.bookmarks.path">path</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="anchorage.bookmarks.bookmarks" href="#anchorage.bookmarks.bookmarks">bookmarks</a></code></h4>
+<ul class="two-column">
+<li><code><a title="anchorage.bookmarks.bookmarks.drop_duplicate_urls" href="#anchorage.bookmarks.bookmarks.drop_duplicate_urls">drop_duplicate_urls</a></code></li>
+<li><code><a title="anchorage.bookmarks.bookmarks.drop_local_files" href="#anchorage.bookmarks.bookmarks.drop_local_files">drop_local_files</a></code></li>
+<li><code><a title="anchorage.bookmarks.bookmarks.drop_regex" href="#anchorage.bookmarks.bookmarks.drop_regex">drop_regex</a></code></li>
+<li><code><a title="anchorage.bookmarks.bookmarks.drop_string" href="#anchorage.bookmarks.bookmarks.drop_string">drop_string</a></code></li>
+<li><code><a title="anchorage.bookmarks.bookmarks.drop_substring" href="#anchorage.bookmarks.bookmarks.drop_substring">drop_substring</a></code></li>
+<li><code><a title="anchorage.bookmarks.bookmarks.loop" href="#anchorage.bookmarks.bookmarks.loop">loop</a></code></li>
+<li><code><a title="anchorage.bookmarks.bookmarks.search_children" href="#anchorage.bookmarks.bookmarks.search_children">search_children</a></code></li>
+<li><code><a title="anchorage.bookmarks.bookmarks.search_dict" href="#anchorage.bookmarks.bookmarks.search_dict">search_dict</a></code></li>
+<li><code><a title="anchorage.bookmarks.bookmarks.tag_backtrack" href="#anchorage.bookmarks.bookmarks.tag_backtrack">tag_backtrack</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

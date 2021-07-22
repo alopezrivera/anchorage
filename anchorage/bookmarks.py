@@ -12,7 +12,7 @@ from anchorage.anchor_infrs.infrastructure import init, read_config
 from anchorage.anchor_utils.aesthetic import colors
 from anchorage.anchor_utils.system import operating_system
 from anchorage.anchor_utils.shell import suppress_stdout
-from anchorage.anchor_utils.file_conversion import JSONLZ4_parser
+from anchorage.anchor_utils.file_conversion import JSONLZ4_to_JSON
 from anchorage.anchor_utils.aesthetic import smart_print_color
 
 
@@ -53,7 +53,7 @@ def load(path):
         if ext == "json":                                          # If full extension = JSON load normally
             return rapidjson.load(open(path, encoding="utf8"))
         elif ext == "jsonlz4":                                     # IF full extension = JSONLZ4 create bookmark
-            d = rapidjson.loads(JSONLZ4_parser(path))              # dictionary appropriately
+            d = rapidjson.loads(JSONLZ4_to_JSON(path))              # dictionary appropriately
             bm_list = d['children'][0]['children']
             bm_dirs = [d['name'] for d in bm_list]
             bm_dics = [d for d in bm_list]
@@ -323,7 +323,7 @@ class bookmarks:
         :param pb_leave: Boolean - False to remove progress bar from screen after completion.
         :param pb_width: N - Width in char of the progress bar.
         :param suppress_output: Suppress output of the provided function.
-        :return:
+        :return: List with all [key, value] pairs for which `f` execution resulted in an error.
         """
 
         e = []
@@ -361,6 +361,10 @@ class bookmarks:
         return e
 
     def __repr__(self):
+        """
+        :return: Name and URL of all bookmarks, as well as the total number of bookmarks
+                 and directories in the collection.
+        """
         links = []
         for key, value in self.bookmarks.items():
             links.append([key, value["url"]])

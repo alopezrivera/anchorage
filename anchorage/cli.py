@@ -1,14 +1,13 @@
 from __future__ import print_function, unicode_literals
 
 import sys
-from pyfiglet import Figlet
 
 from anchorage.bookmarks import bookmarks, path, load
 from anchorage.anchor import anchor_online, anchor_locally
 from anchorage.anchor_infrs.infrastructure import init, read_config
 from anchorage.anchor_utils.shell import shell
 from anchorage.anchor_utils.regex import expr_check
-from anchorage.anchor_utils.aesthetic import smart_print_color, newline
+from anchorage.anchor_utils.aesthetic import smart_print_color, newline, title
 
 
 try:
@@ -20,38 +19,35 @@ except ImportError:
     sys.exit("Success! Please run again")
 
 
-def title(text="Anchorage", font="big", color="yellow"):
-    f = Figlet(font=font)
-    smart_print_color(f.renderText(text), color)
-
-
 def interface():
     """
-    CLI interface for the Anchorage library.
+    # CLI interface for the Anchorage library.
 
     Dialogue:
         1. Dependency check
             - pip install --upgrade anchorage
             - check_install
-        2. OS check
-        3. Browser choice
-        4. Browser Bookmark file path check
-            - Return known Bookmark file path, ask user to confirm
-            - Read bookmark file
-                - Positive confirmation
-                - Negative confirmation, back to step 4. or exit
-        5. Bookmark filter
-            - Exclude local files
-            - Exclude certain directories
-            - Exclude bookmarks with given strings within their names
-            - Exclude bookmarks with given strings within their links
-        6. Local or online archive
-            6.1 Local
-                6.1.1 Docker install check
-                    - Provide link to user if Docker is not installed
-                6.1.2 Local archive directory input
-                    - Check full path of local archive path with user
-        7. Ready to go!
+        2. Browser choice
+        3. Bookmark filter
+            - Local files
+            - String match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - Substring match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - Regex match
+                - Directories
+                - Bookmark name
+                - Bookmark URL
+            - *Duplicate URLs are excluded by default*
+        4. Local or online archive choice
+            - Online
+            - Local
+                - Local archive directory input
+
     """
 
     # Title
@@ -84,7 +80,7 @@ def interface():
         sys.exit()
 
     smart_print_color("\n     ~Running dependency checks", "yellow")
-    # shell("pip3 install --upgrade anchorage")
+    shell("pip3 install --upgrade anchorage")
     init()
     smart_print_color("     ~Everything in order!", "green")
     smart_print_color("     ~Edit configurations in ~/.anchorage/config.toml\n", "green")
@@ -104,7 +100,7 @@ def interface():
     bmk_dict = load(path(prompt(brow_choice, style=style)['browser']))
     newline()
 
-    # 5. Bookmark filter
+    # 3. Bookmark filter
     #     - Local files
     #     - By string match
     #     - By substring match
@@ -233,12 +229,7 @@ def interface():
 
     smart_print_color(f"     ~Done! Found {len(bmk.bookmarks)} bookmarks in {bmk.n_dirs} directories.\n", "green")
 
-    # 6. Local or online archive
-    #     6.1 Local
-    #         6.1.1 Docker install check
-    #             - Provide link to user if Docker is not installed
-    #         6.1.2 Local archive directory input
-    #             - Check full path of local archive path with user
+    # 4. Local or online archive
     archive_choice = [{
                     'type': 'list',
                     'name': 'archive',
@@ -254,7 +245,7 @@ def interface():
 
     if archive == 'local':          # Anchor locally
 
-        dir_prompt = [{
+        dir_prompt = [{             # Archive directory input
                           'type': 'input',
                           'name': 'dir',
                           'message': 'Enter the full path of the archive directory (default: ./anchor).',

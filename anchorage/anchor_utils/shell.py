@@ -40,6 +40,9 @@ def error():
 
 @contextmanager
 def suppress_stdout():
+    """
+    Suppress console output.
+    """
     with open(os.devnull, "w") as devnull:
         old_stdout = sys.stdout
         sys.stdout = devnull
