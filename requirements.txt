@@ -1,5 +1,5 @@
 numpy==1.19.2
-rapidjson==1.0.0
+python-rapidjson==1.4
 toml==0.10.1
 Python-Alexandria==1.2.3
 archivenow==2020.7.18.12.19.44
