@@ -38,6 +38,11 @@ from anchorage.anchor_utils.aesthetic import smart_print_color
 
 
 def archivebox(command_str):
+    &#34;&#34;&#34;
+    Shortcut for the shell command:
+
+        docker-compose run archivebox {command}
+    &#34;&#34;&#34;
     return shell(f&#34;docker-compose run archivebox {command_str}&#34;)
 
 
@@ -74,6 +79,12 @@ def init(archive=None):
 
 
 def create_archive(archive, overwrite=False):
+    &#34;&#34;&#34;
+    Creates local archive.
+
+    :param archive: Archive directory.
+    :param overwrite: Overwrite directory if it already exists.
+    &#34;&#34;&#34;
     if os.path.isdir(archive):
         if overwrite:
             shutil.rmtree(archive)
@@ -121,6 +132,9 @@ def server(archive=None, browser_path=None, instakill=False):
 
 
 def docker_check():
+    &#34;&#34;&#34;
+    Attempts to run the `docker` command, and stops the program if an error is raised.
+    &#34;&#34;&#34;
     with suppress_stdout():
         # Docker install check
         try:
@@ -134,6 +148,9 @@ def docker_check():
 
 
 def archivebox_check():
+    &#34;&#34;&#34;
+    Attempts to run the `archivebox` command, and stops the program if an error is raised.
+    &#34;&#34;&#34;
     with suppress_stdout():
         # ArchiveBox install check
         try:
@@ -185,12 +202,19 @@ def archivebox_check():
 <span>def <span class="ident">archivebox</span></span>(<span>command_str)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Shortcut for the shell command:</p>
+<pre><code>docker-compose run archivebox {command}
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def archivebox(command_str):
+    &#34;&#34;&#34;
+    Shortcut for the shell command:
+
+        docker-compose run archivebox {command}
+    &#34;&#34;&#34;
     return shell(f&#34;docker-compose run archivebox {command_str}&#34;)</code></pre>
 </details>
 </dd>
@@ -198,12 +222,15 @@ def archivebox_check():
 <span>def <span class="ident">archivebox_check</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Attempts to run the <code><a title="anchorage.anchor_tools.local.archivebox" href="#anchorage.anchor_tools.local.archivebox">archivebox()</a></code> command, and stops the program if an error is raised.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def archivebox_check():
+    &#34;&#34;&#34;
+    Attempts to run the `archivebox` command, and stops the program if an error is raised.
+    &#34;&#34;&#34;
     with suppress_stdout():
         # ArchiveBox install check
         try:
@@ -220,12 +247,20 @@ def archivebox_check():
 <span>def <span class="ident">create_archive</span></span>(<span>archive, overwrite=False)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Creates local archive.</p>
+<p>:param archive: Archive directory.
+:param overwrite: Overwrite directory if it already exists.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def create_archive(archive, overwrite=False):
+    &#34;&#34;&#34;
+    Creates local archive.
+
+    :param archive: Archive directory.
+    :param overwrite: Overwrite directory if it already exists.
+    &#34;&#34;&#34;
     if os.path.isdir(archive):
         if overwrite:
             shutil.rmtree(archive)
@@ -240,12 +275,15 @@ def archivebox_check():
 <span>def <span class="ident">docker_check</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Attempts to run the <code>docker</code> command, and stops the program if an error is raised.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def docker_check():
+    &#34;&#34;&#34;
+    Attempts to run the `docker` command, and stops the program if an error is raised.
+    &#34;&#34;&#34;
     with suppress_stdout():
         # Docker install check
         try:

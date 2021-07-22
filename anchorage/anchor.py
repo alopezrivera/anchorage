@@ -47,7 +47,7 @@ def anchor_online(collection):
 
 def log_anchorage(error_log):
     """
-    Save error log to ~/anchorage/error_log.toml
+    TODO: Save error log to ~/anchorage/error_log.toml
 
     :param error_log: List of bookmarks for which the upload process has failed.
     """
@@ -56,7 +56,7 @@ def log_anchorage(error_log):
 
 def anchor_log_locally(archive="anchor"):
     """
-    Attempt anchor of all bookmarks in the current error log.
+    TODO: Attempt anchor of all bookmarks in the current error log.
     """
 
     create_archive(archive)
@@ -66,6 +66,6 @@ def anchor_log_locally(archive="anchor"):
 
 def anchor_log_online():
     """
-    Attempt anchor of all bookmarks in the current error log.
+    TODO: Attempt anchor of all bookmarks in the current error log.
     """
     pass
