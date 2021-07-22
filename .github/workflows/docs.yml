@@ -36,6 +36,6 @@ jobs:
           destination-repository-name: 'anchorage-docs.github.io'
           user-email: antonlopezr99@gmail.com
           commit-message: See ORIGIN_COMMIT from $GITHUB_REF
-          target-branch: master
+          target-branch: main
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
