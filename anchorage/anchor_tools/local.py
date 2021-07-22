@@ -10,6 +10,11 @@ from anchorage.anchor_utils.aesthetic import smart_print_color
 
 
 def archivebox(command_str):
+    """
+    Shortcut for the shell command:
+
+        docker-compose run archivebox {command}
+    """
     return shell(f"docker-compose run archivebox {command_str}")
 
 
@@ -46,6 +51,12 @@ def init(archive=None):
 
 
 def create_archive(archive, overwrite=False):
+    """
+    Creates local archive.
+
+    :param archive: Archive directory.
+    :param overwrite: Overwrite directory if it already exists.
+    """
     if os.path.isdir(archive):
         if overwrite:
             shutil.rmtree(archive)
@@ -93,6 +104,9 @@ def server(archive=None, browser_path=None, instakill=False):
 
 
 def docker_check():
+    """
+    Attempts to run the `docker` command, and stops the program if an error is raised.
+    """
     with suppress_stdout():
         # Docker install check
         try:
@@ -106,6 +120,9 @@ def docker_check():
 
 
 def archivebox_check():
+    """
+    Attempts to run the `archivebox` command, and stops the program if an error is raised.
+    """
     with suppress_stdout():
         # ArchiveBox install check
         try:
