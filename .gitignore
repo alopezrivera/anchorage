@@ -7,4 +7,5 @@ anchor_tools/__pycache__/*
 dist/*
 build/*
 .idea/*
-.idea/workspace.xml
+tests/bookmarks/*
+tests/test_archive/*
