@@ -23,7 +23,8 @@ setuptools.setup(
         "tqdm",
         "pyfiglet",
         "PyInquirer",
-        "prompt-toolkit==1.0.14"
+        "prompt-toolkit==1.0.14",
+        "lz4"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

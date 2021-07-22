@@ -1,4 +1,4 @@
-from anchorage.bookmarks import path, load, bookmarks
+from anchorage.bookmarks import bookmarks
 from anchorage.anchor_tools.local import create_archive, add as add_local, server
 from anchorage.anchor_tools.online import add as add_online
 
