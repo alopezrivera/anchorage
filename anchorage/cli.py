@@ -23,31 +23,29 @@ def interface():
     """
     # CLI interface for the Anchorage library.
 
-    Dialogue:
-        1. Dependency check
-            - pip install --upgrade anchorage
-            - check_install
-        2. Browser choice
-        3. Bookmark filter
-            - Local files
-            - String match
-                - Directories
-                - Bookmark name
-                - Bookmark URL
-            - Substring match
-                - Directories
-                - Bookmark name
-                - Bookmark URL
-            - Regex match
-                - Directories
-                - Bookmark name
-                - Bookmark URL
-            - *Duplicate URLs are excluded by default*
-        4. Local or online archive choice
-            - Online
-            - Local
-                - Local archive directory input
-
+    1. Dependency check
+        - pip install --upgrade anchorage
+        - check_install
+    2. Browser choice
+    3. Bookmark filter
+        - Local files
+        - String match
+            - Directories
+            - Bookmark name
+            - Bookmark URL
+        - Substring match
+            - Directories
+            - Bookmark name
+            - Bookmark URL
+        - Regex match
+            - Directories
+            - Bookmark name
+            - Bookmark URL
+        - *Duplicate URLs are excluded by default*
+    4. Local or online archive choice
+        - Online
+        - Local
+            - Local archive directory input
     """
 
     # Title
