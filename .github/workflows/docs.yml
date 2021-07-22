@@ -27,7 +27,6 @@ jobs:
       - name: Generate docs
         run:  pdoc --html anchorage --force --output-dir=docs
       - name: Push new docs to anchorage-docs.github.io
-#        id: anchorage-docs/anchorage-docs.github.io
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
@@ -37,6 +36,6 @@ jobs:
           destination-repository-name: 'anchorage-docs.github.io'
           user-email: antonlopezr99@gmail.com
           commit-message: See ORIGIN_COMMIT from $GITHUB_REF
-          target-branch: main
+          target-branch: master
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
