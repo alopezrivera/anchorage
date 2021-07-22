@@ -40,6 +40,10 @@ def title(text="Anchorage", font="big", color="yellow"):
 
 
 class colors:
+    """
+    ANSI color codes for use with `tqdm` to generate colored progress bars.
+    """
+
     reset = "\033[0m"
 
     # Black
