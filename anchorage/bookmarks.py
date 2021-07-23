@@ -360,6 +360,33 @@ class bookmarks:
 
         return e
 
+    def html(self):
+        """
+        Export bookmarks to Chromium/Firefox HTML
+
+        TODO:
+            - Read
+                - ADD_DATE
+                - LAST_MODIFIED
+                - ICON
+
+        Directories
+        name                <DT><H3 ADD_DATE="time.time()" LAST_MODIFIED="">Name</H3>
+        name (root)         <H1>Name</H1>
+        name (f. bar)       <DT><H3 ADD_DATE="time.time()" LAST_MODIFIED="" PERSONAL_TOOLBAR_FOLDER="true">Name</H3>
+            dir                 <DL><p> ... </DL><p>
+
+        Bookmarks
+        name                <DT><A HREF="URL" ADD_DATE="" ICON="">Name</A>
+        """
+        header = '<!DOCTYPE NETSCAPE-Bookmark-file-1>' \
+                 '<!-- This is an automatically generated file.' \
+                 '     It will be read and overwritten.' \
+                 '     DO NOT EDIT! -->' \
+                 '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">' \
+                 '<TITLE>Bookmarks</TITLE>' \
+                 '<H1>Bookmarks</H1>'
+
     def __repr__(self):
         """
         :return: Name and URL of all bookmarks, as well as the total number of bookmarks
