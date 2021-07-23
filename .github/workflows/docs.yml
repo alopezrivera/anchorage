@@ -1,6 +1,7 @@
 # On a new commit: push new docs to anchorage-docs.github.io
 
 name: docs
+environment: anchorage-docs
 
 on:
   push:
