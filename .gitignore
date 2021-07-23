@@ -1,6 +1,8 @@
 tests/bookmarks/*
 tests/test_archive/*
 
+web-login.txt
+
 dist/*
 build/*
 anchorage.egg-info/*
