@@ -12,6 +12,7 @@ from anchorage.anchor_infrs.infrastructure import init, read_config
 from anchorage.anchor_utils.aesthetic import colors
 from anchorage.anchor_utils.system import operating_system
 from anchorage.anchor_utils.shell import suppress_stdout
+from anchorage.anchor_utils.regex import expr_check
 from anchorage.anchor_utils.file_conversion import JSONLZ4_to_JSON
 from anchorage.anchor_utils.aesthetic import smart_print_color
 
@@ -285,6 +286,9 @@ class bookmarks:
                 del self.bookmarks[key]
 
     def drop_regex(self, regex, what):
+
+        # Check regex formula for correctness
+        expr_check(regex)
 
         r = re.compile(regex)
 

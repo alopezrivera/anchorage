@@ -19,23 +19,23 @@ test_archive = r"C:\Users\xXY4n\Projects\Anchorage\tests\test_archive"
 
 
 def t_setup():
-    print("LOCAL ARCHIVE TESTS: SETUP")
+    print("\nLOCAL ARCHIVE TESTS: SETUP\n")
     if os.path.isdir(test_archive):
         shutil.rmtree(test_archive)
     setup(archive=test_archive)
 
 
 def t_init():
-    print("LOCAL ARCHIVE TESTS: INITIALIZATION")
+    print("\nLOCAL ARCHIVE TESTS: INITIALIZATION\n")
     init(archive=test_archive)
 
 
 def t_add():
-    print("LOCAL ARCHIVE TESTS: ADDITION")
+    print("\nLOCAL ARCHIVE TESTS: ADDITION\n")
     add(url="http://larsblackmore.com/AcikmeseBlackmoreAutomatica10.pdf",
         archive=test_archive)
 
 
 def t_server():
-    print("LOCAL ARCHIVE TESTS: SERVER")
+    print("\nLOCAL ARCHIVE TESTS: SERVER\n")
     server(archive=test_archive, instakill=True)

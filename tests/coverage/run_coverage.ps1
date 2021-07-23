@@ -1,7 +1,7 @@
 # Set running directory to project root directory
 cd ..; cd ..;
 # Run coverage
-coverage run --source anchor_tools -m unittest discover;
+coverage run --source anchorage -m unittest discover;
 # Generate badge
 coverage-badge -o coverage.svg;
 # Coverage destination
@@ -21,5 +21,9 @@ if (Test-Path $BadgeName) {
 Move-Item -Path ".coverage" -Destination $CovDest;
 Move-Item -Path "coverage.svg" -Destination $CovDest;
 
+coverage report;
+
 cd tests; cd coverage;
 
+docker stop $(docker ps -a -q);
+docker container rm $(docker container ls -aq);

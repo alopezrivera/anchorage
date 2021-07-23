@@ -5,7 +5,7 @@ from anchorage.anchor_infrs.config import config
 from anchorage.anchor_utils.system import home
 
 
-def init(overwrite=True):
+def init(overwrite=False):
     """
     Initialize the Anchorage library
 

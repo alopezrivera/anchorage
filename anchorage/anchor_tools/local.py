@@ -97,10 +97,8 @@ def server(archive=None, browser_path=None, instakill=False):
     browser = webbrowser.get(browser_path) if not isinstance(browser_path, type(None)) else webbrowser
     browser.open("http://127.0.0.1:8000")
 
-    if not instakill:
-        input("Click any key to close the server.")
-
-    p.terminate()
+    if instakill:
+        p.terminate()
 
 
 def docker_check():

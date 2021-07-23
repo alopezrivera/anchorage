@@ -147,7 +147,7 @@ def main():
     filter_input = lambda terms: prompt([{
                                             'type': 'input',
                                             'name': 'input',
-                                            'message': f'Enter a comma-separated list of the {terms} to filter.',
+                                            'message': f'Enter a comma-separated list of {terms} to filter OUT.',
                                             'default': '',
                                             'filter': lambda string: string.split(",")
                                         }], style=style)['input']
@@ -176,31 +176,31 @@ def main():
         kind = prompt(filter_kind, style=style)['kind']
         newline()
         if 'directories' in kind:
-            drop_dirs = filter_input('directories')
+            drop_dirs = filter_input('bookmark directory names')
             newline()
         if 'names' in kind:
-            drop_names = filter_input('names')
+            drop_names = filter_input('bookmark names')
             newline()
         if 'urls' in kind:
-            drop_urls = filter_input('URLs')
+            drop_urls = filter_input('bookmark URLs')
             newline()
     if 'match substring' in drop_list:
         kind = prompt(filter_kind, style=style)['kind']
         newline()
         if 'directories' in kind:
-            drop_dir_subs = filter_input('directory substrings')
+            drop_dir_subs = filter_input('bookmark directory name substrings')
             newline()
         if 'names' in kind:
-            drop_name_subs = filter_input('name substrings')
+            drop_name_subs = filter_input('bookmark name substrings')
             newline()
         if 'urls' in kind:
-            drop_url_subs = filter_input('URL substrings')
+            drop_url_subs = filter_input('bookmark URL substrings')
             newline()
     if 'regex' in drop_list:
         kind = prompt(filter_kind, style=style)['kind']
         newline()
         if 'directories' in kind:
-            drop_dir_regex = filter_regex('bookmark directories')
+            drop_dir_regex = filter_regex('bookmark directory names')
             newline()
             expr_check(drop_dir_regex)
         if 'names' in kind:
