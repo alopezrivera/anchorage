@@ -9,7 +9,9 @@ anchorage.egg-info/*
 
 .idea/*
 .pytest_cache/*
-__pychache__/*
-anchor_infrs/__pycache__/*
-anchor_tools/__pycache__/*
-anchorage/__pycache__/*
+__pychache__/
+tests/__pycache__/
+anchorage/__pycache__/
+anchorage/anchor_infrs/__pycache__/
+anchorage/anchor_tools/__pycache__/
+anchorage/anchor_utils/__pycache__/
