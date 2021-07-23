@@ -9,7 +9,8 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  
+  Deploy:
 
     runs-on: ubuntu-latest
     environment: anchorage-docs
@@ -30,7 +31,7 @@ jobs:
       - name: Push new docs to anchorage-docs.github.io
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ env.API_TOKEN_GITHUB }}
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source-directory: 'docs/anchorage'
           destination-github-username: 'anchorage-docs'
