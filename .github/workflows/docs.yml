@@ -1,7 +1,6 @@
 # On a new commit: push new docs to anchorage-docs.github.io
 
-name: docs
-environment: anchorage-docs
+name: Deploy docs
 
 on:
   push:
@@ -13,6 +12,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: anchorage-docs
 
     steps:
       - uses: actions/checkout@v2
