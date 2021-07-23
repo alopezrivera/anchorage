@@ -2,6 +2,8 @@
 
 ![alt text](tests/coverage/coverage.svg ".coverage available in tests/coverage/")
 
+
+
 `Antonio Lopez Rivera, 2021`
 
 ## Table of Contents
@@ -10,7 +12,7 @@
 
 [ **2. Install**  ](#2-install)
 
-[ _2.1 Local archive: [ArchiveBox](https://archivebox.io/)_ ](#51-2d-lines)
+[ _2.1 Local archive: ArchiveBox_ ](#51-2d-lines)
 
 [ **3. Anchorage CLI**  ](#3-anchorage-cli)
 

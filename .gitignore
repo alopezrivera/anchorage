@@ -1,11 +1,13 @@
-.pytest_cache/*
-.idea/*
-__pychache__/*
-anchor_infrs/__pycache__/*
-anchor_tools/__pycache__/*
+tests/bookmarks/*
+tests/test_archive/*
 
 dist/*
 build/*
+anchorage.egg-info/*
+
 .idea/*
-tests/bookmarks/*
-tests/test_archive/*
+.pytest_cache/*
+__pychache__/*
+anchor_infrs/__pycache__/*
+anchor_tools/__pycache__/*
+anchorage/__pycache__/*

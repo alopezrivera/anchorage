@@ -1,3 +1,5 @@
+#!/usr/run/env python37
+
 from __future__ import print_function, unicode_literals
 
 import sys
@@ -19,7 +21,7 @@ except ImportError:
     sys.exit("Success! Please run again")
 
 
-def interface():
+def main():
     """
     # CLI interface for the Anchorage library.
 
@@ -91,7 +93,7 @@ def interface():
                     'name': 'browser',
                     'message': f'Please choose the browser from which to archive all bookmarks.',
                     'default': True,
-                    'choices': list(cfg.keys())[:-1],
+                    'choices': list(cfg.keys()),
                     'filter': lambda n: n.lower()
                    }]
 
