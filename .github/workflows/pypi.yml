@@ -9,13 +9,12 @@
 name: Publish package to PyPi
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  release:
+    types: [published]
 
 jobs:
-  deploy:
+  
+  Publish:
 
     runs-on: ubuntu-latest
 
