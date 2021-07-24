@@ -3,8 +3,8 @@
 ![alt text](tests/coverage/coverage.svg ".coverage available in tests/coverage/")
 
 As the internet ages, link rot takes over larger and larger swathes of it, bringing with it
-the disappearance of courses, resources, interesting reads and more that we treasure. 
-Anchorage is an attempt to let you save your little corner for good :)
+the disappearance of interesting reads, courses and resources and much more that many of us 
+treasure. Anchorage is an attempt to let you save your little corner for good :)
 
 Anchorage is a Python library and CLI to bulk archive your bookmark collection easily and
 without friction. It allows you to retrieve your bookmark collection from your browser of 
@@ -14,8 +14,6 @@ or locally, using [ArchiveBox](https://archivebox.io/).
 
 Read on for the Anchorage user's manual. The full Python API documentation is available 
 in the [docs](https://anchorage-docs.github.io/) page.
-
-`Antonio Lopez Rivera, 2021`
 
 ![alt text](https://github.com/antonlopezr/anchorage/blob/master/docs/demo/gifs/run.gif "Anchorage in action")
 
@@ -182,21 +180,23 @@ to filter and loop through the collection. Filters can be applied as seen below.
 Input: `bookmarks` instance or bookmark dictionary returned by `load`. 
 
 #### Online
-The `overwrite` parameter determines whether to save snapshots of sites already present in the 
-Internet Archive or not.
 
     from anchorage import anchor_online
     
     anchor_online(bookmarks, overwrite=<bool>)
     
+The `overwrite` parameter determines whether to save snapshots of sites already present in the 
+Internet Archive or not.
+    
 #### Locally
-The `archive` parameter specifies the directory in which to create the local archive.
 
     from anchorage import anchor_locally
     
     anchor_locally(bookmarks, archive=<dir>)
+    
+The `archive` parameter specifies the directory in which to create the local archive.
 
-Running the [ArchiveBox](https://docs.archivebox.io/en/latest/README.html#web-ui-usage) default NGINX server 
+Running the ArchiveBox default NGINX server 
 can be done with the following command.
 
     from anchorage import server
