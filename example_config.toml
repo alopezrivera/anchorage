@@ -1,0 +1,45 @@
+# Welcome to the
+#     /\              | |                                      | (_)
+#    /  \   _ __   ___| |__   ___  _ __ __ _  __ _  ___     ___| |_|
+#   / /\ \ |  _ \ / __|  _ \ / _ \|  __/ _  |/ _  |/ _ \   / __| | |
+#  / ____ \| | | | (__| | | | (_) | | | (_| | (_| |  __/  | (__| | |
+# /_/    \_\_| |_|\___|_| |_|\___/|_|  \__,_|\__, |\___|   \___|_|_|
+#                                            __/ |                  
+#                                           |___/                   
+#                                                 Configuration file
+#
+# Below you can see the path to the Bookmarks JSON/JSONLZ4 file for a
+# series of browsers.
+# 
+# Set your default browser to one of the available to skip browser
+# choice when using the Anchorage CLI. 
+# 
+# You can add new browsers and the path to their bookmarks file. You 
+# will then be able to set the new browser as the default, or choose
+# it in the Anchorage CLI.
+# 
+# If using a custom browser **it must comply with the Chromium or 
+# Firefox bookmark storage conventions (i.e. dictionary key naming)**.
+# If this is not the case, export your bookmarks to a supported browser
+# and proceed.
+#                                           Antonio Lopez Rivera, 2021
+
+[chrome]
+linux = "?"
+macos = "?"
+windows = "Local/Google/Chrome/User Data/Default/Bookmarks"
+
+[edge]
+linux = "?"
+macos = "?"
+windows = "Local/Microsoft/Edge/User Data/Default/Bookmarks"
+
+[firefox]
+linux = "?"
+macos = "?"
+windows = "Roaming/Mozilla/Firefox/Profiles/mfeew61f.default-release/bookmarkbackups/" 
+
+["edge beta"]
+linux = "?"
+macos = "?"
+windows = "Local/Microsoft/Edge Beta/User Data/Default/Bookmarks"

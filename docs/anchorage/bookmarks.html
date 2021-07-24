@@ -40,6 +40,7 @@ from anchorage.anchor_infrs.infrastructure import init, read_config
 from anchorage.anchor_utils.aesthetic import colors
 from anchorage.anchor_utils.system import operating_system
 from anchorage.anchor_utils.shell import suppress_stdout
+from anchorage.anchor_utils.regex import expr_check
 from anchorage.anchor_utils.file_conversion import JSONLZ4_to_JSON
 from anchorage.anchor_utils.aesthetic import smart_print_color
 
@@ -56,18 +57,20 @@ def path(browser, overwrite=False):
     &#34;&#34;&#34;
     if browser == &#34;firefox&#34;:
         o_sys = operating_system()
-        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1]) + &#34;\\&#34;) if o_sys == &#34;windows&#34; else &#34;&#34;
-        dir_path = preamble + loc(overwrite)[browser][o_sys].replace(&#34;/&#34;, &#34;\\&#34;)
+        dir_path = loc(overwrite)[browser][o_sys]
         most_recent = datetime.datetime(1970, 1, 1)
         for filename in os.listdir(dir_path):
             file_date = datetime.datetime.strptime(filename[10:20], &#34;%Y-%m-%d&#34;)
             if file_date &gt; most_recent:
                 most_recent = file_date
-                bk_path = dir_path + &#34;\\&#34; + filename
+                bk_path = dir_path + &#34;/&#34; + filename
     else:
         o_sys = operating_system()
-        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1])+&#34;\\&#34;) if o_sys == &#34;windows&#34; else &#34;&#34;
-        bk_path = preamble + loc(overwrite)[browser][o_sys].replace(&#34;/&#34;, &#34;\\&#34;)
+        bk_path = loc(overwrite)[browser][o_sys]
+
+    if o_sys == &#34;windows&#34;:
+        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1]) + &#34;\\&#34;)
+        bk_path = (preamble + bk_path).replace(&#34;/&#34;, &#34;\\&#34;)
     return bk_path
 
 
@@ -314,6 +317,9 @@ class bookmarks:
 
     def drop_regex(self, regex, what):
 
+        # Check regex formula for correctness
+        expr_check(regex)
+
         r = re.compile(regex)
 
         # What
@@ -492,18 +498,20 @@ class bookmarks:
     &#34;&#34;&#34;
     if browser == &#34;firefox&#34;:
         o_sys = operating_system()
-        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1]) + &#34;\\&#34;) if o_sys == &#34;windows&#34; else &#34;&#34;
-        dir_path = preamble + loc(overwrite)[browser][o_sys].replace(&#34;/&#34;, &#34;\\&#34;)
+        dir_path = loc(overwrite)[browser][o_sys]
         most_recent = datetime.datetime(1970, 1, 1)
         for filename in os.listdir(dir_path):
             file_date = datetime.datetime.strptime(filename[10:20], &#34;%Y-%m-%d&#34;)
             if file_date &gt; most_recent:
                 most_recent = file_date
-                bk_path = dir_path + &#34;\\&#34; + filename
+                bk_path = dir_path + &#34;/&#34; + filename
     else:
         o_sys = operating_system()
-        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1])+&#34;\\&#34;) if o_sys == &#34;windows&#34; else &#34;&#34;
-        bk_path = preamble + loc(overwrite)[browser][o_sys].replace(&#34;/&#34;, &#34;\\&#34;)
+        bk_path = loc(overwrite)[browser][o_sys]
+
+    if o_sys == &#34;windows&#34;:
+        preamble = (&#34;\\&#34;.join(str(os.getenv(&#34;APPDATA&#34;)).split(&#34;\\&#34;)[:-1]) + &#34;\\&#34;)
+        bk_path = (preamble + bk_path).replace(&#34;/&#34;, &#34;\\&#34;)
     return bk_path</code></pre>
 </details>
 </dd>
@@ -746,6 +754,9 @@ self.tags: list containing the ordered names of the parent folders of each link.
 
     def drop_regex(self, regex, what):
 
+        # Check regex formula for correctness
+        expr_check(regex)
+
         r = re.compile(regex)
 
         # What
@@ -879,6 +890,9 @@ self.tags: list containing the ordered names of the parent folders of each link.
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def drop_regex(self, regex, what):
+
+    # Check regex formula for correctness
+    expr_check(regex)
 
     r = re.compile(regex)
 

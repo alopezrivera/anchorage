@@ -75,7 +75,7 @@ def init(archive=None):
     if not isinstance(archive, type(None)):
         os.chdir(archive)
 
-    archivebox(&#34;init --setup&#34;)
+    shell(&#34;echo &#39;name&#39; | docker-compose archivebox init --setup&#34;)
 
 
 def create_archive(archive, overwrite=False):
@@ -125,10 +125,8 @@ def server(archive=None, browser_path=None, instakill=False):
     browser = webbrowser.get(browser_path) if not isinstance(browser_path, type(None)) else webbrowser
     browser.open(&#34;http://127.0.0.1:8000&#34;)
 
-    if not instakill:
-        input(&#34;Click any key to close the server.&#34;)
-
-    p.terminate()
+    if instakill:
+        p.terminate()
 
 
 def docker_check():
@@ -315,7 +313,7 @@ def archivebox_check():
     if not isinstance(archive, type(None)):
         os.chdir(archive)
 
-    archivebox(&#34;init --setup&#34;)</code></pre>
+    shell(&#34;echo &#39;name&#39; | docker-compose archivebox init --setup&#34;)</code></pre>
 </details>
 </dd>
 <dt id="anchorage.anchor_tools.local.server"><code class="name flex">
@@ -340,10 +338,8 @@ def archivebox_check():
     browser = webbrowser.get(browser_path) if not isinstance(browser_path, type(None)) else webbrowser
     browser.open(&#34;http://127.0.0.1:8000&#34;)
 
-    if not instakill:
-        input(&#34;Click any key to close the server.&#34;)
-
-    p.terminate()</code></pre>
+    if instakill:
+        p.terminate()</code></pre>
 </details>
 </dd>
 <dt id="anchorage.anchor_tools.local.setup"><code class="name flex">

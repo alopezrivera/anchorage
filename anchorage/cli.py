@@ -26,8 +26,7 @@ def main():
     # Anchorage library CLI.
 
     ## 1. Dependency check
-        - pip install --upgrade anchorage
-        - check_install
+        - Choice: overwrite config.toml if found
     ## 2. Browser choice
     ## 3. Bookmark filter
         - Local files

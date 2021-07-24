@@ -26,15 +26,17 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from __future__ import print_function, unicode_literals
+<pre><code class="python">#!/usr/run/env python37
+
+from __future__ import print_function, unicode_literals
 
 import sys
 
 from anchorage.bookmarks import bookmarks, path, load
 from anchorage.anchor import anchor_online, anchor_locally
-from anchorage.anchor_infrs.infrastructure import init, read_config
+from anchorage.anchor_infrs.infrastructure import init, check_install, read_config
 from anchorage.anchor_utils.shell import shell
-from anchorage.anchor_utils.regex import expr_check
+from anchorage.anchor_utils.system import operating_system
 from anchorage.anchor_utils.aesthetic import smart_print_color, newline, title
 
 
@@ -47,15 +49,15 @@ except ImportError:
     sys.exit(&#34;Success! Please run again&#34;)
 
 
-def interface():
+def main():
     &#34;&#34;&#34;
-    # CLI interface for the Anchorage library.
+    # Anchorage library CLI.
 
-    1. Dependency check
+    ## 1. Dependency check
         - pip install --upgrade anchorage
         - check_install
-    2. Browser choice
-    3. Bookmark filter
+    ## 2. Browser choice
+    ## 3. Bookmark filter
         - Local files
         - String match
             - Directories
@@ -70,10 +72,12 @@ def interface():
             - Bookmark name
             - Bookmark URL
         - *Duplicate URLs are excluded by default*
-    4. Local or online archive choice
+    ## 4. Archive choice
         - Online
+            - Skip sites already saved in TIA, or generate current snapshots for all sites in the collection
         - Local
             - Local archive directory input
+    ## 5. Confirmation
     &#34;&#34;&#34;
 
     # Title
@@ -86,7 +90,7 @@ def interface():
         Token.QuestionMark:     &#39;#E91E63 bold&#39;,
         Token.Selected:         &#39;#673AB7 bold&#39;,
         Token.Instruction:      &#39;&#39;,                # default
-        Token.Answer:           &#39;#2196f3 bold&#39;,
+        Token.Answer:           &#39;#9cdeff bold&#39;,
         Token.Question:         &#39;&#39;,
     })
 
@@ -102,29 +106,54 @@ def interface():
                 }]
 
     if not prompt(dp_check, style=style)[&#39;ready&#39;]:
-        smart_print_color(&#34;\n     Operation cancelled\n&#34;, &#34;red&#34;)
+        smart_print_color(&#34;\n     ~Operation cancelled\n&#34;, &#34;red&#34;)
         sys.exit()
 
-    smart_print_color(&#34;\n     ~Running dependency checks&#34;, &#34;yellow&#34;)
+    smart_print_color(&#34;\n     ~Running dependency checks&#34;, &#34;white&#34;)
     shell(&#34;pip3 install --upgrade anchorage&#34;)
-    init()
+
+    if check_install() == 0:
+        print(&#34;&#34;)
+        reset_config = [{
+            &#39;type&#39;: &#39;confirm&#39;,
+            &#39;name&#39;: &#39;reset&#39;,
+            &#39;message&#39;: f&#39;Previous config detected: reset config.toml?&#39;,
+            &#39;default&#39;: False,
+        }]
+        reset = prompt(reset_config, style=style)[&#39;reset&#39;]
+        newline()
+    else:
+        reset = False
+
+    init(reset)
+
     smart_print_color(&#34;     ~Everything in order!&#34;, &#34;green&#34;)
-    smart_print_color(&#34;     ~Edit configurations in ~/.anchorage/config.toml\n&#34;, &#34;green&#34;)
+    smart_print_color(&#34;     ~Edit configuration in ~/.anchorage/config.toml\n&#34;, &#34;green&#34;)
 
     # 2. Browser choice
     cfg = read_config()
-
     brow_choice = [{
                     &#39;type&#39;: &#39;list&#39;,
                     &#39;name&#39;: &#39;browser&#39;,
                     &#39;message&#39;: f&#39;Please choose the browser from which to archive all bookmarks.&#39;,
                     &#39;default&#39;: True,
-                    &#39;choices&#39;: list(cfg.keys())[:-1],
+                    &#39;choices&#39;: list(map(lambda s: s.title(), list(cfg.keys()))),
                     &#39;filter&#39;: lambda n: n.lower()
                    }]
-
-    bmk_dict = load(path(prompt(brow_choice, style=style)[&#39;browser&#39;]))
+    browser = prompt(brow_choice, style=style)[&#39;browser&#39;]
     newline()
+    if cfg[browser][operating_system()] == &#34;?&#34;:
+        smart_print_color(&#34;     ~The path to this browser hasn&#39;t been set up yet in your configuration file.&#34;, &#34;red&#34;)
+        print(f&#34;     ~Edit ~/anchorage/config.toml to include the path for your {browser.title()} &#34;
+              f&#34;bookmarks file and try again.\n&#34;)
+        sys.exit()
+    try:
+        bmk_dict = load(path(browser))
+    except FileNotFoundError:
+        smart_print_color(&#34;     ~Error: file not found.&#34;, &#34;red&#34;)
+        smart_print_color(&#34;\n     ~Edit ~/anchorage/config.toml to include the correct bookmark file path &#34;
+                          &#34;for your browser and try again.\n&#34;, &#34;red&#34;)
+        sys.exit()
 
     # 3. Bookmark filter
     #     - Local files
@@ -152,28 +181,28 @@ def interface():
                     &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
                   }]
 
-    filter_kind = [{
-                    &#39;type&#39;: &#39;checkbox&#39;,
-                    &#39;name&#39;: &#39;kind&#39;,
-                    &#39;message&#39;: f&#39;Specify filter targets.&#39;,
-                    &#39;choices&#39;: [
-                        {
-                            &#39;name&#39;: &#39;Directories&#39;
-                        },
-                        {
-                            &#39;name&#39;: &#39;Names&#39;
-                        },
-                        {
-                            &#39;name&#39;: &#39;URLs&#39;
-                        },
-                    ],
-                    &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
-                  }]
+    filter_kind = lambda kind: [{
+                                    &#39;type&#39;: &#39;checkbox&#39;,
+                                    &#39;name&#39;: &#39;kind&#39;,
+                                    &#39;message&#39;: f&#39;Specify targets for {kind} filter.&#39;,
+                                    &#39;choices&#39;: [
+                                        {
+                                            &#39;name&#39;: &#39;Directories&#39;
+                                        },
+                                        {
+                                            &#39;name&#39;: &#39;Names&#39;
+                                        },
+                                        {
+                                            &#39;name&#39;: &#39;URLs&#39;
+                                        },
+                                    ],
+                                    &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
+                                }]
 
     filter_input = lambda terms: prompt([{
                                             &#39;type&#39;: &#39;input&#39;,
                                             &#39;name&#39;: &#39;input&#39;,
-                                            &#39;message&#39;: f&#39;Enter a comma-separated list of the {terms} to filter.&#39;,
+                                            &#39;message&#39;: f&#39;Enter a comma-separated list of {terms} to filter out.&#39;,
                                             &#39;default&#39;: &#39;&#39;,
                                             &#39;filter&#39;: lambda string: string.split(&#34;,&#34;)
                                         }], style=style)[&#39;input&#39;]
@@ -181,7 +210,7 @@ def interface():
     filter_regex = lambda terms: prompt([{
                                             &#39;type&#39;: &#39;input&#39;,
                                             &#39;name&#39;: &#39;input&#39;,
-                                            &#39;message&#39;: f&#39;Enter regex formula to filter OUT {terms}.&#39;,
+                                            &#39;message&#39;: f&#39;Enter regex formula to filter out {terms}.&#39;,
                                             &#39;default&#39;: &#39;&#39;
                                          }], style=style)[&#39;input&#39;]
 
@@ -199,46 +228,43 @@ def interface():
     drop_url_regex  = None
 
     if &#39;match string&#39; in drop_list:
-        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        kind = prompt(filter_kind(&#39;string&#39;), style=style)[&#39;kind&#39;]
         newline()
         if &#39;directories&#39; in kind:
-            drop_dirs = filter_input(&#39;directories&#39;)
+            drop_dirs = filter_input(&#39;bookmark directory names&#39;)
             newline()
         if &#39;names&#39; in kind:
-            drop_names = filter_input(&#39;names&#39;)
+            drop_names = filter_input(&#39;bookmark names&#39;)
             newline()
         if &#39;urls&#39; in kind:
-            drop_urls = filter_input(&#39;URLs&#39;)
+            drop_urls = filter_input(&#39;bookmark URLs&#39;)
             newline()
     if &#39;match substring&#39; in drop_list:
-        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        kind = prompt(filter_kind(&#39;substring&#39;), style=style)[&#39;kind&#39;]
         newline()
         if &#39;directories&#39; in kind:
-            drop_dir_subs = filter_input(&#39;directory substrings&#39;)
+            drop_dir_subs = filter_input(&#39;bookmark directory name substrings&#39;)
             newline()
         if &#39;names&#39; in kind:
-            drop_name_subs = filter_input(&#39;name substrings&#39;)
+            drop_name_subs = filter_input(&#39;bookmark name substrings&#39;)
             newline()
         if &#39;urls&#39; in kind:
-            drop_url_subs = filter_input(&#39;URL substrings&#39;)
+            drop_url_subs = filter_input(&#39;bookmark URL substrings&#39;)
             newline()
     if &#39;regex&#39; in drop_list:
-        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        kind = prompt(filter_kind(&#39;regex&#39;), style=style)[&#39;kind&#39;]
         newline()
         if &#39;directories&#39; in kind:
-            drop_dir_regex = filter_regex(&#39;bookmark directories&#39;)
+            drop_dir_regex = filter_regex(&#39;bookmark directory names&#39;)
             newline()
-            expr_check(drop_dir_regex)
         if &#39;names&#39; in kind:
             drop_name_regex = filter_regex(&#39;bookmark names&#39;)
             newline()
-            expr_check(drop_name_regex)
         if &#39;urls&#39; in kind:
             drop_url_regex = filter_regex(&#39;bookmark URLs&#39;)
             newline()
-            expr_check(drop_url_regex)
 
-    smart_print_color(&#34;     ~Applying filters to bookmark collection&#34;, &#34;yellow&#34;)
+    smart_print_color(&#34;     ~Applying filters to bookmark collection&#34;, &#34;white&#34;)
 
     bmk = bookmarks(bmk_dict,
                     drop_local_files=&#39;local files&#39; in drop_list,
@@ -252,10 +278,11 @@ def interface():
                     drop_names_regex=drop_name_regex,
                     drop_urls_regex=drop_url_regex,
                     )
+    n_bookmarks = len(bmk.bookmarks)
+    n_directories = bmk.n_dirs
+    smart_print_color(f&#34;     ~Done! Found {n_bookmarks} bookmarks in {n_directories} directories.\n&#34;, &#34;green&#34;)
 
-    smart_print_color(f&#34;     ~Done! Found {len(bmk.bookmarks)} bookmarks in {bmk.n_dirs} directories.\n&#34;, &#34;green&#34;)
-
-    # 4. Local or online archive
+    # 4. Archive choice
     archive_choice = [{
                     &#39;type&#39;: &#39;list&#39;,
                     &#39;name&#39;: &#39;archive&#39;,
@@ -265,21 +292,57 @@ def interface():
                      }]
 
     archive = prompt(archive_choice, style=style)[&#39;archive&#39;]
+    newline()
 
-    if archive == &#39;online&#39;:         # Anchor online
-        anchor_online(bmk)
-
-    if archive == &#39;local&#39;:          # Anchor locally
-
-        dir_prompt = [{             # Archive directory input
+    if archive == &#39;online&#39;:         # Online archive: save existing entries?
+        smart_print_color(f&#34;     ~By default websites will not be archived if a previous image &#34;
+                          f&#34;exists in The Internet Archive.\n&#34;, &#34;white&#34;)
+        ovw_online = [{
+                          &#39;type&#39;: &#39;confirm&#39;,
+                          &#39;name&#39;: &#39;overwrite&#39;,
+                          &#39;message&#39;: &#39;Save snapshots even if previous ones exist?&#39;,
+                          &#39;default&#39;: False
+                     }]
+        overwrite = prompt(ovw_online, style=style)[&#39;overwrite&#39;]
+        newline()
+        if overwrite:
+            smart_print_color(f&#34;     ~Current snapshots will be saved for your entire collection. &#34;
+                              f&#34;Expect a runtime of {n_bookmarks*15/3600:.2f} to {n_bookmarks*60/3600:.2f} &#34;
+                              f&#34;hours.\n&#34;, &#34;green&#34;)
+        else:
+            smart_print_color(f&#34;     ~Expect a runtime of {n_bookmarks*1.5/3600:.2f} to &#34;
+                              f&#34;{n_bookmarks*3/3600:.2f} hours.\n&#34;, &#34;green&#34;)
+    if archive == &#39;local&#39;:          # Local archive directory
+        dir_prompt = [{
                           &#39;type&#39;: &#39;input&#39;,
                           &#39;name&#39;: &#39;dir&#39;,
-                          &#39;message&#39;: &#39;Enter the full path of the archive directory (default: ./anchor).&#39;,
+                          &#39;message&#39;: &#39;Enter the relative or full path of the archive directory.&#39;,
                           &#39;default&#39;: &#39;./anchor&#39;
                      }]
         archive_dir = prompt(dir_prompt, style=style)[&#39;dir&#39;]
+        newline()
 
-        anchor_locally(bmk, archive_dir)</code></pre>
+    # 5. Confirmation
+    confirmation = lambda br, nb: [{
+                                        &#39;type&#39;: &#39;confirm&#39;,
+                                        &#39;name&#39;: &#39;go&#39;,
+                                        &#39;message&#39;: &#39;All set! Proceed to archive your&#39;
+                                                   + &#34; &#34; + str(br) + &#34; &#34; + str(nb) + &#34; &#34; +
+                                                   &#39;bookmark collection?&#39;,
+                                        &#39;default&#39;: True
+                                   }]
+    conf_prompt = confirmation(browser.title(), n_bookmarks)
+
+    go = prompt(conf_prompt, style=style)[&#39;go&#39;]
+    newline()
+
+    if go:
+        if archive == &#39;online&#39;:                     # Anchor online
+            anchor_online(bmk, overwrite)
+        elif archive == &#39;local&#39;:                    # Anchor locally
+            anchor_locally(bmk, archive_dir)
+    else:
+        smart_print_color(&#34;     ~Operation cancelled\n&#34;, &#34;red&#34;)</code></pre>
 </details>
 </section>
 <section>
@@ -289,63 +352,52 @@ def interface():
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="anchorage.cli.interface"><code class="name flex">
-<span>def <span class="ident">interface</span></span>(<span>)</span>
+<dt id="anchorage.cli.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><h1 id="cli-interface-for-the-anchorage-library">CLI interface for the Anchorage library.</h1>
-<ol>
-<li>Dependency check<ul>
-<li>pip install &ndash;upgrade anchorage</li>
-<li>check_install</li>
-</ul>
-</li>
-<li>Browser choice</li>
-<li>Bookmark filter<ul>
-<li>Local files</li>
-<li>String match<ul>
-<li>Directories</li>
-<li>Bookmark name</li>
-<li>Bookmark URL</li>
-</ul>
-</li>
-<li>Substring match<ul>
-<li>Directories</li>
-<li>Bookmark name</li>
-<li>Bookmark URL</li>
-</ul>
-</li>
-<li>Regex match<ul>
-<li>Directories</li>
-<li>Bookmark name</li>
-<li>Bookmark URL</li>
-</ul>
-</li>
-<li><em>Duplicate URLs are excluded by default</em></li>
-</ul>
-</li>
-<li>Local or online archive choice<ul>
-<li>Online</li>
-<li>Local<ul>
-<li>Local archive directory input</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol></div>
+<div class="desc"><h1 id="anchorage-library-cli">Anchorage library CLI.</h1>
+<h2 id="1-dependency-check">1. Dependency check</h2>
+<pre><code>- pip install --upgrade anchorage
+- check_install
+</code></pre>
+<h2 id="2-browser-choice">2. Browser choice</h2>
+<h2 id="3-bookmark-filter">3. Bookmark filter</h2>
+<pre><code>- Local files
+- String match
+    - Directories
+    - Bookmark name
+    - Bookmark URL
+- Substring match
+    - Directories
+    - Bookmark name
+    - Bookmark URL
+- Regex match
+    - Directories
+    - Bookmark name
+    - Bookmark URL
+- *Duplicate URLs are excluded by default*
+</code></pre>
+<h2 id="4-archive-choice">4. Archive choice</h2>
+<pre><code>- Online
+    - Skip sites already saved in TIA, or generate current snapshots for all sites in the collection
+- Local
+    - Local archive directory input
+</code></pre>
+<h2 id="5-confirmation">5. Confirmation</h2></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def interface():
+<pre><code class="python">def main():
     &#34;&#34;&#34;
-    # CLI interface for the Anchorage library.
+    # Anchorage library CLI.
 
-    1. Dependency check
+    ## 1. Dependency check
         - pip install --upgrade anchorage
         - check_install
-    2. Browser choice
-    3. Bookmark filter
+    ## 2. Browser choice
+    ## 3. Bookmark filter
         - Local files
         - String match
             - Directories
@@ -360,10 +412,12 @@ def interface():
             - Bookmark name
             - Bookmark URL
         - *Duplicate URLs are excluded by default*
-    4. Local or online archive choice
+    ## 4. Archive choice
         - Online
+            - Skip sites already saved in TIA, or generate current snapshots for all sites in the collection
         - Local
             - Local archive directory input
+    ## 5. Confirmation
     &#34;&#34;&#34;
 
     # Title
@@ -376,7 +430,7 @@ def interface():
         Token.QuestionMark:     &#39;#E91E63 bold&#39;,
         Token.Selected:         &#39;#673AB7 bold&#39;,
         Token.Instruction:      &#39;&#39;,                # default
-        Token.Answer:           &#39;#2196f3 bold&#39;,
+        Token.Answer:           &#39;#9cdeff bold&#39;,
         Token.Question:         &#39;&#39;,
     })
 
@@ -392,29 +446,54 @@ def interface():
                 }]
 
     if not prompt(dp_check, style=style)[&#39;ready&#39;]:
-        smart_print_color(&#34;\n     Operation cancelled\n&#34;, &#34;red&#34;)
+        smart_print_color(&#34;\n     ~Operation cancelled\n&#34;, &#34;red&#34;)
         sys.exit()
 
-    smart_print_color(&#34;\n     ~Running dependency checks&#34;, &#34;yellow&#34;)
+    smart_print_color(&#34;\n     ~Running dependency checks&#34;, &#34;white&#34;)
     shell(&#34;pip3 install --upgrade anchorage&#34;)
-    init()
+
+    if check_install() == 0:
+        print(&#34;&#34;)
+        reset_config = [{
+            &#39;type&#39;: &#39;confirm&#39;,
+            &#39;name&#39;: &#39;reset&#39;,
+            &#39;message&#39;: f&#39;Previous config detected: reset config.toml?&#39;,
+            &#39;default&#39;: False,
+        }]
+        reset = prompt(reset_config, style=style)[&#39;reset&#39;]
+        newline()
+    else:
+        reset = False
+
+    init(reset)
+
     smart_print_color(&#34;     ~Everything in order!&#34;, &#34;green&#34;)
-    smart_print_color(&#34;     ~Edit configurations in ~/.anchorage/config.toml\n&#34;, &#34;green&#34;)
+    smart_print_color(&#34;     ~Edit configuration in ~/.anchorage/config.toml\n&#34;, &#34;green&#34;)
 
     # 2. Browser choice
     cfg = read_config()
-
     brow_choice = [{
                     &#39;type&#39;: &#39;list&#39;,
                     &#39;name&#39;: &#39;browser&#39;,
                     &#39;message&#39;: f&#39;Please choose the browser from which to archive all bookmarks.&#39;,
                     &#39;default&#39;: True,
-                    &#39;choices&#39;: list(cfg.keys())[:-1],
+                    &#39;choices&#39;: list(map(lambda s: s.title(), list(cfg.keys()))),
                     &#39;filter&#39;: lambda n: n.lower()
                    }]
-
-    bmk_dict = load(path(prompt(brow_choice, style=style)[&#39;browser&#39;]))
+    browser = prompt(brow_choice, style=style)[&#39;browser&#39;]
     newline()
+    if cfg[browser][operating_system()] == &#34;?&#34;:
+        smart_print_color(&#34;     ~The path to this browser hasn&#39;t been set up yet in your configuration file.&#34;, &#34;red&#34;)
+        print(f&#34;     ~Edit ~/anchorage/config.toml to include the path for your {browser.title()} &#34;
+              f&#34;bookmarks file and try again.\n&#34;)
+        sys.exit()
+    try:
+        bmk_dict = load(path(browser))
+    except FileNotFoundError:
+        smart_print_color(&#34;     ~Error: file not found.&#34;, &#34;red&#34;)
+        smart_print_color(&#34;\n     ~Edit ~/anchorage/config.toml to include the correct bookmark file path &#34;
+                          &#34;for your browser and try again.\n&#34;, &#34;red&#34;)
+        sys.exit()
 
     # 3. Bookmark filter
     #     - Local files
@@ -442,28 +521,28 @@ def interface():
                     &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
                   }]
 
-    filter_kind = [{
-                    &#39;type&#39;: &#39;checkbox&#39;,
-                    &#39;name&#39;: &#39;kind&#39;,
-                    &#39;message&#39;: f&#39;Specify filter targets.&#39;,
-                    &#39;choices&#39;: [
-                        {
-                            &#39;name&#39;: &#39;Directories&#39;
-                        },
-                        {
-                            &#39;name&#39;: &#39;Names&#39;
-                        },
-                        {
-                            &#39;name&#39;: &#39;URLs&#39;
-                        },
-                    ],
-                    &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
-                  }]
+    filter_kind = lambda kind: [{
+                                    &#39;type&#39;: &#39;checkbox&#39;,
+                                    &#39;name&#39;: &#39;kind&#39;,
+                                    &#39;message&#39;: f&#39;Specify targets for {kind} filter.&#39;,
+                                    &#39;choices&#39;: [
+                                        {
+                                            &#39;name&#39;: &#39;Directories&#39;
+                                        },
+                                        {
+                                            &#39;name&#39;: &#39;Names&#39;
+                                        },
+                                        {
+                                            &#39;name&#39;: &#39;URLs&#39;
+                                        },
+                                    ],
+                                    &#39;filter&#39;: lambda lst: [n.lower() if isinstance(n, str) else n for n in lst]
+                                }]
 
     filter_input = lambda terms: prompt([{
                                             &#39;type&#39;: &#39;input&#39;,
                                             &#39;name&#39;: &#39;input&#39;,
-                                            &#39;message&#39;: f&#39;Enter a comma-separated list of the {terms} to filter.&#39;,
+                                            &#39;message&#39;: f&#39;Enter a comma-separated list of {terms} to filter out.&#39;,
                                             &#39;default&#39;: &#39;&#39;,
                                             &#39;filter&#39;: lambda string: string.split(&#34;,&#34;)
                                         }], style=style)[&#39;input&#39;]
@@ -471,7 +550,7 @@ def interface():
     filter_regex = lambda terms: prompt([{
                                             &#39;type&#39;: &#39;input&#39;,
                                             &#39;name&#39;: &#39;input&#39;,
-                                            &#39;message&#39;: f&#39;Enter regex formula to filter OUT {terms}.&#39;,
+                                            &#39;message&#39;: f&#39;Enter regex formula to filter out {terms}.&#39;,
                                             &#39;default&#39;: &#39;&#39;
                                          }], style=style)[&#39;input&#39;]
 
@@ -489,46 +568,43 @@ def interface():
     drop_url_regex  = None
 
     if &#39;match string&#39; in drop_list:
-        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        kind = prompt(filter_kind(&#39;string&#39;), style=style)[&#39;kind&#39;]
         newline()
         if &#39;directories&#39; in kind:
-            drop_dirs = filter_input(&#39;directories&#39;)
+            drop_dirs = filter_input(&#39;bookmark directory names&#39;)
             newline()
         if &#39;names&#39; in kind:
-            drop_names = filter_input(&#39;names&#39;)
+            drop_names = filter_input(&#39;bookmark names&#39;)
             newline()
         if &#39;urls&#39; in kind:
-            drop_urls = filter_input(&#39;URLs&#39;)
+            drop_urls = filter_input(&#39;bookmark URLs&#39;)
             newline()
     if &#39;match substring&#39; in drop_list:
-        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        kind = prompt(filter_kind(&#39;substring&#39;), style=style)[&#39;kind&#39;]
         newline()
         if &#39;directories&#39; in kind:
-            drop_dir_subs = filter_input(&#39;directory substrings&#39;)
+            drop_dir_subs = filter_input(&#39;bookmark directory name substrings&#39;)
             newline()
         if &#39;names&#39; in kind:
-            drop_name_subs = filter_input(&#39;name substrings&#39;)
+            drop_name_subs = filter_input(&#39;bookmark name substrings&#39;)
             newline()
         if &#39;urls&#39; in kind:
-            drop_url_subs = filter_input(&#39;URL substrings&#39;)
+            drop_url_subs = filter_input(&#39;bookmark URL substrings&#39;)
             newline()
     if &#39;regex&#39; in drop_list:
-        kind = prompt(filter_kind, style=style)[&#39;kind&#39;]
+        kind = prompt(filter_kind(&#39;regex&#39;), style=style)[&#39;kind&#39;]
         newline()
         if &#39;directories&#39; in kind:
-            drop_dir_regex = filter_regex(&#39;bookmark directories&#39;)
+            drop_dir_regex = filter_regex(&#39;bookmark directory names&#39;)
             newline()
-            expr_check(drop_dir_regex)
         if &#39;names&#39; in kind:
             drop_name_regex = filter_regex(&#39;bookmark names&#39;)
             newline()
-            expr_check(drop_name_regex)
         if &#39;urls&#39; in kind:
             drop_url_regex = filter_regex(&#39;bookmark URLs&#39;)
             newline()
-            expr_check(drop_url_regex)
 
-    smart_print_color(&#34;     ~Applying filters to bookmark collection&#34;, &#34;yellow&#34;)
+    smart_print_color(&#34;     ~Applying filters to bookmark collection&#34;, &#34;white&#34;)
 
     bmk = bookmarks(bmk_dict,
                     drop_local_files=&#39;local files&#39; in drop_list,
@@ -542,10 +618,11 @@ def interface():
                     drop_names_regex=drop_name_regex,
                     drop_urls_regex=drop_url_regex,
                     )
+    n_bookmarks = len(bmk.bookmarks)
+    n_directories = bmk.n_dirs
+    smart_print_color(f&#34;     ~Done! Found {n_bookmarks} bookmarks in {n_directories} directories.\n&#34;, &#34;green&#34;)
 
-    smart_print_color(f&#34;     ~Done! Found {len(bmk.bookmarks)} bookmarks in {bmk.n_dirs} directories.\n&#34;, &#34;green&#34;)
-
-    # 4. Local or online archive
+    # 4. Archive choice
     archive_choice = [{
                     &#39;type&#39;: &#39;list&#39;,
                     &#39;name&#39;: &#39;archive&#39;,
@@ -555,21 +632,57 @@ def interface():
                      }]
 
     archive = prompt(archive_choice, style=style)[&#39;archive&#39;]
+    newline()
 
-    if archive == &#39;online&#39;:         # Anchor online
-        anchor_online(bmk)
-
-    if archive == &#39;local&#39;:          # Anchor locally
-
-        dir_prompt = [{             # Archive directory input
+    if archive == &#39;online&#39;:         # Online archive: save existing entries?
+        smart_print_color(f&#34;     ~By default websites will not be archived if a previous image &#34;
+                          f&#34;exists in The Internet Archive.\n&#34;, &#34;white&#34;)
+        ovw_online = [{
+                          &#39;type&#39;: &#39;confirm&#39;,
+                          &#39;name&#39;: &#39;overwrite&#39;,
+                          &#39;message&#39;: &#39;Save snapshots even if previous ones exist?&#39;,
+                          &#39;default&#39;: False
+                     }]
+        overwrite = prompt(ovw_online, style=style)[&#39;overwrite&#39;]
+        newline()
+        if overwrite:
+            smart_print_color(f&#34;     ~Current snapshots will be saved for your entire collection. &#34;
+                              f&#34;Expect a runtime of {n_bookmarks*15/3600:.2f} to {n_bookmarks*60/3600:.2f} &#34;
+                              f&#34;hours.\n&#34;, &#34;green&#34;)
+        else:
+            smart_print_color(f&#34;     ~Expect a runtime of {n_bookmarks*1.5/3600:.2f} to &#34;
+                              f&#34;{n_bookmarks*3/3600:.2f} hours.\n&#34;, &#34;green&#34;)
+    if archive == &#39;local&#39;:          # Local archive directory
+        dir_prompt = [{
                           &#39;type&#39;: &#39;input&#39;,
                           &#39;name&#39;: &#39;dir&#39;,
-                          &#39;message&#39;: &#39;Enter the full path of the archive directory (default: ./anchor).&#39;,
+                          &#39;message&#39;: &#39;Enter the relative or full path of the archive directory.&#39;,
                           &#39;default&#39;: &#39;./anchor&#39;
                      }]
         archive_dir = prompt(dir_prompt, style=style)[&#39;dir&#39;]
+        newline()
 
-        anchor_locally(bmk, archive_dir)</code></pre>
+    # 5. Confirmation
+    confirmation = lambda br, nb: [{
+                                        &#39;type&#39;: &#39;confirm&#39;,
+                                        &#39;name&#39;: &#39;go&#39;,
+                                        &#39;message&#39;: &#39;All set! Proceed to archive your&#39;
+                                                   + &#34; &#34; + str(br) + &#34; &#34; + str(nb) + &#34; &#34; +
+                                                   &#39;bookmark collection?&#39;,
+                                        &#39;default&#39;: True
+                                   }]
+    conf_prompt = confirmation(browser.title(), n_bookmarks)
+
+    go = prompt(conf_prompt, style=style)[&#39;go&#39;]
+    newline()
+
+    if go:
+        if archive == &#39;online&#39;:                     # Anchor online
+            anchor_online(bmk, overwrite)
+        elif archive == &#39;local&#39;:                    # Anchor locally
+            anchor_locally(bmk, archive_dir)
+    else:
+        smart_print_color(&#34;     ~Operation cancelled\n&#34;, &#34;red&#34;)</code></pre>
 </details>
 </dd>
 </dl>
@@ -590,7 +703,7 @@ def interface():
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="anchorage.cli.interface" href="#anchorage.cli.interface">interface</a></code></li>
+<li><code><a title="anchorage.cli.main" href="#anchorage.cli.main">main</a></code></li>
 </ul>
 </li>
 </ul>

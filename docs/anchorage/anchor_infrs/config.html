@@ -26,54 +26,60 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">config = &#39;# Welcome to the\n&#39; \
-         &#39;#     /\              | |                                      | (_)\n&#39; \
-         &#39;#    /  \   _ __   ___| |__   ___  _ __ __ _  __ _  ___     ___| |_\n&#39; \
-         &#39;#   / /\ \ |  _ \ / __|  _ \ / _ \|  __/ _  |/ _  |/ _ \   / __| | |\n&#39; \
-         &#39;#  / ____ \| | | | (__| | | | (_) | | | (_| | (_| |  __/  | (__| | |\n&#39; \
-         &#39;# /_/    \_\_| |_|\___|_| |_|\___/|_|  \__,_|\__, |\___|   \___|_|_|\n&#39; \
-         &#39;#                                            __/ |                  \n&#39; \
-         &#39;#                                           |___/                   \n&#39; \
-         &#39;#                                                 Configuration file\n&#39; \
-         &#39;#\n&#39; \
-         &#39;# Below you can see the path to the Bookmarks JSON/JSONLZ4 file for a\n&#39; \
-         &#39;# series of browsers.\n&#39; \
-         &#39;# \n&#39; \
-         &#39;# Set your default browser to one of the available to skip browser\n&#39; \
-         &#39;# choice when using the Anchorage CLI. \n&#39; \
-         &#39;# \n&#39; \
-         &#39;# You can add new browsers and the path to their bookmarks file. You \n&#39; \
-         &#39;# will then be able to set the new browser as the default, or choose\n&#39; \
-         &#39;# it in the Anchorage CLI.\n&#39; \
-         &#39;# \n&#39; \
-         &#39;# If using a custom browser **it must comply with the Chromium or \n&#39; \
-         &#39;# Firefox bookmark storage conventions (i.e. dictionary key naming)**.\n&#39; \
-         &#39;# If this is not the case, export your bookmarks to a supported browser\n&#39; \
-         &#39;# and proceed.\n&#39; \
-         &#39;#                                           Antonio Lopez Rivera, 2021\n&#39; \
-         &#39;\n&#39; \
-         &#39;[chrome]\n&#39; \
-         &#39;linux = &#34;~/.config/google-chrome/Default/Bookmarks&#34;\n&#39; \
-         &#39;macos = &#34;~/Library/Application Support/Google/Chrome/Default/Bookmarks&#34;\n&#39; \
-         &#39;windows = &#34;Local/Google/Chrome/User Data/Default/Bookmarks&#34;\n&#39; \
-         &#39;\n&#39; \
-         &#39;[edge]\n&#39; \
-         &#39;linux = &#34;?&#34;\n&#39; \
-         &#39;macos = &#34;?&#34;\n&#39; \
-         &#39;windows = &#34;Local/Microsoft/Edge/User Data/Default/Bookmarks&#34;\n&#39; \
-         &#39;\n&#39; \
-         &#39;[firefox]\n&#39; \
-         &#39;linux = &#34;?&#34;\n&#39; \
-         &#39;macos = &#34;?&#34;\n&#39; \
-         &#39;windows = &#34;Roaming/Mozilla/Firefox/Profiles/mfeew61f.default-release/bookmarkbackups/&#34; \n&#39; \
-         &#39;\n&#39; \
-         &#39;[&#34;edge beta&#34;]\n&#39; \
-         &#39;linux = &#34;?&#34;\n&#39; \
-         &#39;macos = &#34;?&#34;\n&#39; \
-         &#39;windows = &#34;Local/Microsoft/Edge Beta/User Data/Default/Bookmarks&#34;\n&#39; \
-         &#39;\n&#39; \
-         &#39;[defaults]\n&#39; \
-         &#39;browser = &#34;edge beta&#34;\n&#39; \</code></pre>
+<pre><code class="python">import codecs
+
+config = codecs.decode(r&#39;# Welcome to the                                                       \n&#39;
+                       r&#39;#     /\              | |                                      | (_)   \n&#39;
+                       r&#39;#    /  \   _ __   ___| |__   ___  _ __ __ _  __ _  ___     ___| |_|   \n&#39;
+                       r&#39;#   / /\ \ |  _ \ / __|  _ \ / _ \|  __/ _  |/ _  |/ _ \   / __| | |   \n&#39;
+                       r&#39;#  / ____ \| | | | (__| | | | (_) | | | (_| | (_| |  __/  | (__| | |   \n&#39;
+                       r&#39;# /_/    \_\_| |_|\___|_| |_|\___/|_|  \__,_|\__, |\___|   \___|_|_|   \n&#39;
+                       r&#39;#                                            __/ |                     \n&#39;
+                       r&#39;#                                           |___/                      \n&#39;
+                       r&#39;#                                                 Configuration file   \n&#39;
+                       r&#39;#\n&#39;
+                       r&#39;# Below you can see the path to the Bookmarks JSON/JSONLZ4 file for a  \n&#39;
+                       r&#39;# series of browsers.\n&#39;
+                       r&#39;# \n&#39;
+                       r&#39;# Set your default browser to one of the available to skip browser     \n&#39;
+                       r&#39;# choice when using the Anchorage CLI.                                 \n&#39;
+                       r&#39;# \n&#39;
+                       r&#39;# You can add new browsers and the path to their bookmarks file. You   \n&#39;
+                       r&#39;# will then be able to set the new browser as the default, or choose   \n&#39;
+                       r&#39;# it in the Anchorage CLI.                                             \n&#39;
+                       r&#39;# \n&#39;
+                       r&#39;# If using a custom browser **it must comply with the Chromium or      \n&#39;
+                       r&#39;# Firefox bookmark storage conventions (i.e. dictionary key naming)**. \n&#39;
+                       r&#39;# If this is not the case, export your bookmarks to a supported browser\n&#39;
+                       r&#39;# and proceed.                                                         \n&#39;
+                       r&#39;# \n&#39;
+                       r&#39;# Path convention:                                                     \n&#39;
+                       r&#39;#      Windows:            APPDATA/&lt;your path&gt;                         \n&#39;
+                       r&#39;#      Linux, MacOS:       &lt;full path&gt;                                 \n&#39;
+                       r&#39;# \n&#39;
+                       r&#39;#                                           Antonio Lopez Rivera, 2021 \n&#39;
+                       r&#39;\n&#39;
+                       r&#39;[chrome]\n&#39;
+                       r&#39;linux = &#34;?&#34;\n&#39;
+                       r&#39;macos = &#34;?&#34;\n&#39;
+                       r&#39;windows = &#34;Local/Google/Chrome/User Data/Default/Bookmarks&#34;\n&#39;
+                       r&#39;\n&#39;
+                       r&#39;[firefox]\n&#39;
+                       r&#39;linux = &#34;?&#34;\n&#39;
+                       r&#39;macos = &#34;?&#34;\n&#39;
+                       r&#39;windows = &#34;Roaming/Mozilla/Firefox/Profiles/mfeew61f.default-release/bookmarkbackups/&#34;\n&#39;
+                       r&#39;\n&#39;
+                       r&#39;[edge]\n&#39;
+                       r&#39;linux = &#34;?&#34;\n&#39;
+                       r&#39;macos = &#34;?&#34;\n&#39;
+                       r&#39;windows = &#34;Local/Microsoft/Edge/User Data/Default/Bookmarks&#34;\n&#39;
+                       r&#39;\n&#39;
+                       r&#39;[&#34;edge beta&#34;]\n&#39;
+                       r&#39;linux = &#34;?&#34;\n&#39;
+                       r&#39;macos = &#34;?&#34;\n&#39;
+                       r&#39;windows = &#34;Local/Microsoft/Edge Beta/User Data/Default/Bookmarks&#34;\n&#39;
+                       ,
+                       &#39;unicode_escape&#39;)</code></pre>
 </details>
 </section>
 <section>

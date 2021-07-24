@@ -26,11 +26,28 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from pyfiglet import Figlet
+<pre><code class="python">import os
+import sys
+from pyfiglet import Figlet
 
 from Alexandria.general.console import print_color
 
 from anchorage.anchor_utils.system import operating_system
+
+
+def supports_color():
+    &#34;&#34;&#34;
+    From Django - https://github.com/django/django/blob/main/django/core/management/color.py
+
+    Returns True if the running system&#39;s terminal supports color, and False
+    otherwise.
+    &#34;&#34;&#34;
+    plat = sys.platform
+    supported_platform = plat != &#39;Pocket PC&#39; and (plat != &#39;win32&#39; or
+                                                  &#39;ANSICON&#39; in os.environ)
+    # isatty is not always implemented, #6223.
+    is_a_tty = hasattr(sys.stdout, &#39;isatty&#39;) and sys.stdout.isatty()
+    return supported_platform and is_a_tty
 
 
 def smart_print_color(text, color, **kwargs):
@@ -42,7 +59,7 @@ def smart_print_color(text, color, **kwargs):
     :param color: Text color
     :param kwargs: Any further keyword arguments for the `print` function
     &#34;&#34;&#34;
-    if operating_system() in [&#34;linux&#34;, &#34;macos&#34;]:
+    if supports_color():
         print_color(text, color, **kwargs)
     else:
         print(text, **kwargs)
@@ -55,7 +72,7 @@ def newline():
     print(&#34;&#34;)
 
 
-def title(text=&#34;Anchorage&#34;, font=&#34;big&#34;, color=&#34;yellow&#34;):
+def title(text=&#34;Anchorage&#34;, font=&#34;big&#34;, color=&#34;cyan&#34;):
     &#34;&#34;&#34;
     Generates the Anchorage CLI title.
 
@@ -168,14 +185,40 @@ elsewhere.</p>
     :param color: Text color
     :param kwargs: Any further keyword arguments for the `print` function
     &#34;&#34;&#34;
-    if operating_system() in [&#34;linux&#34;, &#34;macos&#34;]:
+    if supports_color():
         print_color(text, color, **kwargs)
     else:
         print(text, **kwargs)</code></pre>
 </details>
 </dd>
+<dt id="anchorage.anchor_utils.aesthetic.supports_color"><code class="name flex">
+<span>def <span class="ident">supports_color</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>From Django - <a href="https://github.com/django/django/blob/main/django/core/management/color.py">https://github.com/django/django/blob/main/django/core/management/color.py</a></p>
+<p>Returns True if the running system's terminal supports color, and False
+otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def supports_color():
+    &#34;&#34;&#34;
+    From Django - https://github.com/django/django/blob/main/django/core/management/color.py
+
+    Returns True if the running system&#39;s terminal supports color, and False
+    otherwise.
+    &#34;&#34;&#34;
+    plat = sys.platform
+    supported_platform = plat != &#39;Pocket PC&#39; and (plat != &#39;win32&#39; or
+                                                  &#39;ANSICON&#39; in os.environ)
+    # isatty is not always implemented, #6223.
+    is_a_tty = hasattr(sys.stdout, &#39;isatty&#39;) and sys.stdout.isatty()
+    return supported_platform and is_a_tty</code></pre>
+</details>
+</dd>
 <dt id="anchorage.anchor_utils.aesthetic.title"><code class="name flex">
-<span>def <span class="ident">title</span></span>(<span>text='Anchorage', font='big', color='yellow')</span>
+<span>def <span class="ident">title</span></span>(<span>text='Anchorage', font='big', color='cyan')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Generates the Anchorage CLI title.</p>
@@ -186,7 +229,7 @@ elsewhere.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def title(text=&#34;Anchorage&#34;, font=&#34;big&#34;, color=&#34;yellow&#34;):
+<pre><code class="python">def title(text=&#34;Anchorage&#34;, font=&#34;big&#34;, color=&#34;cyan&#34;):
     &#34;&#34;&#34;
     Generates the Anchorage CLI title.
 
@@ -421,6 +464,7 @@ elsewhere.</p>
 <ul class="">
 <li><code><a title="anchorage.anchor_utils.aesthetic.newline" href="#anchorage.anchor_utils.aesthetic.newline">newline</a></code></li>
 <li><code><a title="anchorage.anchor_utils.aesthetic.smart_print_color" href="#anchorage.anchor_utils.aesthetic.smart_print_color">smart_print_color</a></code></li>
+<li><code><a title="anchorage.anchor_utils.aesthetic.supports_color" href="#anchorage.anchor_utils.aesthetic.supports_color">supports_color</a></code></li>
 <li><code><a title="anchorage.anchor_utils.aesthetic.title" href="#anchorage.anchor_utils.aesthetic.title">title</a></code></li>
 </ul>
 </li>
