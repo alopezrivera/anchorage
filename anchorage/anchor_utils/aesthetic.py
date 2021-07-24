@@ -1,8 +1,25 @@
+import os
+import sys
 from pyfiglet import Figlet
 
 from Alexandria.general.console import print_color
 
 from anchorage.anchor_utils.system import operating_system
+
+
+def supports_color():
+    """
+    From Django - https://github.com/django/django/blob/main/django/core/management/color.py
+
+    Returns True if the running system's terminal supports color, and False
+    otherwise.
+    """
+    plat = sys.platform
+    supported_platform = plat != 'Pocket PC' and (plat != 'win32' or
+                                                  'ANSICON' in os.environ)
+    # isatty is not always implemented, #6223.
+    is_a_tty = hasattr(sys.stdout, 'isatty') and sys.stdout.isatty()
+    return supported_platform and is_a_tty
 
 
 def smart_print_color(text, color, **kwargs):
@@ -14,7 +31,7 @@ def smart_print_color(text, color, **kwargs):
     :param color: Text color
     :param kwargs: Any further keyword arguments for the `print` function
     """
-    if operating_system() in ["linux", "macos"]:
+    if supports_color():
         print_color(text, color, **kwargs)
     else:
         print(text, **kwargs)

@@ -47,7 +47,7 @@ def init(archive=None):
     if not isinstance(archive, type(None)):
         os.chdir(archive)
 
-    archivebox("init --setup")
+    shell("echo 'name' | docker-compose archivebox init --setup")
 
 
 def create_archive(archive, overwrite=False):

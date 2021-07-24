@@ -1,3 +1,5 @@
+import os
+
 from anchorage.bookmarks import bookmarks
 from anchorage.anchor_tools.local import create_archive, add as add_local, server
 from anchorage.anchor_tools.online import add as add_online
@@ -12,7 +14,7 @@ def anchor_locally(collection,
     :param archive: Full path of chosen archive. Defaults to "/anchor".
     """
 
-    create_archive(archive)
+    create_archive(os.path.abspath(archive))
 
     if isinstance(collection, bookmarks):
         err = collection.loop(lambda k, v: add_local(url=v["url"]),

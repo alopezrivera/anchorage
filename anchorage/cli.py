@@ -8,7 +8,6 @@ from anchorage.bookmarks import bookmarks, path, load
 from anchorage.anchor import anchor_online, anchor_locally
 from anchorage.anchor_infrs.infrastructure import init, read_config
 from anchorage.anchor_utils.shell import shell
-from anchorage.anchor_utils.regex import expr_check
 from anchorage.anchor_utils.aesthetic import smart_print_color, newline, title
 
 
@@ -23,7 +22,7 @@ except ImportError:
 
 def main():
     """
-    # CLI interface for the Anchorage library.
+    # Anchorage library CLI.
 
     1. Dependency check
         - pip install --upgrade anchorage
@@ -44,10 +43,11 @@ def main():
             - Bookmark name
             - Bookmark URL
         - *Duplicate URLs are excluded by default*
-    4. Local or online archive choice
+    4. Archive choice
         - Online
         - Local
             - Local archive directory input
+    5. Confirmation
     """
 
     # Title
@@ -97,7 +97,8 @@ def main():
                     'filter': lambda n: n.lower()
                    }]
 
-    bmk_dict = load(path(prompt(brow_choice, style=style)['browser']))
+    browser = prompt(brow_choice, style=style)['browser']
+    bmk_dict = load(path(browser))
     newline()
 
     # 3. Bookmark filter
@@ -202,15 +203,12 @@ def main():
         if 'directories' in kind:
             drop_dir_regex = filter_regex('bookmark directory names')
             newline()
-            expr_check(drop_dir_regex)
         if 'names' in kind:
             drop_name_regex = filter_regex('bookmark names')
             newline()
-            expr_check(drop_name_regex)
         if 'urls' in kind:
             drop_url_regex = filter_regex('bookmark URLs')
             newline()
-            expr_check(drop_url_regex)
 
     smart_print_color("     ~Applying filters to bookmark collection", "yellow")
 
@@ -226,10 +224,11 @@ def main():
                     drop_names_regex=drop_name_regex,
                     drop_urls_regex=drop_url_regex,
                     )
+    n_bookmarks = len(bmk.bookmarks)
+    n_directories = bmk.n_dirs
+    smart_print_color(f"     ~Done! Found {n_bookmarks} bookmarks in {n_directories} directories.\n", "green")
 
-    smart_print_color(f"     ~Done! Found {len(bmk.bookmarks)} bookmarks in {bmk.n_dirs} directories.\n", "green")
-
-    # 4. Local or online archive
+    # 4. Archive choice
     archive_choice = [{
                     'type': 'list',
                     'name': 'archive',
@@ -239,18 +238,36 @@ def main():
                      }]
 
     archive = prompt(archive_choice, style=style)['archive']
+    newline()
 
-    if archive == 'online':         # Anchor online
-        anchor_online(bmk)
-
-    if archive == 'local':          # Anchor locally
-
-        dir_prompt = [{             # Archive directory input
+    if archive == 'local':          # Local archive directory
+        dir_prompt = [{
                           'type': 'input',
                           'name': 'dir',
                           'message': 'Enter the full path of the archive directory (default: ./anchor).',
                           'default': './anchor'
                      }]
         archive_dir = prompt(dir_prompt, style=style)['dir']
+        newline()
 
-        anchor_locally(bmk, archive_dir)
+    # 5. Confirmation
+    confirmation = lambda br, nb: [{
+                                        'type': 'confirm',
+                                        'name': 'go',
+                                        'message': 'All set! Proceed to archive your'
+                                                   + " " + str(br) + " " + str(nb) + " " +
+                                                   'bookmark collection?',
+                                        'default': True
+                                   }]
+    conf_prompt = confirmation(browser.title(), n_bookmarks)
+
+    go = prompt(conf_prompt, style=style)['go']
+    newline()
+
+    if go:
+        if archive == 'online':                     # Anchor online
+            anchor_online(bmk)
+        elif archive == 'local':                    # Anchor locally
+            anchor_locally(bmk, archive_dir)
+    else:
+        smart_print_color("\n     Operation cancelled\n", "red")
