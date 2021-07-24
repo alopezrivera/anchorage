@@ -2,7 +2,7 @@
 
 ![alt text](tests/coverage/coverage.svg ".coverage available in tests/coverage/")
 
-<div style="text-align:center"><img align="right" width="135" height="135" src="docs/logo.svg" /></div>
+<div style="text-align:center"><img align="right" width="200" height="200" src="docs/logo.svg" /></div>
 
 As the internet ages, link rot takes over larger and larger swathes of it, bringing with it
 the disappearance of courses, resources, interesting reads and more that we treasure. 
