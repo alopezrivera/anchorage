@@ -42,7 +42,7 @@
 ![alt text](docs/screencaps/title.png)
 
 #### Browser choice
-![alt text](docs/screencaps/br_choice.png | height=70)
+<img src="docs/screencaps/br_choice.png" height="100">
 
 #### Filter choice
 ![alt text](docs/screencaps/filter_choice.png | height=70)
