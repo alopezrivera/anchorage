@@ -28,7 +28,7 @@ def anchor_locally(collection,
     log_anchorage(err)
 
 
-def anchor_online(collection):
+def anchor_online(collection, overwrite):
     """
     Anchor all bookmarks in an online archive.
 
@@ -36,11 +36,11 @@ def anchor_online(collection):
     """
 
     if isinstance(collection, bookmarks):
-        err = collection.loop(lambda k, v: add_online(url=v["url"]),
+        err = collection.loop(lambda k, v: add_online(url=v["url"], overwrite=overwrite),
                               pb_label="ARCHIVING",
                               suppress_output=True)
     else:
-        err = bookmarks(collection).loop(lambda k, v: add_online(url=v["url"]),
+        err = bookmarks(collection).loop(lambda k, v: add_online(url=v["url"], overwrite=overwrite),
                                          pb_label="ARCHIVING",
                                          suppress_output=True)
 

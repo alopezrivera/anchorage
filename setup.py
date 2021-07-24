@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="anchorage",
-    version="1.0.0.0",
+    version="1.1.0.0",
     author="Antonio Lopez Rivera",
     author_email="antonlopezr99@gmail.com",
     description="Anchor your little piece of internet.",
@@ -19,6 +19,7 @@ setuptools.setup(
     },
     packages=setuptools.find_packages(),
     install_requires=[
+        "setuptools",
         "numpy",
         "rapidjson",
         "toml",

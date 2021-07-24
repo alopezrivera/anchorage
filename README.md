@@ -39,6 +39,36 @@
 
 ## 3. Anchorage CLI
 
+![alt text](docs/screencaps/title.png)
+
+#### Browser choice
+![alt text](docs/screencaps/br_choice.png | height=70)
+
+#### Filter choice
+![alt text](docs/screencaps/filter_choice.png | height=70)
+
+##### Filter targets
+![alt text](docs/screencaps/filter_targets.png | height=70)
+
+##### String and substring filters
+![alt text](docs/screencaps/filter_strings.png | height=70)
+
+##### Regex filter
+![alt text](docs/screencaps/filter_regex.png | height=70)
+
+### Archive choice
+![alt text](docs/screencaps/archive_choice.png | height=70)
+
+#### Local: directory choice
+![alt text](docs/screencaps/local_path.png)
+
+#### Online: save current snapshots
+![alt text](docs/screencaps/overwrite.png)
+
+![alt text](docs/screencaps/exp_runtime.png)
+
+#### 
+
 ## 4. Python library
 
 ### 4.1 Bookmark retrieval

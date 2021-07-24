@@ -29,18 +29,20 @@ def path(browser, overwrite=False):
     """
     if browser == "firefox":
         o_sys = operating_system()
-        preamble = ("\\".join(str(os.getenv("APPDATA")).split("\\")[:-1]) + "\\") if o_sys == "windows" else ""
-        dir_path = preamble + loc(overwrite)[browser][o_sys].replace("/", "\\")
+        dir_path = loc(overwrite)[browser][o_sys]
         most_recent = datetime.datetime(1970, 1, 1)
         for filename in os.listdir(dir_path):
             file_date = datetime.datetime.strptime(filename[10:20], "%Y-%m-%d")
             if file_date > most_recent:
                 most_recent = file_date
-                bk_path = dir_path + "\\" + filename
+                bk_path = dir_path + "/" + filename
     else:
         o_sys = operating_system()
-        preamble = ("\\".join(str(os.getenv("APPDATA")).split("\\")[:-1])+"\\") if o_sys == "windows" else ""
-        bk_path = preamble + loc(overwrite)[browser][o_sys].replace("/", "\\")
+        bk_path = loc(overwrite)[browser][o_sys]
+
+    if o_sys == "windows":
+        preamble = ("\\".join(str(os.getenv("APPDATA")).split("\\")[:-1]) + "\\")
+        bk_path = (preamble + bk_path).replace("/", "\\")
     return bk_path
 
 

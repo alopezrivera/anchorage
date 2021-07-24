@@ -44,7 +44,7 @@ def newline():
     print("")
 
 
-def title(text="Anchorage", font="big", color="yellow"):
+def title(text="Anchorage", font="big", color="cyan"):
     """
     Generates the Anchorage CLI title.
 
