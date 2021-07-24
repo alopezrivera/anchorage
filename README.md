@@ -130,13 +130,11 @@ For each you will be prompted to choose to apply it to any or all of the previou
 
 ##### 4. Archive choice
 You will be then asked to choose whether to archive your collection online or locally.
-
 ##### _Online_
-By default websites will not be archived if a previous image exists in The Internet Archive. This is to save time, resting easy as some record of those sites exists. You will be prompted whether to override this and save a snapshot of all websites 
-regardless.
-
-Based on your choice you will be given an estimate of the archive time. 
-
+By default websites will not be archived if a previous image exists in The Internet Archive. This is to save time: we rest easy as a those 
+sites are saved already at some point. In case you want to save a current snapshot of the colection, you will be prompted whether to override this 
+and archive all sites in the collection regardless. This may take significantly longer. Based on your choice, you will be given an estimate of the 
+archive time. 
 ##### _Local_
 To archive your collection locally you will be prompted for an archive directory. 
 
