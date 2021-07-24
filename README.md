@@ -17,7 +17,7 @@ in the [docs](https://anchorage-docs.github.io/) page.
 
 `Antonio Lopez Rivera, 2021`
 
-[](https://github.com/antonlopezr/anchorage/blob/master/docs/demo/gifs/run.gif "Anchorage in action")
+![alt text](https://github.com/antonlopezr/anchorage/blob/master/docs/demo/gifs/run.gif "Anchorage in action")
 
 #### Table of Contents
 
