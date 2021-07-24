@@ -89,7 +89,7 @@ New browsers will automatically be listed in the CLI.
 Importantly:
 - Set unknown bookmark file paths to "?". That way the CLI will recognize those as unknown and behave appropriately.
 
-[](https://github.com/antonlopezr/anchorage/blob/master/docs/demo/gifs/config.gif "Adding the location of the Google Chrome bookmarks file to ~/.anchorage/config.toml")
+![alt text](https://github.com/antonlopezr/anchorage/blob/master/docs/demo/gifs/config.gif "Adding the location of the Google Chrome bookmarks file to ~/.anchorage/config.toml")
 
 ## 4. Anchorage CLI
 The CLI will guide you through retrieving your bookmarks from your browser of choice, applying
