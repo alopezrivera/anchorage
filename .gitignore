@@ -1,7 +1,7 @@
 tests/bookmarks/*
 tests/test_archive/*
 
-web-login.txt
+web_login.txt
 
 dist/*
 build/*
