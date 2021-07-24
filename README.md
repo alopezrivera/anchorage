@@ -2,8 +2,6 @@
 
 ![alt text](tests/coverage/coverage.svg ".coverage available in tests/coverage/")
 
-<div style="text-align:center"><img align="right" width="230" height="230" src="docs/logo.svg" /></div>
-
 As the internet ages, link rot takes over larger and larger swathes of it, bringing with it
 the disappearance of courses, resources, interesting reads and more that we treasure. 
 Anchorage is an attempt to let you save your little corner for good :)
