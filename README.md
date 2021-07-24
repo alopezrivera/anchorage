@@ -42,7 +42,7 @@
 ![alt text](docs/screencaps/title.png)
 
 #### Browser choice
-<img src="docs/demo/screencaps/br_choice.png" height="100">
+<img src="https://github.com/antonlopezr/anchorage/blob/master/docs/demo/br_choice.png" height="100">
 
 #### Filter choice
 ![alt text](docs/screencaps/filter_choice.png | height=70)
