@@ -98,7 +98,14 @@ def main():
                    }]
 
     browser = prompt(brow_choice, style=style)['browser']
-    bmk_dict = load(path(browser))
+    try:
+        bmk_dict = load(path(browser))
+    except FileNotFoundError:
+        smart_print_color("\n     ~Error: file not found.", "red")
+        smart_print_color("\n     ~Edit ~/anchorage/config.toml to include the correct bookmark file path "
+                          "for your browser and try again.", "red")
+        sys.exit()
+
     newline()
 
     # 3. Bookmark filter
