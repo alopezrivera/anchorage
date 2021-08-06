@@ -1,10 +1,15 @@
 from wayback import WaybackClient
 from archivenow import archivenow
 
-from alexandria.shell import print_color, suppress_stdout
-from alexandria.shell.color import colors
+from alexandria.shell import suppress_stdout
 
 from anchorage.anchor_utils.aesthetic import str_log_info, str_log_error, str_log_success
+
+
+class UploadException(Exception):
+
+    def __init__(self, message):
+        super().__init__(message)
 
 
 def add(url, archive='ia', api_key=None, overwrite=False):
@@ -27,25 +32,31 @@ def add(url, archive='ia', api_key=None, overwrite=False):
     """
 
     def upload(url):
-        try:
-            if archive == 'cc':
-                with suppress_stdout():
-                    archive_url = archivenow.push(url, archive, api_key)[0]
-            else:
-                with suppress_stdout():
-                    archive_url = archivenow.push(url, archive)[0]
+        if archive == 'cc':
+            with suppress_stdout():
+                archive_url = archivenow.push(url, archive, api_key)[0]
+        else:
+            with suppress_stdout():
+                archive_url = archivenow.push(url, archive)[0]
+
+        if "Error (The Internet Archive)" in archive_url:
+            print(str_log_error(url + " ->/ ->/ ->/ " + archive_url))
+            raise UploadException(archive_url)
+        else:
             log = str_log_success(url + " -> -> -> " + archive_url)
-            return log
-        except BaseException as e:
-            print(str_log_error(url))
-            print_color(e, "red")
+        return log
 
     try:
         archive_latest = next(WaybackClient().search(url))   # Search for URL using the WaybackMachine API
         if overwrite:
-            return upload(url)
+            log = upload(url)
+            print(log)
         else:
-            return str_log_info("SKIPPED", url + " => => => " + archive_latest[7])
-    except:
+            log = str_log_info("SKIPPED", url + " => => => " + archive_latest[7])
+            print(log)
+    except StopIteration:
         # If bookmark search yields "0" error (defined by Python _wayback_)
-        return upload(url)
+        log = upload(url)
+        print(log)
+    except UploadException as e:
+        return e

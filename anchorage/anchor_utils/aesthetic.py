@@ -28,7 +28,7 @@ def str_log_progress(fraction, t_elapsed, t_remaining,
                      c_fr="brightCyan", c_bg_fr="",
                      c_te="", c_bg_te="",
                      c_tr="brightCyan", c_bg_tr="",
-                     l=11, m=15, n=20):
+                     l=9, m=10, n=21):
     # Times
     def s_to_hms(_n):
         hours, remainder = divmod(_n, 3600)
@@ -41,10 +41,10 @@ def str_log_progress(fraction, t_elapsed, t_remaining,
     # Set distances
     r = join_set_distance(fraction, "::", l)
     r = join_set_distance(r, t_elapsed, m)
-    r = join_set_distance(r, " ::", n)
-    r = join_set_distance(r, t_remaining, len(r)+2)
+    r = join_set_distance(r, "::", n)
+    r = join_set_distance(r, t_remaining, len(r)+1)
 
-    str_t, str_kind, str_msg = r.split(" :: ")
+    str_t, str_kind, str_msg = r.split("::")
 
     # Take care not to color whitespace for KIND string
     #     It is assumed that all possible whitespace has
@@ -57,16 +57,16 @@ def str_log_progress(fraction, t_elapsed, t_remaining,
         n_ws = n0 - n1
         return s, n_ws
     str_fraction, n_ws_fr = countstrip(fraction)
-    str_te, n_ws_te = countstrip(t_elapsed)
-    str_tr, n_ws_tr = countstrip(t_remaining)
+    str_te,       n_ws_te = countstrip(t_elapsed)
+    str_tr,       n_ws_tr = countstrip(t_remaining)
 
     # Color
-    c_str_fr    = str_color(str_t, c_fr, c_bg_fr) + " " * n_ws_fr
+    c_str_fr = str_color(str_t, c_fr, c_bg_fr)    + " " * n_ws_fr
     c_str_te = str_color(str_kind, c_te, c_bg_te) + " " * n_ws_te
-    c_str_tr  = str_color(str_msg, c_tr, c_bg_tr) + " " * n_ws_tr
+    c_str_tr = str_color(str_msg, c_tr, c_bg_tr)  + " " * n_ws_tr
 
     # Join in final string
-    r = " :: ".join([c_str_fr, c_str_te, c_str_tr])
+    r = "::".join([c_str_fr, c_str_te, c_str_tr])
     return r
 
 

@@ -333,9 +333,9 @@ class bookmarks:
         :return: List with all [key, value] pairs for which `f` execution resulted in an error.
         """
 
-        e = []
+        e = {}
         t0 = datetime.datetime.now()
-        step = 0
+        step = 1
         total = len(self.bookmarks)
 
         if loglevel == 20:                                          # Create tqdm progress bar if specified
@@ -367,10 +367,10 @@ class bookmarks:
                     with suppress_stdout():             # Suppress function output if so specified
                         f(key, value)
                 else:
-                    log = f(key, value)
-                    print(log)
-            except:                                     # Error: add entry to error list
-                e.append([key, value])
+                    f(key, value)
+            except BaseException as exception:          # Error: add entry to error list
+                e[key] = {'url': value['url'],
+                          'Error message': str(exception)}
 
             if loglevel == 0:
                 print("")

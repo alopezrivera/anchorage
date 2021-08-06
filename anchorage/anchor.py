@@ -1,8 +1,11 @@
 import os
+import toml
+import datetime
 
 from anchorage.bookmarks import bookmarks
 from anchorage.anchor_tools.local import create_archive, add as add_local, server
 from anchorage.anchor_tools.online import add as add_online
+from anchorage.anchor_utils.system import home
 
 
 def anchor_online(collection, overwrite,
@@ -14,6 +17,9 @@ def anchor_online(collection, overwrite,
     :param loglevel: 0  - Full log output
                      20 - Progress bar
                      50 - Suppress all output
+
+    :return: Dictionary with the name, url and error message of all bookmarks
+             for which the archive process has failed.
     """
 
     if isinstance(collection, bookmarks):
@@ -27,7 +33,7 @@ def anchor_online(collection, overwrite,
                                          pb_label="ARCHIVING",
                                          )
 
-    log_anchorage(err)
+    anchorage_error_log(err)
 
 
 def anchor_locally(collection, archive="./anchor",
@@ -40,6 +46,9 @@ def anchor_locally(collection, archive="./anchor",
     :param loglevel: 0  - Full log output
                      20 - Progress bar
                      50 - Suppress all output
+
+    :return: Dictionary with the name, url and error message of all bookmarks
+             for which the archive process has failed.
     """
 
     create_archive(os.path.abspath(archive))
@@ -55,23 +64,31 @@ def anchor_locally(collection, archive="./anchor",
                                          pb_label="ARCHIVING",
                                          )
 
-    log_anchorage(err)
+    anchorage_error_log(err)
 
 
-def log_anchorage(error_log):
+def anchorage_error_log(error_log):
     """
-    TODO: Save error log to ~/anchorage/error_log.toml
+    Save _anchor_online_ or _anchor_locally_ error log dictionary to
+
+        ~/.anchorage/error_log_YYYY_MM_DD.toml
 
     :param error_log: List of bookmarks for which the upload process has failed.
     """
-    print(error_log)
+    anchorage_log = home() + f'/.anchorage/error_log_{datetime.datetime.now().strftime("%Y-%m-%d")}.toml'
+
+    with open(anchorage_log, 'w') as log_file:
+        toml.dump(error_log, log_file)
 
 
-def anchor_log_locally(archive="anchor"):
+def anchor_error_log(where, archive="anchor"):
     """
     TODO: Attempt anchor of all bookmarks in the current error log.
-    """
 
+    :param where:
+    - 'online': archive online
+    - 'local':  archive locally
+    """
     create_archive(archive)
 
     pass
