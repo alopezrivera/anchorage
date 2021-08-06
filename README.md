@@ -12,8 +12,8 @@ choice, filter out duplicates, local files and entries matching string, substrin
 searches, and archive the whole thing: online in the [Internet Archive](https://archive.org/) 
 or locally, using [ArchiveBox](https://archivebox.io/).
 
-Read on for the Anchorage user's manual. The full Python API documentation is available 
-in the [docs](https://anchorage-docs.github.io/) page.
+Read on for the Anchorage user's manual. [The full Python API documentation is available 
+here](https://anchorage-docs.github.io/).
 
 ![alt text](https://github.com/antonlopezr/anchorage/blob/master/docs/demo/gifs/run.gif "Anchorage in action")
 
