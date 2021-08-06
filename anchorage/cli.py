@@ -259,7 +259,7 @@ def main():
                     'type': 'list',
                     'name': 'archive',
                     'message': f'Choose an archiving method.',
-                    'choices': ['Online', 'Local (ArchiveBox)'],
+                    'choices': ['Online', 'Local'],
                     'filter': lambda n: n.split(' ')[0].lower()
                      }]
 
@@ -299,7 +299,7 @@ def main():
                         'type': 'list',
                         'name': 'loglevel',
                         'message': 'Enter the relative or full path of the archive directory.',
-                        'choices': ['Full log output', 'Progress bar', 'Suppress all output'],
+                        'choices': ['  - Full log output', '  - Progress bar', '  - Suppress all output'],
                         'filter': lambda choice: {'Full log output'    : 0,
                                                   'Progress bar'       : 20,
                                                   'Suppress all output': 50}[choice]
