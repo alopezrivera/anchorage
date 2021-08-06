@@ -2,6 +2,7 @@ numpy==1.19.2
 python-rapidjson==1.4
 toml==0.10.1
 Python-Alexandria==2.0.0
+wayback==0.3.0
 archivenow==2020.7.18.12.19.44
 tqdm==4.51.0
 pyfiglet==0.8.post1
