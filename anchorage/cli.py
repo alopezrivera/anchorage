@@ -4,12 +4,14 @@ from __future__ import print_function, unicode_literals
 
 import sys
 
+from alexandria.shell import print_color
+
 from anchorage.bookmarks import bookmarks, path, load
 from anchorage.anchor import anchor_online, anchor_locally
 from anchorage.anchor_infrs.infrastructure import init, check_install, read_config
 from anchorage.anchor_utils.shell import shell
 from anchorage.anchor_utils.system import operating_system
-from anchorage.anchor_utils.aesthetic import smart_print_color, newline, title
+from anchorage.anchor_utils.aesthetic import newline, title
 
 
 try:
@@ -77,10 +79,10 @@ def main():
                 }]
 
     if not prompt(dp_check, style=style)['ready']:
-        smart_print_color("\n     ~Operation cancelled\n", "red")
+        print_color("\n     ~Operation cancelled\n", "red")
         sys.exit()
 
-    smart_print_color("\n     ~Running dependency checks", "white")
+    print_color("\n     ~Running dependency checks", "white")
     shell("pip3 install --upgrade anchorage")
 
     if check_install() == 0:
@@ -98,8 +100,8 @@ def main():
 
     init(reset)
 
-    smart_print_color("     ~Everything in order!", "green")
-    smart_print_color("     ~Edit configuration in ~/.anchorage/config.toml\n", "green")
+    print_color("     ~Everything in order!", "green")
+    print_color("     ~Edit configuration in ~/.anchorage/config.toml\n", "green")
 
     # 2. Browser choice
     cfg = read_config()
@@ -107,22 +109,21 @@ def main():
                     'type': 'list',
                     'name': 'browser',
                     'message': f'Please choose the browser from which to archive all bookmarks.',
-                    'default': True,
                     'choices': list(map(lambda s: s.title(), list(cfg.keys()))),
                     'filter': lambda n: n.lower()
                    }]
     browser = prompt(brow_choice, style=style)['browser']
     newline()
     if cfg[browser][operating_system()] == "?":
-        smart_print_color("     ~The path to this browser hasn't been set up yet in your configuration file.", "red")
+        print_color("     ~The path to this browser hasn't been set up yet in your configuration file.", "red")
         print(f"     ~Edit ~/anchorage/config.toml to include the path for your {browser.title()} "
               f"bookmarks file and try again.\n")
         sys.exit()
     try:
         bmk_dict = load(path(browser))
     except FileNotFoundError:
-        smart_print_color("     ~Error: file not found.", "red")
-        smart_print_color("\n     ~Edit ~/anchorage/config.toml to include the correct bookmark file path "
+        print_color("     ~Error: file not found.", "red")
+        print_color("\n     ~Edit ~/anchorage/config.toml to include the correct bookmark file path "
                           "for your browser and try again.\n", "red")
         sys.exit()
 
@@ -235,7 +236,7 @@ def main():
             drop_url_regex = filter_regex('bookmark URLs')
             newline()
 
-    smart_print_color("     ~Applying filters to bookmark collection", "white")
+    print_color("     ~Applying filters to bookmark collection", "white")
 
     bmk = bookmarks(bmk_dict,
                     drop_local_files='local files' in drop_list,
@@ -251,14 +252,14 @@ def main():
                     )
     n_bookmarks = len(bmk.bookmarks)
     n_directories = bmk.n_dirs
-    smart_print_color(f"     ~Done! Found {n_bookmarks} bookmarks in {n_directories} directories.\n", "green")
+    print_color(f"     ~Done! Found {n_bookmarks} bookmarks in {n_directories} directories.\n", "green")
 
     # 4. Archive choice
     archive_choice = [{
                     'type': 'list',
                     'name': 'archive',
                     'message': f'Choose an archiving method.',
-                    'choices': ['Local (ArchiveBox)', 'Online'],
+                    'choices': ['Online', 'Local (ArchiveBox)'],
                     'filter': lambda n: n.split(' ')[0].lower()
                      }]
 
@@ -266,7 +267,7 @@ def main():
     newline()
 
     if archive == 'online':         # Online archive: save existing entries?
-        smart_print_color(f"     ~By default websites will not be archived if a previous image "
+        print_color(f"     ~By default websites will not be archived if a previous image "
                           f"exists in The Internet Archive.\n", "white")
         ovw_online = [{
                           'type': 'confirm',
@@ -277,11 +278,11 @@ def main():
         overwrite = prompt(ovw_online, style=style)['overwrite']
         newline()
         if overwrite:
-            smart_print_color(f"     ~Current snapshots will be saved for your entire collection. "
+            print_color(f"     ~Current snapshots will be saved for your entire collection. "
                               f"Expect a runtime of {n_bookmarks*15/3600:.2f} to {n_bookmarks*60/3600:.2f} "
                               f"hours.\n", "green")
         else:
-            smart_print_color(f"     ~Expect a runtime of {n_bookmarks*1.5/3600:.2f} to "
+            print_color(f"     ~Expect a runtime of {n_bookmarks*1.5/3600:.2f} to "
                               f"{n_bookmarks*3/3600:.2f} hours.\n", "green")
     if archive == 'local':          # Local archive directory
         dir_prompt = [{
@@ -293,7 +294,20 @@ def main():
         archive_dir = prompt(dir_prompt, style=style)['dir']
         newline()
 
-    # 5. Confirmation
+    # 5. Log level
+    log_prompt = [{
+                        'type': 'list',
+                        'name': 'loglevel',
+                        'message': 'Enter the relative or full path of the archive directory.',
+                        'choices': ['Full log output', 'Progress bar', 'Suppress all output'],
+                        'filter': lambda choice: {'Full log output'    : 0,
+                                                  'Progress bar'       : 20,
+                                                  'Suppress all output': 50}[choice]
+                  }]
+    loglevel = prompt(log_prompt, style=style)['loglevel']
+    newline()
+
+    # 6. Confirmation
     confirmation = lambda br, nb: [{
                                         'type': 'confirm',
                                         'name': 'go',
@@ -309,8 +323,12 @@ def main():
 
     if go:
         if archive == 'online':                     # Anchor online
-            anchor_online(bmk, overwrite)
+            anchor_online(bmk,
+                          overwrite=overwrite,
+                          loglevel=loglevel)
         elif archive == 'local':                    # Anchor locally
-            anchor_locally(bmk, archive_dir)
+            anchor_locally(bmk,
+                           archive=archive_dir,
+                           loglevel=loglevel)
     else:
-        smart_print_color("     ~Operation cancelled\n", "red")
+        print_color("     ~Operation cancelled\n", "red")

@@ -6,15 +6,15 @@ import datetime
 import rapidjson
 from tqdm import tqdm
 
-from Alexandria.general.project import root
+from alexandria.paths import root
+from alexandria.shell import print_color
 
 from anchorage.anchor_infrs.infrastructure import init, read_config
-from anchorage.anchor_utils.aesthetic import colors
+from anchorage.anchor_utils.aesthetic import colors, str_log_progress
 from anchorage.anchor_utils.system import operating_system
 from anchorage.anchor_utils.shell import suppress_stdout
 from anchorage.anchor_utils.regex import expr_check
 from anchorage.anchor_utils.file_conversion import JSONLZ4_to_JSON
-from anchorage.anchor_utils.aesthetic import smart_print_color
 
 
 def loc(overwrite=False):
@@ -253,7 +253,7 @@ class bookmarks:
         elif what == 'url':
             target_key = 'url'
         else:
-            smart_print_color(f'Wrong filter target: {what}', 'red')
+            print_color(f'Wrong filter target: {what}', 'red')
             sys.exit()
 
         for key, value in self.bookmarks.copy().items():
@@ -272,7 +272,7 @@ class bookmarks:
         elif what == 'url':
             target_key = 'url'
         else:
-            smart_print_color(f'Wrong filter target: {what}', 'red')
+            print_color(f'Wrong filter target: {what}', 'red')
             sys.exit()
 
         i = 0
@@ -302,7 +302,7 @@ class bookmarks:
         elif what == 'url':
             target_key = 'url'
         else:
-            smart_print_color(f'Wrong filter target: {what}', 'red')
+            print_color(f'Wrong filter target: {what}', 'red')
             sys.exit()
 
         for key, value in self.bookmarks.copy().items():
@@ -316,25 +316,29 @@ class bookmarks:
                 del self.bookmarks[key]
 
     def loop(self, f,
-             pb=True,
+             loglevel=0,
              pb_label=None,
              pb_leave=True,
              pb_width=110,
-             suppress_output=False
              ):
         """
         :param f: Function - To be run on each entry of the bookmark dictionary.
-        :param pb: Boolean - True to visualize progress with tqdm progress bar.
+        :param loglevel: Python standard library logging-style log levels.
+            - 0 : Full log output.
+            - 20: Visualize progress with tqdm progress bar.
+            - 50: Suppress all output.
         :param pb_label: Str - Progress bar label.
         :param pb_leave: Boolean - False to remove progress bar from screen after completion.
         :param pb_width: N - Width in char of the progress bar.
-        :param suppress_output: Suppress output of the provided function.
         :return: List with all [key, value] pairs for which `f` execution resulted in an error.
         """
 
         e = []
+        t0 = datetime.datetime.now()
+        step = 0
+        total = len(self.bookmarks)
 
-        if pb:                                          # Create tqdm progress bar if specified
+        if loglevel == 20:                                          # Create tqdm progress bar if specified
             pgr = tqdm(self.bookmarks.items(),
                        ncols=pb_width,
                        position=0,
@@ -349,20 +353,32 @@ class bookmarks:
                        )
 
         for key, value in self.bookmarks.items():
+            if loglevel == 0:
+                # Time estimate
+                tn          = datetime.datetime.now()
+                t_elapsed   = tn - t0
+                t_remaining = step/max(t_elapsed.total_seconds(), 10**-6)*(total-step)
+
+                print(str_log_progress(f"{step}/{total}", t_elapsed.total_seconds(), t_remaining))
+                step += 1
 
             try:                                        # Attempt to run provided function on dictionary
-                if suppress_output:
+                if loglevel in [20, 50]:
                     with suppress_stdout():             # Suppress function output if so specified
                         f(key, value)
                 else:
-                    f(key, value)
+                    log = f(key, value)
+                    print(log)
             except:                                     # Error: add entry to error list
                 e.append([key, value])
 
-            if pb:                                      # Update progress bar if in use
+            if loglevel == 0:
+                print("")
+            if loglevel == 20:                          # Update progress bar if in use
                 pgr.update()
 
-        print("\r" + " "*pb_width, end="\r")            # Clean console from debris left by tqdm
+        if loglevel == 20:
+            print("\r" + " "*pb_width, end="\r")            # Clean console from debris left by tqdm
 
         return e
 

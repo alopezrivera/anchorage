@@ -2,8 +2,7 @@ import os
 import shutil
 import unittest
 
-from anchorage import add_local as add, server
-from anchorage.anchor_tools.local import setup, init
+from anchorage.anchor_tools.local import setup, init, add, server
 
 
 class Tests(unittest.TestCase):

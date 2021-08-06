@@ -3,10 +3,9 @@ import sys
 import shutil
 import webbrowser
 
-from Alexandria.general.console import print_color
+from alexandria.shell import print_color
 
 from anchorage.anchor_utils.shell import shell, bckgr, raise_error, error, suppress_stdout
-from anchorage.anchor_utils.aesthetic import smart_print_color
 
 
 def archivebox(command_str):
@@ -110,10 +109,10 @@ def docker_check():
         try:
             raise_error('docker')
         except error() as e:
-            smart_print_color(f"Error: attempt to run 'docker' command in your shell failed. "
-                              f"       Install Docker if you don't have it installed."
-                              f"       Check your Docker installation by running 'docker --help' in your shell.",
-                              'red')
+            print_color(f"Error: attempt to run 'docker' command in your shell failed. "
+                        f"       Install Docker if you don't have it installed."
+                        f"       Check your Docker installation by running 'docker --help' in your shell.",
+                        'red')
             sys.exit()
 
 
@@ -126,8 +125,8 @@ def archivebox_check():
         try:
             raise_error('archivebox')
         except error() as e:
-            smart_print_color(f"Error: attempt to run 'archivebox' command in your shell failed. "
-                              f"       Install ArchiveBox if you don't have it installed."
-                              f"       Check your ArchiveBox installation by running 'archivebox' in your shell.",
-                              'red')
+            print_color(f"Error: attempt to run 'archivebox' command in your shell failed. "
+                        f"       Install ArchiveBox if you don't have it installed."
+                        f"       Check your ArchiveBox installation by running 'archivebox' in your shell.",
+                        'red')
             sys.exit()

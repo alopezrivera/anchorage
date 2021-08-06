@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="anchorage",
-    version="1.1.0.0",
+    version="1.2.0.0",
     author="Antonio Lopez Rivera",
     author_email="antonlopezr99@gmail.com",
     description="Anchor your little piece of internet.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/antonlopezr/anchorage",
+    url="https://github.com/alopezrivera/anchorage",
     entry_points={
         "console_scripts": [
             "anchorage = anchorage.cli:main",
@@ -24,8 +24,8 @@ setuptools.setup(
         "rapidjson",
         "toml",
         "Python-Alexandria",
+        "wayback",
         "archivenow",
-        "internetarchive",
         "tqdm",
         "pyfiglet",
         "PyInquirer",

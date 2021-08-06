@@ -1,8 +1,8 @@
 import unittest
 
-from anchorage.bookmarks import bookmarks, load, export, path
+from alexandria.shell import print_color
 
-from Alexandria.general.console import print_color
+from anchorage.bookmarks import bookmarks, load, export, path
 
 
 class BookmarkTests(unittest.TestCase):
