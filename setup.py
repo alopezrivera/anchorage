@@ -8,7 +8,7 @@ setuptools.setup(
     version="1.2.1.0",
     author="Antonio Lopez Rivera",
     author_email="antonlopezr99@gmail.com",
-    description="Anchor your little piece of internet.",
+    description="Python library and CLI to anchor your little piece of internet.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/alopezrivera/anchorage",
