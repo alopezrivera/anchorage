@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>anchorage.anchor_utils.aesthetic API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -26,43 +26,76 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import os
-import sys
-from pyfiglet import Figlet
+<pre><code class="python">from pyfiglet import Figlet
 
-from Alexandria.general.console import print_color
-
-from anchorage.anchor_utils.system import operating_system
+from alexandria.data_structs.string import join_set_distance
+from alexandria.shell import print_color, str_log, str_color
 
 
-def supports_color():
-    &#34;&#34;&#34;
-    From Django - https://github.com/django/django/blob/main/django/core/management/color.py
-
-    Returns True if the running system&#39;s terminal supports color, and False
-    otherwise.
-    &#34;&#34;&#34;
-    plat = sys.platform
-    supported_platform = plat != &#39;Pocket PC&#39; and (plat != &#39;win32&#39; or
-                                                  &#39;ANSICON&#39; in os.environ)
-    # isatty is not always implemented, #6223.
-    is_a_tty = hasattr(sys.stdout, &#39;isatty&#39;) and sys.stdout.isatty()
-    return supported_platform and is_a_tty
+def str_log_info(kind, msg):
+    return str_log(kind, msg,
+                   msg_color=&#34;&#34;, msg_bg_color=&#34;&#34;,
+                   )
 
 
-def smart_print_color(text, color, **kwargs):
-    &#34;&#34;&#34;
-    Print in color in UNIX terminals, and use the regular `print` function
-    elsewhere.
+def str_log_success(msg):
+    return str_log(&#34;SUCCESS&#34;, msg,
+                   msg_color=&#34;brightCyan&#34;, msg_bg_color=&#34;&#34;,
+                   kind_color=&#34;brightGreen&#34;, kind_bg_color=&#34;&#34;
+                   )
 
-    :param text: Text to be printed to screen
-    :param color: Text color
-    :param kwargs: Any further keyword arguments for the `print` function
-    &#34;&#34;&#34;
-    if supports_color():
-        print_color(text, color, **kwargs)
-    else:
-        print(text, **kwargs)
+
+def str_log_error(msg):
+    return str_log(&#34;FAILURE&#34;, msg,
+                   msg_color=&#34;red&#34;, msg_bg_color=&#34;&#34;,
+                   kind_color=&#34;brightRed&#34;, kind_bg_color=&#34;&#34;
+                   )
+
+
+def str_log_progress(fraction, t_elapsed, t_remaining,
+                     c_fr=&#34;brightCyan&#34;, c_bg_fr=&#34;&#34;,
+                     c_te=&#34;&#34;, c_bg_te=&#34;&#34;,
+                     c_tr=&#34;brightCyan&#34;, c_bg_tr=&#34;&#34;,
+                     l=9, m=10, n=21):
+    # Times
+    def s_to_hms(_n):
+        hours, remainder = divmod(_n, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        return f&#39;{int(hours)}:{int(minutes)}:{seconds:.2f}&#39;
+
+    t_elapsed = s_to_hms(t_elapsed)
+    t_remaining = &#34;to go -&gt; &#34; + s_to_hms(t_remaining)
+
+    # Set distances
+    r = join_set_distance(fraction, &#34;::&#34;, l)
+    r = join_set_distance(r, t_elapsed, m)
+    r = join_set_distance(r, &#34;::&#34;, n)
+    r = join_set_distance(r, t_remaining, len(r)+1)
+
+    str_t, str_kind, str_msg = r.split(&#34;::&#34;)
+
+    # Take care not to color whitespace for KIND string
+    #     It is assumed that all possible whitespace has
+    #     been added by &lt;&lt;join_set_distance&gt;&gt; and is thus
+    #     placed at the end of the string.
+    def countstrip(s):
+        n0 = len(s)
+        s = s.rstrip()
+        n1 = len(str_kind)
+        n_ws = n0 - n1
+        return s, n_ws
+    str_fraction, n_ws_fr = countstrip(fraction)
+    str_te,       n_ws_te = countstrip(t_elapsed)
+    str_tr,       n_ws_tr = countstrip(t_remaining)
+
+    # Color
+    c_str_fr = str_color(str_t, c_fr, c_bg_fr)    + &#34; &#34; * n_ws_fr
+    c_str_te = str_color(str_kind, c_te, c_bg_te) + &#34; &#34; * n_ws_te
+    c_str_tr = str_color(str_msg, c_tr, c_bg_tr)  + &#34; &#34; * n_ws_tr
+
+    # Join in final string
+    r = &#34;::&#34;.join([c_str_fr, c_str_te, c_str_tr])
+    return r
 
 
 def newline():
@@ -81,7 +114,7 @@ def title(text=&#34;Anchorage&#34;, font=&#34;big&#34;, color=&#34;cyan&#34;):
     :param color: Title color
     &#34;&#34;&#34;
     f = Figlet(font=font)
-    smart_print_color(f.renderText(text), color)
+    print_color(f.renderText(text), color)
 
 
 class colors:
@@ -163,58 +196,106 @@ class colors:
     print(&#34;&#34;)</code></pre>
 </details>
 </dd>
-<dt id="anchorage.anchor_utils.aesthetic.smart_print_color"><code class="name flex">
-<span>def <span class="ident">smart_print_color</span></span>(<span>text, color, **kwargs)</span>
+<dt id="anchorage.anchor_utils.aesthetic.str_log_error"><code class="name flex">
+<span>def <span class="ident">str_log_error</span></span>(<span>msg)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Print in color in UNIX terminals, and use the regular <code>print</code> function
-elsewhere.</p>
-<p>:param text: Text to be printed to screen
-:param color: Text color
-:param kwargs: Any further keyword arguments for the <code>print</code> function</p></div>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def smart_print_color(text, color, **kwargs):
-    &#34;&#34;&#34;
-    Print in color in UNIX terminals, and use the regular `print` function
-    elsewhere.
-
-    :param text: Text to be printed to screen
-    :param color: Text color
-    :param kwargs: Any further keyword arguments for the `print` function
-    &#34;&#34;&#34;
-    if supports_color():
-        print_color(text, color, **kwargs)
-    else:
-        print(text, **kwargs)</code></pre>
+<pre><code class="python">def str_log_error(msg):
+    return str_log(&#34;FAILURE&#34;, msg,
+                   msg_color=&#34;red&#34;, msg_bg_color=&#34;&#34;,
+                   kind_color=&#34;brightRed&#34;, kind_bg_color=&#34;&#34;
+                   )</code></pre>
 </details>
 </dd>
-<dt id="anchorage.anchor_utils.aesthetic.supports_color"><code class="name flex">
-<span>def <span class="ident">supports_color</span></span>(<span>)</span>
+<dt id="anchorage.anchor_utils.aesthetic.str_log_info"><code class="name flex">
+<span>def <span class="ident">str_log_info</span></span>(<span>kind, msg)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>From Django - <a href="https://github.com/django/django/blob/main/django/core/management/color.py">https://github.com/django/django/blob/main/django/core/management/color.py</a></p>
-<p>Returns True if the running system's terminal supports color, and False
-otherwise.</p></div>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def supports_color():
-    &#34;&#34;&#34;
-    From Django - https://github.com/django/django/blob/main/django/core/management/color.py
+<pre><code class="python">def str_log_info(kind, msg):
+    return str_log(kind, msg,
+                   msg_color=&#34;&#34;, msg_bg_color=&#34;&#34;,
+                   )</code></pre>
+</details>
+</dd>
+<dt id="anchorage.anchor_utils.aesthetic.str_log_progress"><code class="name flex">
+<span>def <span class="ident">str_log_progress</span></span>(<span>fraction, t_elapsed, t_remaining, c_fr='brightCyan', c_bg_fr='', c_te='', c_bg_te='', c_tr='brightCyan', c_bg_tr='', l=9, m=10, n=21)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def str_log_progress(fraction, t_elapsed, t_remaining,
+                     c_fr=&#34;brightCyan&#34;, c_bg_fr=&#34;&#34;,
+                     c_te=&#34;&#34;, c_bg_te=&#34;&#34;,
+                     c_tr=&#34;brightCyan&#34;, c_bg_tr=&#34;&#34;,
+                     l=9, m=10, n=21):
+    # Times
+    def s_to_hms(_n):
+        hours, remainder = divmod(_n, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        return f&#39;{int(hours)}:{int(minutes)}:{seconds:.2f}&#39;
 
-    Returns True if the running system&#39;s terminal supports color, and False
-    otherwise.
-    &#34;&#34;&#34;
-    plat = sys.platform
-    supported_platform = plat != &#39;Pocket PC&#39; and (plat != &#39;win32&#39; or
-                                                  &#39;ANSICON&#39; in os.environ)
-    # isatty is not always implemented, #6223.
-    is_a_tty = hasattr(sys.stdout, &#39;isatty&#39;) and sys.stdout.isatty()
-    return supported_platform and is_a_tty</code></pre>
+    t_elapsed = s_to_hms(t_elapsed)
+    t_remaining = &#34;to go -&gt; &#34; + s_to_hms(t_remaining)
+
+    # Set distances
+    r = join_set_distance(fraction, &#34;::&#34;, l)
+    r = join_set_distance(r, t_elapsed, m)
+    r = join_set_distance(r, &#34;::&#34;, n)
+    r = join_set_distance(r, t_remaining, len(r)+1)
+
+    str_t, str_kind, str_msg = r.split(&#34;::&#34;)
+
+    # Take care not to color whitespace for KIND string
+    #     It is assumed that all possible whitespace has
+    #     been added by &lt;&lt;join_set_distance&gt;&gt; and is thus
+    #     placed at the end of the string.
+    def countstrip(s):
+        n0 = len(s)
+        s = s.rstrip()
+        n1 = len(str_kind)
+        n_ws = n0 - n1
+        return s, n_ws
+    str_fraction, n_ws_fr = countstrip(fraction)
+    str_te,       n_ws_te = countstrip(t_elapsed)
+    str_tr,       n_ws_tr = countstrip(t_remaining)
+
+    # Color
+    c_str_fr = str_color(str_t, c_fr, c_bg_fr)    + &#34; &#34; * n_ws_fr
+    c_str_te = str_color(str_kind, c_te, c_bg_te) + &#34; &#34; * n_ws_te
+    c_str_tr = str_color(str_msg, c_tr, c_bg_tr)  + &#34; &#34; * n_ws_tr
+
+    # Join in final string
+    r = &#34;::&#34;.join([c_str_fr, c_str_te, c_str_tr])
+    return r</code></pre>
+</details>
+</dd>
+<dt id="anchorage.anchor_utils.aesthetic.str_log_success"><code class="name flex">
+<span>def <span class="ident">str_log_success</span></span>(<span>msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def str_log_success(msg):
+    return str_log(&#34;SUCCESS&#34;, msg,
+                   msg_color=&#34;brightCyan&#34;, msg_bg_color=&#34;&#34;,
+                   kind_color=&#34;brightGreen&#34;, kind_bg_color=&#34;&#34;
+                   )</code></pre>
 </details>
 </dd>
 <dt id="anchorage.anchor_utils.aesthetic.title"><code class="name flex">
@@ -238,7 +319,7 @@ otherwise.</p></div>
     :param color: Title color
     &#34;&#34;&#34;
     f = Figlet(font=font)
-    smart_print_color(f.renderText(text), color)</code></pre>
+    print_color(f.renderText(text), color)</code></pre>
 </details>
 </dd>
 </dl>
@@ -461,10 +542,12 @@ otherwise.</p></div>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="anchorage.anchor_utils.aesthetic.newline" href="#anchorage.anchor_utils.aesthetic.newline">newline</a></code></li>
-<li><code><a title="anchorage.anchor_utils.aesthetic.smart_print_color" href="#anchorage.anchor_utils.aesthetic.smart_print_color">smart_print_color</a></code></li>
-<li><code><a title="anchorage.anchor_utils.aesthetic.supports_color" href="#anchorage.anchor_utils.aesthetic.supports_color">supports_color</a></code></li>
+<li><code><a title="anchorage.anchor_utils.aesthetic.str_log_error" href="#anchorage.anchor_utils.aesthetic.str_log_error">str_log_error</a></code></li>
+<li><code><a title="anchorage.anchor_utils.aesthetic.str_log_info" href="#anchorage.anchor_utils.aesthetic.str_log_info">str_log_info</a></code></li>
+<li><code><a title="anchorage.anchor_utils.aesthetic.str_log_progress" href="#anchorage.anchor_utils.aesthetic.str_log_progress">str_log_progress</a></code></li>
+<li><code><a title="anchorage.anchor_utils.aesthetic.str_log_success" href="#anchorage.anchor_utils.aesthetic.str_log_success">str_log_success</a></code></li>
 <li><code><a title="anchorage.anchor_utils.aesthetic.title" href="#anchorage.anchor_utils.aesthetic.title">title</a></code></li>
 </ul>
 </li>
@@ -514,7 +597,7 @@ otherwise.</p></div>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>

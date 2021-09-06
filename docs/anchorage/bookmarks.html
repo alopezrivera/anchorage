@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>anchorage.bookmarks API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -34,15 +34,15 @@ import datetime
 import rapidjson
 from tqdm import tqdm
 
-from Alexandria.general.project import root
+from alexandria.paths import root
+from alexandria.shell import print_color
 
 from anchorage.anchor_infrs.infrastructure import init, read_config
-from anchorage.anchor_utils.aesthetic import colors
+from anchorage.anchor_utils.aesthetic import colors, str_log_progress
 from anchorage.anchor_utils.system import operating_system
 from anchorage.anchor_utils.shell import suppress_stdout
 from anchorage.anchor_utils.regex import expr_check
 from anchorage.anchor_utils.file_conversion import JSONLZ4_to_JSON
-from anchorage.anchor_utils.aesthetic import smart_print_color
 
 
 def loc(overwrite=False):
@@ -281,7 +281,7 @@ class bookmarks:
         elif what == &#39;url&#39;:
             target_key = &#39;url&#39;
         else:
-            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
             sys.exit()
 
         for key, value in self.bookmarks.copy().items():
@@ -300,7 +300,7 @@ class bookmarks:
         elif what == &#39;url&#39;:
             target_key = &#39;url&#39;
         else:
-            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
             sys.exit()
 
         i = 0
@@ -330,7 +330,7 @@ class bookmarks:
         elif what == &#39;url&#39;:
             target_key = &#39;url&#39;
         else:
-            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
             sys.exit()
 
         for key, value in self.bookmarks.copy().items():
@@ -344,25 +344,29 @@ class bookmarks:
                 del self.bookmarks[key]
 
     def loop(self, f,
-             pb=True,
+             loglevel=0,
              pb_label=None,
              pb_leave=True,
              pb_width=110,
-             suppress_output=False
              ):
         &#34;&#34;&#34;
         :param f: Function - To be run on each entry of the bookmark dictionary.
-        :param pb: Boolean - True to visualize progress with tqdm progress bar.
+        :param loglevel: Python standard library logging-style log levels.
+            - 0 : Full log output.
+            - 20: Visualize progress with tqdm progress bar.
+            - 50: Suppress all output.
         :param pb_label: Str - Progress bar label.
         :param pb_leave: Boolean - False to remove progress bar from screen after completion.
         :param pb_width: N - Width in char of the progress bar.
-        :param suppress_output: Suppress output of the provided function.
         :return: List with all [key, value] pairs for which `f` execution resulted in an error.
         &#34;&#34;&#34;
 
-        e = []
+        e = {}
+        t0 = datetime.datetime.now()
+        step = 1
+        total = len(self.bookmarks)
 
-        if pb:                                          # Create tqdm progress bar if specified
+        if loglevel == 20:                                          # Create tqdm progress bar if specified
             pgr = tqdm(self.bookmarks.items(),
                        ncols=pb_width,
                        position=0,
@@ -377,20 +381,32 @@ class bookmarks:
                        )
 
         for key, value in self.bookmarks.items():
+            if loglevel == 0:
+                # Time estimate
+                tn          = datetime.datetime.now()
+                t_elapsed   = tn - t0
+                t_remaining = step/max(t_elapsed.total_seconds(), 10**-6)*(total-step)
+
+                print(str_log_progress(f&#34;{step}/{total}&#34;, t_elapsed.total_seconds(), t_remaining))
+                step += 1
 
             try:                                        # Attempt to run provided function on dictionary
-                if suppress_output:
+                if loglevel in [20, 50]:
                     with suppress_stdout():             # Suppress function output if so specified
                         f(key, value)
                 else:
                     f(key, value)
-            except:                                     # Error: add entry to error list
-                e.append([key, value])
+            except BaseException as exception:          # Error: add entry to error list
+                e[key] = {&#39;url&#39;: value[&#39;url&#39;],
+                          &#39;Error message&#39;: str(exception)}
 
-            if pb:                                      # Update progress bar if in use
+            if loglevel == 0:
+                print(&#34;&#34;)
+            if loglevel == 20:                          # Update progress bar if in use
                 pgr.update()
 
-        print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
+        if loglevel == 20:
+            print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
 
         return e
 
@@ -718,7 +734,7 @@ self.tags: list containing the ordered names of the parent folders of each link.
         elif what == &#39;url&#39;:
             target_key = &#39;url&#39;
         else:
-            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
             sys.exit()
 
         for key, value in self.bookmarks.copy().items():
@@ -737,7 +753,7 @@ self.tags: list containing the ordered names of the parent folders of each link.
         elif what == &#39;url&#39;:
             target_key = &#39;url&#39;
         else:
-            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
             sys.exit()
 
         i = 0
@@ -767,7 +783,7 @@ self.tags: list containing the ordered names of the parent folders of each link.
         elif what == &#39;url&#39;:
             target_key = &#39;url&#39;
         else:
-            smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+            print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
             sys.exit()
 
         for key, value in self.bookmarks.copy().items():
@@ -781,25 +797,29 @@ self.tags: list containing the ordered names of the parent folders of each link.
                 del self.bookmarks[key]
 
     def loop(self, f,
-             pb=True,
+             loglevel=0,
              pb_label=None,
              pb_leave=True,
              pb_width=110,
-             suppress_output=False
              ):
         &#34;&#34;&#34;
         :param f: Function - To be run on each entry of the bookmark dictionary.
-        :param pb: Boolean - True to visualize progress with tqdm progress bar.
+        :param loglevel: Python standard library logging-style log levels.
+            - 0 : Full log output.
+            - 20: Visualize progress with tqdm progress bar.
+            - 50: Suppress all output.
         :param pb_label: Str - Progress bar label.
         :param pb_leave: Boolean - False to remove progress bar from screen after completion.
         :param pb_width: N - Width in char of the progress bar.
-        :param suppress_output: Suppress output of the provided function.
         :return: List with all [key, value] pairs for which `f` execution resulted in an error.
         &#34;&#34;&#34;
 
-        e = []
+        e = {}
+        t0 = datetime.datetime.now()
+        step = 1
+        total = len(self.bookmarks)
 
-        if pb:                                          # Create tqdm progress bar if specified
+        if loglevel == 20:                                          # Create tqdm progress bar if specified
             pgr = tqdm(self.bookmarks.items(),
                        ncols=pb_width,
                        position=0,
@@ -814,20 +834,32 @@ self.tags: list containing the ordered names of the parent folders of each link.
                        )
 
         for key, value in self.bookmarks.items():
+            if loglevel == 0:
+                # Time estimate
+                tn          = datetime.datetime.now()
+                t_elapsed   = tn - t0
+                t_remaining = step/max(t_elapsed.total_seconds(), 10**-6)*(total-step)
+
+                print(str_log_progress(f&#34;{step}/{total}&#34;, t_elapsed.total_seconds(), t_remaining))
+                step += 1
 
             try:                                        # Attempt to run provided function on dictionary
-                if suppress_output:
+                if loglevel in [20, 50]:
                     with suppress_stdout():             # Suppress function output if so specified
                         f(key, value)
                 else:
                     f(key, value)
-            except:                                     # Error: add entry to error list
-                e.append([key, value])
+            except BaseException as exception:          # Error: add entry to error list
+                e[key] = {&#39;url&#39;: value[&#39;url&#39;],
+                          &#39;Error message&#39;: str(exception)}
 
-            if pb:                                      # Update progress bar if in use
+            if loglevel == 0:
+                print(&#34;&#34;)
+            if loglevel == 20:                          # Update progress bar if in use
                 pgr.update()
 
-        print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
+        if loglevel == 20:
+            print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
 
         return e
 
@@ -904,7 +936,7 @@ self.tags: list containing the ordered names of the parent folders of each link.
     elif what == &#39;url&#39;:
         target_key = &#39;url&#39;
     else:
-        smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+        print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
         sys.exit()
 
     for key, value in self.bookmarks.copy().items():
@@ -939,7 +971,7 @@ self.tags: list containing the ordered names of the parent folders of each link.
     elif what == &#39;url&#39;:
         target_key = &#39;url&#39;
     else:
-        smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+        print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
         sys.exit()
 
     for key, value in self.bookmarks.copy().items():
@@ -968,7 +1000,7 @@ self.tags: list containing the ordered names of the parent folders of each link.
     elif what == &#39;url&#39;:
         target_key = &#39;url&#39;
     else:
-        smart_print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
+        print_color(f&#39;Wrong filter target: {what}&#39;, &#39;red&#39;)
         sys.exit()
 
     i = 0
@@ -985,40 +1017,46 @@ self.tags: list containing the ordered names of the parent folders of each link.
 </details>
 </dd>
 <dt id="anchorage.bookmarks.bookmarks.loop"><code class="name flex">
-<span>def <span class="ident">loop</span></span>(<span>self, f, pb=True, pb_label=None, pb_leave=True, pb_width=110, suppress_output=False)</span>
+<span>def <span class="ident">loop</span></span>(<span>self, f, loglevel=0, pb_label=None, pb_leave=True, pb_width=110)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>:param f: Function - To be run on each entry of the bookmark dictionary.
-:param pb: Boolean - True to visualize progress with tqdm progress bar.
+:param loglevel: Python standard library logging-style log levels.
+- 0 : Full log output.
+- 20: Visualize progress with tqdm progress bar.
+- 50: Suppress all output.
 :param pb_label: Str - Progress bar label.
 :param pb_leave: Boolean - False to remove progress bar from screen after completion.
 :param pb_width: N - Width in char of the progress bar.
-:param suppress_output: Suppress output of the provided function.
 :return: List with all [key, value] pairs for which <code>f</code> execution resulted in an error.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def loop(self, f,
-         pb=True,
+         loglevel=0,
          pb_label=None,
          pb_leave=True,
          pb_width=110,
-         suppress_output=False
          ):
     &#34;&#34;&#34;
     :param f: Function - To be run on each entry of the bookmark dictionary.
-    :param pb: Boolean - True to visualize progress with tqdm progress bar.
+    :param loglevel: Python standard library logging-style log levels.
+        - 0 : Full log output.
+        - 20: Visualize progress with tqdm progress bar.
+        - 50: Suppress all output.
     :param pb_label: Str - Progress bar label.
     :param pb_leave: Boolean - False to remove progress bar from screen after completion.
     :param pb_width: N - Width in char of the progress bar.
-    :param suppress_output: Suppress output of the provided function.
     :return: List with all [key, value] pairs for which `f` execution resulted in an error.
     &#34;&#34;&#34;
 
-    e = []
+    e = {}
+    t0 = datetime.datetime.now()
+    step = 1
+    total = len(self.bookmarks)
 
-    if pb:                                          # Create tqdm progress bar if specified
+    if loglevel == 20:                                          # Create tqdm progress bar if specified
         pgr = tqdm(self.bookmarks.items(),
                    ncols=pb_width,
                    position=0,
@@ -1033,20 +1071,32 @@ self.tags: list containing the ordered names of the parent folders of each link.
                    )
 
     for key, value in self.bookmarks.items():
+        if loglevel == 0:
+            # Time estimate
+            tn          = datetime.datetime.now()
+            t_elapsed   = tn - t0
+            t_remaining = step/max(t_elapsed.total_seconds(), 10**-6)*(total-step)
+
+            print(str_log_progress(f&#34;{step}/{total}&#34;, t_elapsed.total_seconds(), t_remaining))
+            step += 1
 
         try:                                        # Attempt to run provided function on dictionary
-            if suppress_output:
+            if loglevel in [20, 50]:
                 with suppress_stdout():             # Suppress function output if so specified
                     f(key, value)
             else:
                 f(key, value)
-        except:                                     # Error: add entry to error list
-            e.append([key, value])
+        except BaseException as exception:          # Error: add entry to error list
+            e[key] = {&#39;url&#39;: value[&#39;url&#39;],
+                      &#39;Error message&#39;: str(exception)}
 
-        if pb:                                      # Update progress bar if in use
+        if loglevel == 0:
+            print(&#34;&#34;)
+        if loglevel == 20:                          # Update progress bar if in use
             pgr.update()
 
-    print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
+    if loglevel == 20:
+        print(&#34;\r&#34; + &#34; &#34;*pb_width, end=&#34;\r&#34;)            # Clean console from debris left by tqdm
 
     return e</code></pre>
 </details>
@@ -1230,7 +1280,7 @@ after the specified (parent) tag are eliminated.
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>

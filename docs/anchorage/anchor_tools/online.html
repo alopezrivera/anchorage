@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>anchorage.anchor_tools.online API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -26,44 +26,68 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from internetarchive import get_item
+<pre><code class="python">from wayback import WaybackClient
+from archivenow import archivenow
 
-from Alexandria.general.console import print_color
+from alexandria.shell import suppress_stdout
 
-from anchorage.anchor_utils.shell import shell
+from anchorage.anchor_utils.aesthetic import str_log_info, str_log_error, str_log_success
 
 
-def add(url, archives=None, overwrite=False):
+class UploadException(Exception):
+
+    def __init__(self, message):
+        super().__init__(message)
+
+
+def add(url, archive=&#39;ia&#39;, api_key=None, overwrite=False):
     &#34;&#34;&#34;
     Archive a website in one of the four archives supported by Archive Now (archivenow).
 
+    TODO: Recognize internetarchive upload error messages as failures.
+
     :param url: URL of website to be archived.
-    :param archives: List or string of flags specifying in which archives to save the website.
-                     Available flags:
-                        - https://pypi.org/project/archivenow/
-                     Example:
-                        &#34;all&#34;
-                        &#34;--ia --is&#34;
-                        [&#34;--ia&#34;, &#34;--is&#34;]
+    :param archive: List or string specifying archives to which to save the website.
+                     Available archives:
+                        - &#39;all&#39;: All archives
+                        - &#39;ia&#39;: Internet Archive (default)
+                        - &#39;is&#39;: Archive.is
+                        - &#39;mg&#39;: Megalodon.jp
+                        - &#39;cc&#39;: Perma.cc
+    :param api_key: Perma.cc API key. Format:
+                        {&#34;cc_api_key&#34;:&#34;$YOUR-Perma-cc-API-KEY&#34;}
     :param overwrite: Archive URL even if it&#39;s already present in the Internet Archive.
     &#34;&#34;&#34;
 
     def upload(url):
-        flags = &#39; &#39;.join(archives) if archives is list else archives if not isinstance(archives, type(None)) else &#34;&#34;
-        try:
-            copy = shell(f&#34;archivenow {flags} {url}&#34;)
-            return copy.stdout, copy.stderr
-        except:
-            print(&#34;Error archiving: &#34;, end=&#34;&#34;)
-            print_color(url, &#34;red&#34;)
-
-    if get_item(url).exists:
-        if overwrite:
-            return upload(url)
+        if archive == &#39;cc&#39;:
+            with suppress_stdout():
+                archive_url = archivenow.push(url, archive, api_key)[0]
         else:
-            return &#34;Bookmark already present in the Internet Archive&#34;
-    else:
-        return upload(url)</code></pre>
+            with suppress_stdout():
+                archive_url = archivenow.push(url, archive)[0]
+
+        if &#34;Error (The Internet Archive)&#34; in archive_url:
+            print(str_log_error(url + &#34; -&gt;/ -&gt;/ -&gt;/ &#34; + archive_url))
+            raise UploadException(archive_url)
+        else:
+            log = str_log_success(url + &#34; -&gt; -&gt; -&gt; &#34; + archive_url)
+        return log
+
+    try:
+        archive_latest = next(WaybackClient().search(url))   # Search for URL using the WaybackMachine API
+        if overwrite:
+            log = upload(url)
+            print(log)
+        else:
+            log = str_log_info(&#34;SKIPPED&#34;, url + &#34; =&gt; =&gt; =&gt; &#34; + archive_latest[7])
+            print(log)
+    except StopIteration:
+        # If bookmark search yields &#34;0&#34; error (defined by Python _wayback_)
+        log = upload(url)
+        print(log)
+    except UploadException as e:
+        return e</code></pre>
 </details>
 </section>
 <section>
@@ -74,59 +98,103 @@ def add(url, archives=None, overwrite=False):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="anchorage.anchor_tools.online.add"><code class="name flex">
-<span>def <span class="ident">add</span></span>(<span>url, archives=None, overwrite=False)</span>
+<span>def <span class="ident">add</span></span>(<span>url, archive='ia', api_key=None, overwrite=False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Archive a website in one of the four archives supported by Archive Now (archivenow).</p>
+<p>TODO: Recognize internetarchive upload error messages as failures.</p>
 <p>:param url: URL of website to be archived.
-:param archives: List or string of flags specifying in which archives to save the website.
-Available flags:
-- <a href="https://pypi.org/project/archivenow/">https://pypi.org/project/archivenow/</a>
-Example:
-"all"
-"&ndash;ia &ndash;is"
-["&ndash;ia", "&ndash;is"]
+:param archive: List or string specifying archives to which to save the website.
+Available archives:
+- 'all': All archives
+- 'ia': Internet Archive (default)
+- 'is': Archive.is
+- 'mg': Megalodon.jp
+- 'cc': Perma.cc
+:param api_key: Perma.cc API key. Format:
+{"cc_api_key":"$YOUR-Perma-cc-API-KEY"}
 :param overwrite: Archive URL even if it's already present in the Internet Archive.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def add(url, archives=None, overwrite=False):
+<pre><code class="python">def add(url, archive=&#39;ia&#39;, api_key=None, overwrite=False):
     &#34;&#34;&#34;
     Archive a website in one of the four archives supported by Archive Now (archivenow).
 
+    TODO: Recognize internetarchive upload error messages as failures.
+
     :param url: URL of website to be archived.
-    :param archives: List or string of flags specifying in which archives to save the website.
-                     Available flags:
-                        - https://pypi.org/project/archivenow/
-                     Example:
-                        &#34;all&#34;
-                        &#34;--ia --is&#34;
-                        [&#34;--ia&#34;, &#34;--is&#34;]
+    :param archive: List or string specifying archives to which to save the website.
+                     Available archives:
+                        - &#39;all&#39;: All archives
+                        - &#39;ia&#39;: Internet Archive (default)
+                        - &#39;is&#39;: Archive.is
+                        - &#39;mg&#39;: Megalodon.jp
+                        - &#39;cc&#39;: Perma.cc
+    :param api_key: Perma.cc API key. Format:
+                        {&#34;cc_api_key&#34;:&#34;$YOUR-Perma-cc-API-KEY&#34;}
     :param overwrite: Archive URL even if it&#39;s already present in the Internet Archive.
     &#34;&#34;&#34;
 
     def upload(url):
-        flags = &#39; &#39;.join(archives) if archives is list else archives if not isinstance(archives, type(None)) else &#34;&#34;
-        try:
-            copy = shell(f&#34;archivenow {flags} {url}&#34;)
-            return copy.stdout, copy.stderr
-        except:
-            print(&#34;Error archiving: &#34;, end=&#34;&#34;)
-            print_color(url, &#34;red&#34;)
-
-    if get_item(url).exists:
-        if overwrite:
-            return upload(url)
+        if archive == &#39;cc&#39;:
+            with suppress_stdout():
+                archive_url = archivenow.push(url, archive, api_key)[0]
         else:
-            return &#34;Bookmark already present in the Internet Archive&#34;
-    else:
-        return upload(url)</code></pre>
+            with suppress_stdout():
+                archive_url = archivenow.push(url, archive)[0]
+
+        if &#34;Error (The Internet Archive)&#34; in archive_url:
+            print(str_log_error(url + &#34; -&gt;/ -&gt;/ -&gt;/ &#34; + archive_url))
+            raise UploadException(archive_url)
+        else:
+            log = str_log_success(url + &#34; -&gt; -&gt; -&gt; &#34; + archive_url)
+        return log
+
+    try:
+        archive_latest = next(WaybackClient().search(url))   # Search for URL using the WaybackMachine API
+        if overwrite:
+            log = upload(url)
+            print(log)
+        else:
+            log = str_log_info(&#34;SKIPPED&#34;, url + &#34; =&gt; =&gt; =&gt; &#34; + archive_latest[7])
+            print(log)
+    except StopIteration:
+        # If bookmark search yields &#34;0&#34; error (defined by Python _wayback_)
+        log = upload(url)
+        print(log)
+    except UploadException as e:
+        return e</code></pre>
 </details>
 </dd>
 </dl>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="anchorage.anchor_tools.online.UploadException"><code class="flex name class">
+<span>class <span class="ident">UploadException</span></span>
+<span>(</span><span>message)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Common base class for all non-exit exceptions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UploadException(Exception):
+
+    def __init__(self, message):
+        super().__init__(message)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -145,11 +213,18 @@ Example:
 <li><code><a title="anchorage.anchor_tools.online.add" href="#anchorage.anchor_tools.online.add">add</a></code></li>
 </ul>
 </li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="anchorage.anchor_tools.online.UploadException" href="#anchorage.anchor_tools.online.UploadException">UploadException</a></code></h4>
+</li>
+</ul>
+</li>
 </ul>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>
