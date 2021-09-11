@@ -1,4 +1,11 @@
 #!/usr/run/env python37
+# SPDX-FileCopyrightText: © 2021 Antonio López Rivera <antonlopezr99@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+
+"""
+Anchorage CLI
+-------------
+"""
 
 from __future__ import print_function, unicode_literals
 

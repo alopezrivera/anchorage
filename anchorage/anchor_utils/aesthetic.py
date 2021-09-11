@@ -1,3 +1,12 @@
+# SPDX-FileCopyrightText: © 2021 Antonio López Rivera <antonlopezr99@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+
+"""
+Formatting and logs
+-------------------
+"""
+
+
 from pyfiglet import Figlet
 
 from alexandria.data_structs.string import join_set_distance

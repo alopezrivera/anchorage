@@ -1,3 +1,12 @@
+# SPDX-FileCopyrightText: © 2021 Antonio López Rivera <antonlopezr99@gmail.com>
+# SPDX-License-Identifier: GPL-3.0-only
+
+"""
+Anchorage bookmark processing
+-----------------------------
+"""
+
+
 import os
 import re
 import sys
