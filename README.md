@@ -2,10 +2,6 @@
 
 ![alt text](tests/coverage/coverage.svg ".coverage available in tests/coverage/")
 
-As the internet ages, link rot takes over larger and larger swathes of it, bringing with it
-the disappearance of interesting reads, courses and resources and much more that many of us 
-treasure. Anchorage is an attempt to let you save your little corner for good :)
-
 Anchorage is a Python library and CLI to bulk archive your bookmark collection easily and
 without friction. It allows you to retrieve your bookmark collection from your browser of 
 choice, filter out duplicates, local files and entries matching string, substring and regex 
@@ -38,6 +34,11 @@ here](https://anchorage-docs.github.io/).
 ---
 
 ## 1. Introduction
+
+As the internet ages, link rot takes over larger and larger swathes of it, bringing with it
+the disappearance of interesting reads, courses and resources and much more that many of us 
+treasure. Anchorage is an attempt to let you save your little corner for good :)
+
 What follows is the Anchorage user's manual. 
 
 First it will deal with the requirements and install of the library, and then with its 
