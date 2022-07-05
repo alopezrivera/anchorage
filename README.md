@@ -9,7 +9,7 @@ Anchorage will automatically retrieve your bookmark collection from your browser
 choice, filter out duplicates, local files as well as entries matching filters of your
 own making, and archive the chosen ones.
 
-Read on for the Anchorage user's manual. [The full Python API documentation is available 
+Read on to get started. [The full Python API documentation is available 
 here](https://anchorage-docs.github.io/).
 
 ![alt text](https://github.com/antonlopezr/anchorage/blob/master/docs/demo/gifs/run.gif "Anchorage in action")
