@@ -2,16 +2,19 @@
 
 ![alt text](tests/coverage/coverage.svg ".coverage available in tests/coverage/")
 
-Anchorage is a Python library and CLI to bulk archive your bookmark collection easily and
-without friction. It allows you to retrieve your bookmark collection from your browser of 
-choice, filter out duplicates, local files and entries matching string, substring and regex 
-searches, and archive the whole thing: online in the [Internet Archive](https://archive.org/) 
-or locally, using [ArchiveBox](https://archivebox.io/).
+Anchorage consists of a Python library and CLI to save your bookmark collection in bulk, forever:
+online in the [Internet Archive](https://archive.org/) or locally, using [ArchiveBox](https://archivebox.io/).
+
+Anchorage will automatically retrieve your bookmark collection from your browser of 
+choice, filter out duplicates, local files as well as entries matching filters of your
+own making, and archive the chosen ones.
 
 Read on for the Anchorage user's manual. [The full Python API documentation is available 
 here](https://anchorage-docs.github.io/).
 
 ![alt text](https://github.com/antonlopezr/anchorage/blob/master/docs/demo/gifs/run.gif "Anchorage in action")
+
+-----
 
 #### Table of Contents
 
@@ -35,15 +38,9 @@ here](https://anchorage-docs.github.io/).
 
 ## 1. Introduction
 
-As the internet ages, link rot takes over larger and larger swathes of it, bringing with it
-the disappearance of interesting reads, courses and resources and much more that many of us 
-treasure. Anchorage is an attempt to let you save your little corner for good :)
-
-What follows is the Anchorage user's manual. 
-
-First it will deal with the requirements and install of the library, and then with its 
-configuration, the Anchorage CLI and its Python API. A thorough documentation of each 
-API method is available in the [docs](https://anchorage-docs.github.io/) site. 
+As the internet ages, link rot takes over larger and larger swathes of it, from tiny sites from decades ago,
+to the best pieces of writing you ever found, all lost forever. Anchorage is an attempt to make saving the
+little corner you're most fond of as easy as possible, for the good of us all :)
 
 ## 2. Requirements & Install
 A working [Docker](https://docs.docker.com/get-docker/) install is the only requirement, beyond Python and Anchorage's 
