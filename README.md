@@ -38,9 +38,9 @@ here](https://anchorage-docs.github.io/).
 
 ## 1. Introduction
 
-As the internet ages, link rot takes over larger and larger swathes of it, from the tiny to the mighty, from the trivial
-to the best pieces you ever found, all lost forever. Anchorage is an attempt to make saving the
-little corner you're most fond of as easy as possible, for the good of us all :)
+As the internet ages link rot takes over larger and larger swathes of it, from the tiny to the mighty, from the trivial
+to the best pieces you ever found: all lost forever. Anchorage is an attempt to make it as easy as possible for you to
+save the little corner of it you're most fond of, for your own peace of mind and the enjoyment of us all :)
 
 ## 2. Requirements & Install
 A working [Docker](https://docs.docker.com/get-docker/) install is the only requirement, beyond Python and Anchorage's 
