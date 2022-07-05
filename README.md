@@ -38,8 +38,8 @@ here](https://anchorage-docs.github.io/).
 
 ## 1. Introduction
 
-As the internet ages, link rot takes over larger and larger swathes of it, from tiny sites from decades ago,
-to the best pieces of writing you ever found, all lost forever. Anchorage is an attempt to make saving the
+As the internet ages, link rot takes over larger and larger swathes of it, from the tiny to the mighty, from the trivial
+to the best pieces you ever found, all lost forever. Anchorage is an attempt to make saving the
 little corner you're most fond of as easy as possible, for the good of us all :)
 
 ## 2. Requirements & Install
